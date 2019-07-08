@@ -11,8 +11,8 @@ header{
     height: 50px;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.3);
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 2.9fr 3fr 1fr;
 }
 
 main {
@@ -23,31 +23,22 @@ header > #left_h > div{
     height: 50px;
 }
 
-input::placeholder {
-    color: white;
-    font-size: 15px;
-  }
-
-
 #left_h {
-    width: 530px;
     height: 50px;
     display: grid;
     grid-template-columns: 2fr 3fr;
 }
 
 #center_h {
-    width: 600px;
     height: 50px;
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 2fr 2fr 1fr;
 }
 
 #right_h {
     width: 200px;
     height: 50px;
     position: relative;
-    left: 12%;
     float: right;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -56,11 +47,11 @@ input::placeholder {
 #room {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-}
+} /* header의 room 버튼*/
 
 
 #room > div > input {
-    margin-top: 12%;
+    margin-top: 10px;
     margin-left: 8px;
     background: none;
     font-family: 'impact';
@@ -70,19 +61,16 @@ input::placeholder {
     outline: 0;
 }
 
-#room > div > #edit {
-    /* display: none; */
-    height: 35px;
-    background-color: rgba(0,0,0,0.4);
-    border-radius: 10px;
-    width: 100%;
-    font-size: 15px;
-    font-family: '맑은 고딕';
-    font-weight: bold;
+#room > div > button {
+    margin-top: 10px;
+}
+
+#center_h > div > button {
+    margin-top: 10px;
 }
 
 #center_h > div > form > input {
-    margin-top: 2%;
+    margin-top: 6px;
     background-color: rgba(0,0,0,0.4);
     border: none;
     width: 80%;
@@ -90,12 +78,13 @@ input::placeholder {
     color: white;
     padding: 0 10px;
     outline: 0;
-}
+} /* header의 검색 */
 
 #center_h > div > audio {
     outline: 0;
     height: 30px;
-    margin-top: 3%;
+    margin-top: 8px;
+    width: 90%;
 }
 
 #right_h > div > button {
@@ -106,7 +95,7 @@ input::placeholder {
     font-size: 13px;
     outline: 0;
     background: none;
-}
+} /* header의 사용자 버튼 */
 
 #add {
     z-index: 1;
@@ -119,4 +108,16 @@ input::placeholder {
     border: none;
     cursor: pointer;
     outline: 0;
+} /* 사진 등록 버튼 */
+
+input::placeholder {
+    color: white;
+    font-size: 15px; 
+}
+
+button {
+    background: none;
+    outline: 0;
+    border: none;
+    cursor: pointer;
 }

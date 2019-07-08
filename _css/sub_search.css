@@ -9,13 +9,12 @@ header{
     height: 50px;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.3);
-
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
 }
 
 #center_h > center > form > input {
-    margin-top: 7px;
+    margin-top: 6px;
     background-color: rgba(0,0,0,0.4);
     border: none;
     width: 30%;
@@ -23,7 +22,7 @@ header{
     color: white;
     padding: 0 10px;
     outline: 0;
-}
+} /* header의 검색 */
 
 #right_h {
     width: 200px;
@@ -41,7 +40,7 @@ header{
     font-size: 13px;
     outline: 0;
     background: none;
-}
+} /* header의 사용자 버튼 */
 
 main {
     height: 100%;
@@ -71,24 +70,24 @@ main > div {
 
     display: grid;
     grid-template-columns: 1fr 2fr;
-}
+} /* 사용자 목록 블록 */
 
 #user_info {
     display: grid;
     grid-template-rows: 1fr 2fr 1fr;
-}
+} /* 사용자 정보 블록 */
 
 #pro_msg {
     font-size: 15px;
     color: white;
-}
+} /* 사용자 상태 메시지 */
 
 #user > div > img {
     width: 200px;
     object-fit: cover;
     border-radius: 50%;
     border: solid;
-}
+} /* 사용자 프로필 이미지 */
 
 #user_but {
     display: grid;
@@ -111,7 +110,7 @@ main > div {
     margin-top: 30px;
     width: 60%;
     text-align: center;
-}
+} /* 검색 결과 메시지 */
 
 input::placeholder {
     color: white;
