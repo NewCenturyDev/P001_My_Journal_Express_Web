@@ -1,0 +1,119 @@
+html, body{
+    margin: 0;
+    height: 100%;
+    background-image: url("../_images/background.png");
+}
+
+header{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.3);
+
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+#center_h > center > form > input {
+    margin-top: 7px;
+    background-color: rgba(0,0,0,0.4);
+    border: none;
+    width: 30%;
+    height: 35px;
+    color: white;
+    padding: 0 10px;
+    outline: 0;
+}
+
+#right_h {
+    width: 200px;
+    height: 50px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#right_h > div > button {
+    margin-top: 7%;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 13px;
+    outline: 0;
+    background: none;
+}
+
+main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main > div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#user_id {
+    font-family: 'impact';
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+#user {
+    cursor: pointer;
+    margin-top: 40px;
+    width: 55%;
+    height: 300px;
+    border-radius: 15px;
+    background-color: rgba(0,0,0,0.5);
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+#user_info {
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+}
+
+#pro_msg {
+    font-size: 15px;
+    color: white;
+}
+
+#user > div > img {
+    width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid;
+}
+
+#user_but {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#user_but > div > input {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    font-size: 15px;
+    border-radius: 10px;
+    height: 40px;
+    width: 70%;
+    outline: 0;
+}
+
+#message {
+    margin-top: 30px;
+    width: 60%;
+    text-align: center;
+}
+
+input::placeholder {
+    color: white;
+    font-size: 15px;
+}
