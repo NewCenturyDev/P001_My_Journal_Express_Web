@@ -1,0 +1,123 @@
+html, body{
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("../_images/background.png");
+}
+
+header{
+    z-index: 1;
+    width: 100%;
+    height: 50px;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.3);
+    display: grid;
+    grid-template-columns: 2.9fr 3fr 1fr;
+}
+
+main {
+    height: 100%;
+}
+
+header > #left_h > div{
+    height: 50px;
+}
+
+#left_h {
+    height: 50px;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
+#center_h {
+    height: 50px;
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+}
+
+#right_h {
+    width: 200px;
+    height: 50px;
+    position: relative;
+    float: right;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#room {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+} /* header의 room 버튼*/
+
+
+#room > div > input {
+    margin-top: 10px;
+    margin-left: 8px;
+    background: none;
+    font-family: 'impact';
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    outline: 0;
+}
+
+#room > div > button {
+    margin-top: 10px;
+}
+
+#center_h > div > button {
+    margin-top: 10px;
+}
+
+#center_h > div > form > input {
+    margin-top: 6px;
+    background-color: rgba(0,0,0,0.4);
+    border: none;
+    width: 80%;
+    height: 35px;
+    color: white;
+    padding: 0 10px;
+    outline: 0;
+} /* header의 검색 */
+
+#center_h > div > audio {
+    outline: 0;
+    height: 30px;
+    margin-top: 8px;
+    width: 90%;
+}
+
+#right_h > div > button {
+    margin-top: 7%;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 13px;
+    outline: 0;
+    background: none;
+} /* header의 사용자 버튼 */
+
+#add {
+    z-index: 1;
+    width: 70px;
+    height: 70px;
+    position: relative;
+    left: 1420px;
+    top: 580px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: 0;
+} /* 사진 등록 버튼 */
+
+input::placeholder {
+    color: white;
+    font-size: 15px; 
+}
+
+button {
+    background: none;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+}
