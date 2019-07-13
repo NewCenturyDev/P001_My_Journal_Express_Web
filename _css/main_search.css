@@ -83,3 +83,7 @@ main > form > input {
 input::placeholder {
     text-align: center;
 }
+
+img {
+    cursor: pointer;
+}
