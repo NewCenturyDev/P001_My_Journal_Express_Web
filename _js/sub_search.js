@@ -2,7 +2,6 @@ var profile = document.getElementById('profile');
 var logout = document.getElementById('logout');
 var people = document.getElementById('people');
 
-
 function goProfile() {
     location.href = "profile.html";
 }

@@ -1,7 +1,7 @@
 var profile = document.getElementById('profile');
 var logout = document.getElementById('logout');
 var people = document.getElementById('people');
-
+var mini_profile = document.getElementById('mini_profile');
 
 function goProfile() {
     location.href = "profile.html";
@@ -14,9 +14,15 @@ function goPeople() {
     location.href = "sub_search.html";
 }
 
+$(function(){
+  $('#profile').mouseenter(function(){
+    $('#mini_profile').css('display', 'grid');
+  });
+  $('#profile').mouseleave(function(){
+    $('#mini_profile').css('display', 'none');
+  });
+});
+
 profile.addEventListener("click", goProfile);
 logout.addEventListener("click", logOut);
 people.addEventListener("click", goPeople);
-
-
-

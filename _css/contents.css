@@ -19,6 +19,46 @@ main {
     height: 100%;
 }
 
+#mini_profile {
+    z-index: 1;
+    margin-top: 20px;
+    width: 13%;
+    height: 80px;
+    position: relative;
+    left: 85%;
+    background-color: white;
+    border: groove;
+    display: none;
+    grid-template-columns: 1.6fr 2fr;
+    text-align: center;
+}
+
+#mini_profile > div > img {
+    margin-top: 10px;
+    width: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#mini_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#mini_info > p {
+    margin: 0 auto;
+}
+
+b {
+    font-size: 15px;
+}
+
+#mini_name {
+    font-size: 14px;
+    color: gray;
+}
+
 header > #left_h > div{
     height: 50px;
 }
@@ -101,9 +141,9 @@ header > #left_h > div{
     z-index: 1;
     width: 70px;
     height: 70px;
-    position: relative;
-    left: 1420px;
-    top: 580px;
+    position: fixed;
+    left: 92%;
+    top: 85%;
     background: none;
     border: none;
     cursor: pointer;
