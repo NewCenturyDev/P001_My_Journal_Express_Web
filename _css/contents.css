@@ -11,15 +11,16 @@ header {
     height: 50px;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.3);
-    display: grid;
-    grid-template-columns: 2.9fr 3fr 1fr;
+    display: flex;
+    flex-direction: row;
 }
 
  /* header의 로고 및 room 버튼 부분 */
 #left_h {
+    width: 37%;
     height: 50px;
-    display: grid;
-    grid-template-columns: 2fr 3fr;
+    display: flex;
+    flex-direction: row;
 }
 
 header > #left_h > div{
@@ -28,8 +29,12 @@ header > #left_h > div{
 
 /* header의 room 영역 */
 #room {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+}
+
+#room > div {
+    margin-left: 3%;
 }
 
  /* room 버튼 디자인 부분 */
@@ -50,9 +55,16 @@ header > #left_h > div{
 
  /* header의 검색 및 음악 및 설정 부분 */
 #center_h {
+    width: 55%;
     height: 50px;
-    display: grid;
-    grid-template-columns: 2fr 2fr 1fr;
+    display: flex;
+    flex-direction: row;
+    left: 3%;
+    position: relative;
+}
+
+#center_h > #find {
+    width: 45%;
 }
 
 #center_h > div > button {
@@ -61,22 +73,30 @@ header > #left_h > div{
 
  /* header의 search 디자인 부분 */
 #center_h > div > form > input {
+    width: 90%;
     color: white;
     margin-top: 6px;
     border: none;
     border-radius: 5px;
-    width: 80%;
     height: 35px;
     padding: 0 10px;
     outline: 0;
     background-color: rgba(0,0,0,0.6);
 }
 
+#center_h > #music {
+    width: 30%;
+}
+
+#center_h > #set {
+    width: 10%;
+}
+
 #center_h > div > audio {
+    width: 95%;
     outline: 0;
     height: 30px;
     margin-top: 8px;
-    width: 90%;
 }
 
  /* header의 사용자 버튼 */
@@ -85,8 +105,12 @@ header > #left_h > div{
     height: 50px;
     position: relative;
     float: right;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+}
+
+#right_h > div {
+    margin-right: 7%;
 }
 
 #right_h > div > button {

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
     <title>사진 전시회 서비스 - 검색 페이지</title>
     <link rel="stylesheet" href="./_css/sub_search.css"></link>
@@ -12,13 +13,9 @@
                 <img src="http://placehold.it/220x50">
             </a>
         </div>
-        <div id="center_h">
-            <center>
-                <form action="sub_search.html" method="post">
-                    <input type="text" name="search" placeholder="search">
-                </form>
-            </center>
-        </div>
+        <form action="sub_search.html" method="post">
+            <input type="text" name="search" placeholder="search">
+        </form>
         <div id="right_h">
             <div>
                 <button type="button" id="logout">
@@ -44,14 +41,14 @@
         </div>
         <!--사용자 목록-->
         <div id="user">
-            <div style="margin:auto;">
+            <div id="user_img">
                 <img src="_images/profile_img.jpg">
             </div>
             <div id="user_info">
                 <div>
                     <p id="user_id">1000.peach</p>
                 </div>
-                <div>
+                <div id="user_status">
                     <p><b style="font-size:18px;">천승아</b></p>
                     <p id="pro_msg">웹 사진 전시회 서비스</p>
                 </div>
