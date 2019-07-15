@@ -5,7 +5,7 @@ html, body{
     background-image: url("../_images/background.png");
 }
 
-header{
+header {
     z-index: 1;
     width: 100%;
     height: 50px;
@@ -15,41 +15,24 @@ header{
     grid-template-columns: 2.9fr 3fr 1fr;
 }
 
-main {
-    height: 100%;
-}
-
-header > #left_h > div{
-    height: 50px;
-}
-
+ /* header의 로고 및 room 버튼 부분 */
 #left_h {
     height: 50px;
     display: grid;
     grid-template-columns: 2fr 3fr;
 }
 
-#center_h {
+header > #left_h > div{
     height: 50px;
-    display: grid;
-    grid-template-columns: 2fr 2fr 1fr;
 }
 
-#right_h {
-    width: 200px;
-    height: 50px;
-    position: relative;
-    float: right;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
+/* header의 room 영역 */
 #room {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-} /* header의 room 버튼*/
+}
 
-
+ /* room 버튼 디자인 부분 */
 #room > div > input {
     margin-top: 10px;
     margin-left: 8px;
@@ -65,26 +48,45 @@ header > #left_h > div{
     margin-top: 10px;
 }
 
+ /* header의 검색 및 음악 및 설정 부분 */
+#center_h {
+    height: 50px;
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+}
+
 #center_h > div > button {
     margin-top: 10px;
 }
 
+ /* header의 search 디자인 부분 */
 #center_h > div > form > input {
+    color: white;
     margin-top: 6px;
-    background-color: rgba(0,0,0,0.4);
     border: none;
+    border-radius: 5px;
     width: 80%;
     height: 35px;
-    color: white;
     padding: 0 10px;
     outline: 0;
-} /* header의 검색 */
+    background-color: rgba(0,0,0,0.6);
+}
 
 #center_h > div > audio {
     outline: 0;
     height: 30px;
     margin-top: 8px;
     width: 90%;
+}
+
+ /* header의 사용자 버튼 */
+#right_h {
+    width: 200px;
+    height: 50px;
+    position: relative;
+    float: right;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 #right_h > div > button {
@@ -95,20 +97,67 @@ header > #left_h > div{
     font-size: 13px;
     outline: 0;
     background: none;
-} /* header의 사용자 버튼 */
+}
 
+main {
+    height: 100%;
+}
+
+ /* profile에 커서 올릴 때 나타나는 프로필 */
+#mini_profile {
+    z-index: 1;
+    margin-top: 20px;
+    width: 13%;
+    height: 80px;
+    position: relative;
+    left: 85%;
+    background-color: white;
+    border: groove;
+    display: none;
+    grid-template-columns: 1.7fr 2fr;
+}
+
+#mini_profile > div {
+    text-align: center;
+}
+
+ /* 미니 프로필 사진 */
+#mini_profile > div > img {
+    margin-top: 10px;
+    width: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+ /* 미니 프로필의 이름, 아이디 부분 */
+ #mini_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#mini_info > p {
+    margin: 0 auto;
+}
+
+#mini_name {
+    font-size: 14px;
+    color: gray;
+}
+
+/* 사진 등록 버튼 */
 #add {
     z-index: 1;
     width: 70px;
     height: 70px;
-    position: relative;
-    left: 1420px;
-    top: 580px;
+    position: fixed;
+    left: 92%;
+    top: 85%;
     background: none;
     border: none;
     cursor: pointer;
     outline: 0;
-} /* 사진 등록 버튼 */
+}
 
 input::placeholder {
     color: white;
@@ -120,4 +169,8 @@ button {
     outline: 0;
     border: none;
     cursor: pointer;
+}
+
+b {
+    font-size: 15px;
 }
