@@ -19,13 +19,18 @@
 			<input id="authid" type="text" name="id" placeholder="아이디"></input>
 			<input id="authpw" type="password" name="pw" placeholder="비밀번호"></input>
             <input id="authpwck" type="password" name="pwck" placeholder="비밀번호 확인"></input>
-            <input id="authname" type="text" name="name" placeholder="성명"></input>
+			<input id="authname" type="text" name="name" placeholder="성명"></input>
+			<input id="authnick" type="text" name="phone" placeholder="닉네임"></input>
             <input id="authmail" type="text" name="mail" placeholder="이메일"></input>
-            <input id="authphone" type="text" name="phone" placeholder="전화번호"></input>
-            <input id="autheula" type="checkbox" name="eula"></input>
-            <span>
-                본인은 <a href="" sytle="color: blue;">이용약관</a>에 동의합니다.
-            </span>
+			<input id="authphone" type="text" name="phone" placeholder="전화번호"></input>
+            <input class="autheula" type="checkbox" name="eula"></input>
+            <div>
+				본인은 <span onClick="showeula(1);">이용약관</span>에 동의합니다.
+			</div>
+			<input class="autheula" type="checkbox" name="eula"></input>
+			<div>
+				본인은 <span onClick="showeula(2);">개인정보 수집 및 취급에 관한 약관</span>에 동의합니다.
+			</div>
             <br/>
             <br/>
 			<button>회원가입</button>
@@ -35,5 +40,19 @@
 		<a href="./finder.html">ID / PW 찾기 &gt&gt</a>
 	</section>
 
+	<!-- 이용약관 모달창 -->
+	<article id="eula1">
+		<div>
+			<div onclick="closemodal();">X</div>
+			<p>이용약관 내용을 입력하십시오.</p>
+		</div>
+	</article>
+	<article id="eula2">
+		<div>
+			<div onclick="closemodal();">X</div>
+			<p>이용약관 내용을 입력하십시오.</p>
+		</div>
+	</article>
+	<script src="./_js/eula.js"></script>
 </body>
 </html>
