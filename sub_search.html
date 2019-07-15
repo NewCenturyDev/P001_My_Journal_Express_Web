@@ -21,46 +21,53 @@
         </div>
         <div id="right_h">
             <div>
-                <button type="button" id="logout"><img src="_images/logout.png" width="30px"></button>
+                <button type="button" id="logout">
+                    <img src="_images/logout.png" width="30px">
+                </button>
             </div>
             <div>
-                <button type="button" id="profile"><img src="_images/profile.png" width="30px"></button>
+                <button type="button" id="profile">
+                    <img src="_images/profile.png" width="30px">
+                </button>
             </div>
             <div>
-                <button type="button" id="people"><img src="_images/people.png" width="45px"></button>
+                <button type="button" id="people">
+                    <img src="_images/people.png" width="45px">
+                </button>
             </div>
         </div>
     </header>
+    
     <main>
-            <div id="message">
-                <p><b>>> 추천 회원 목록입니다!</b></p>
+        <div id="message">
+            <p><b>>> 추천 회원 목록입니다!</b></p>
+        </div>
+        <!--사용자 목록-->
+        <div id="user">
+            <div style="margin:auto;">
+                <img src="_images/profile_img.jpg">
             </div>
-            <!--사용자 목록-->
-            <div id="user">
-                <div style="margin:auto;">
-                    <img src="_images/profile_img.jpg">
+            <div id="user_info">
+                <div>
+                    <p id="user_id">1000.peach</p>
                 </div>
-                <div id="user_info">
+                <div>
+                    <p><b style="font-size:18px;">천승아</b></p>
+                    <p id="pro_msg">웹 사진 전시회 서비스</p>
+                </div>
+                <div id="user_but">
                     <div>
-                        <p id="user_id">1000.peach</p>
+                        <input type="button" value="이동 하기" onclick="location.href='contents.html'">
                     </div>
                     <div>
-                        <p><b style="font-size:18px;">천승아</b></p>
-                        <p id="pro_msg">웹 사진 전시회 서비스</p>
+                        <input type="button" value="구독 하기">
                     </div>
-                    <div id="user_but">
-                        <div>
-                            <input type="button" value="이동 하기" onclick="location.href='contents.html'">
-                        </div>
-                        <div>
-                            <input type="button" value="구독 하기">
-                        </div>
-                        <div>
-                            <input type="button" value="쪽지 보내기">
-                        </div>
+                    <div>
+                        <input type="button" value="쪽지 보내기">
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 </body>
     <script src="_js/sub_search.js"></script>

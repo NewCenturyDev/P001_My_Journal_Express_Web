@@ -31,10 +31,12 @@ header{
     background: none;
 }
 
+/* header의 login 버튼 */
 #login {
     margin-top: 5px;
 }
 
+/* header의 register 버튼 */
 #register {
     margin-top: 9px;
 }
@@ -60,6 +62,7 @@ form {
     width: 55%;
 }
 
+/* 검색 부분 */
 main > form > input {
     height: 100px;
     width: 90%;
