@@ -29,8 +29,7 @@ main {
     background-color: white;
     border: groove;
     display: none;
-    grid-template-columns: 1.6fr 2fr;
-    text-align: center;
+    grid-template-columns: 1.7fr 2fr;
 }
 
 #mini_profile > div > img {
@@ -38,6 +37,10 @@ main {
     width: 75px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+#mini_profile > div {
+    text-align: center;
 }
 
 #mini_info {
@@ -110,14 +113,15 @@ header > #left_h > div{
 }
 
 #center_h > div > form > input {
+    color: white;
     margin-top: 6px;
-    background-color: rgba(0,0,0,0.4);
     border: none;
+    border-radius: 5px;
     width: 80%;
     height: 35px;
-    color: white;
     padding: 0 10px;
     outline: 0;
+    background-color: rgba(0,0,0,0.6);
 } /* header의 검색 */
 
 #center_h > div > audio {
