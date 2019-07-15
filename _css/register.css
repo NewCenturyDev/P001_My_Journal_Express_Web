@@ -2,7 +2,6 @@
 html, body{
     margin: 0;
     height: 100%;
-    overflow: scroll;
     background-image: url("../_images/background.png");
 }
 a{
@@ -48,7 +47,6 @@ section > h2{
 }
 form{
     height: 450px;
-    overflow-y: scroll;
 }
 form > input{
     width: 276px;
