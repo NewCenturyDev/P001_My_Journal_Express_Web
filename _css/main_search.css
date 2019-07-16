@@ -18,9 +18,13 @@ header{
     width: 110px;
     height: 50px;
     position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    left: 76%;
+    display: flex;
+    flex-direction: row;
+    left: 77%;
+}
+
+#right_h > div {
+    margin-right: 10%;
 }
 
 /* header의 사용자 버튼 */
@@ -77,10 +81,16 @@ main > form > input {
 /* 서비스 소개 부분 */
 #introduce {
     margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
     width: 75%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: row;
     text-align: center;
+}
+
+#introduce > div {
+    width: 33%;
 }
 
 input::placeholder {
