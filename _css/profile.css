@@ -67,6 +67,7 @@ html,body{
 
 /*아래의 박스 두개*/
 .box{
+    z-index: 1;
     display: flex;
     margin: 0;
     padding: 0;
@@ -114,7 +115,6 @@ html,body{
     margin-right: 10px;
     width: 580px;
     height: 530px;
-    display: flex;
 }
 
 .Lpicture{
@@ -168,26 +168,31 @@ html,body{
     width: 300px;
     height: 70px;
 }
+
 .replytext_name{
     width: 240px;
     height: 25px;
     border: 1px solid black;
 }
+
 .password{
     margin-top: 2px;
     width: 300px;
     height: 70px;
 }
+
 .replytext_password{
     width: 240px;
     height: 25px;
     border: 1px solid black;
 }
+
 .state{
     margin-top: 2px;
     width: 300px;
     height: 140px;
 }
+
 .replytext_state{
     width: 280px;
     height: 90px;
@@ -198,6 +203,7 @@ html,body{
     float: right;
     margin-right: 10px;
 }
+
 /*오른쪽 박스-구독*/
 .sub{
     margin-top: 10px;
@@ -206,7 +212,6 @@ html,body{
     margin-right: 10px;
     width: 580px;
     height: 530px;
-    display: none;
 }
 
 .people{
@@ -256,11 +261,83 @@ html,body{
 .lettle{
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
     margin-left: 10px;
     margin-right: 10px;
     width: 580px;
     height: 530px;
-    display: none;
+}
+
+.ups{
+    width: 580px;
+    height: 60px;
+}
+
+.downs{
+    width: 580px;
+    height: 470px;
+}
+
+.tables{
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 580px;
+    height: 460px;
+    text-align: center;
+    border: 1px;
+    border-color: #fafafa;
+}
+
+th{
+    background-color: rgba(0,0,0,0.3);
+}
+
+td{
+    background-color: rgba(223, 213, 213, 0.788);
+}
+
+/*모달창*/
+.plettle{
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1,1,1,0.7);
+}
+
+.modal{
+    z-index: 11;
+    display: block;
+    position: center;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    background-color: rgba(255, 255, 255,100);
+    border-radius: 5%;
+}
+
+.upss{
+    width:500px;
+    height: 100px;
+}
+
+.middle{
+    width: 500px;
+    height: 300px;
+}
+
+.longtext2{
+    border: 1px;
+    border-color: black;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 400px;
+    height: 300px;
+}
+
+.downss{
+    width: 500px;
+    height: 100px;
 }
 
 /*오른쪽 박스-회원 탈퇴*/
@@ -271,5 +348,27 @@ html,body{
     margin-right: 10px;
     width: 580px;
     height: 530px;
-    display: none;
+}
+
+.outcontent{
+    width: 580px;
+    height: 320px;
+}
+
+.longtext1{
+    text-align: center;
+    width: 560px;
+    height: 320px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #fafafa;
+}
+
+.reok{
+    width: 580px;
+    height: 150px;
+}
+
+.reok_password{
+    
 }
