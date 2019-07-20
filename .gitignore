@@ -119,11 +119,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/node,windows
-
-# our ignore
-.vscode/
-bin/
-node_modules/
-app.js
-.vscode
-package.json
