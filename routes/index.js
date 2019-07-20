@@ -1,13 +1,20 @@
 var express = require('express');
-var router = express.Router();
+var session = require('express-session'); // session 부분 -> 지워도 되는지?
 var mysql = require('mysql');
+var router = express.Router();
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : 'nodejs',
-  port : 3306,
+  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  // port : 3306,
   database : 'project'
 });
+
+router.use(session({
+  secret: '12345',
+  resave: false,
+  saveUninitialized: true
+})); // session 부분-> 지워도 되는지?
 
 /* mysql 접속 및 이용할 데이터베이스 설정 */
 connection.connect();
@@ -80,7 +87,6 @@ router.get('/search', function(req, res) {
     res.redirect('/login');
   }
 });
-
 
 /* 로그인, 로그아웃, 회원가입, 회원탈퇴 처리 */
 
