@@ -7,7 +7,8 @@ var connection = mysql.createConnection({
   user : 'nodejs',
   password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
-  database : 'project'
+  database : 'project',
+  charset  : 'utf8'
 });
 
 router.use(session({
@@ -61,32 +62,28 @@ router.get('/finder', function(req, res) {
 
 /* GET contents pages */
 router.get('/contents', function(req, res) {
-  if(req.session.user){
-    res.render('contents', { title: 'Express' });
-  }
-  else{
-    //로그인하지 않은 경우
-    res.redirect('/login');
-  }
+  res.render('contents', { title: 'Express' });
 });
+
 router.get('/profile', function(req, res) {
   if(req.session.user){
     res.render('profile', { title: 'Express' });
   }
   else{
     //로그인하지 않은 경우
-    res.redirect('/login');
+    res.send('<script>alert("로그인 해주세요!"); location.href = "/login";</script>');
   }
 });
+
+/* GET search pages */
 router.get('/search', function(req, res) {
-  if(req.session.user){
-    res.render('sub_search', { title: 'Express' });
-  }
-  else{
-    //로그인하지 않은 경우
-    res.redirect('/login');
-  }
+  res.render('sub_search', { title: 'Express' });
 });
+
+router.post('/search', function(req, res) {
+  res.redirect('/search');
+});
+
 
 /* 로그인, 로그아웃, 회원가입, 회원탈퇴 처리 */
 

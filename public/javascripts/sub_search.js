@@ -10,7 +10,7 @@ function logOut() {
     location.href = "/";
 }
 function goPeople() {
-    location.href = "/sub_search";
+    location.href = "/search";
 }
 
 profile.addEventListener("click", goProfile);
