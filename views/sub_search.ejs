@@ -14,7 +14,7 @@
             </a>
         </div>
         <form action="search" method="post">
-            <input type="text" name="search" placeholder="search">
+            <input type="text" id="search" name="search" placeholder="search">
         </form>
         <div id="right_h">
             <div>
@@ -54,17 +54,36 @@
                 </div>
                 <div id="user_but">
                     <div>
-                        <input type="button" value="이동 하기" onclick="location.href='/contents'">
+                        <input class="but" type="button" value="이동 하기" onclick="location.href='/contents'">
                     </div>
                     <div>
-                        <input type="button" value="구독 하기">
+                        <input class="but" type="button" value="구독 하기">
                     </div>
                     <div>
-                        <input type="button" value="쪽지 보내기">
+                        <input class="but" id="send" type="button" value="쪽지 보내기">
                     </div>
                 </div>
             </div>
         </div>
+        <!--편지 모달 창-->
+        <div class="plettle" style="display: none;">
+            <div class="modal">
+                <button class="modalcomeout" type="button">X</button>
+            <div class="upss">
+                <div class="Spicture"><img src="https://instagram.ficn6-1.fna.fbcdn.net/vp/466efc55594472ab9b9ab6e885b06825/5D72B7DC/t51.2885-15/e35/57009221_306777196917572_856435609160832386_n.jpg?_nc_ht=instagram.ficn6-1.fna.fbcdn.net"></div>
+                <div class="subbox">
+                    <div class="nicname"><h1>IMNOOK</h1></div>
+                    <div class="date"><h2>2019-07-09 발신</h2></div>
+                </div>
+            </div>
+            <div class="middle">
+                <form id="msg" action="sendMessage" method="post">
+                    <textarea id="msg_cont" name="msg_cont" placeholder="보낼 내용을 입력하세요!"></textarea>
+                    <input class="but" id="msg_but" type="submit" value="보내기">
+                </form>
+            </div>
+            </div>
+        </div>  
     </main>
 </body>
     <script src="/javascripts/sub_search.js"></script>

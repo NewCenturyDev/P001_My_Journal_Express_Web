@@ -80,10 +80,13 @@ router.get('/search', function(req, res) {
   res.render('sub_search', { title: 'Express' });
 });
 
+router.post('/sendMessage', function(req, res) {
+  res.send ('<script>alert("쪽지를 보냈습니다!"); location.href = "/search";</script>');
+});
+
 router.post('/search', function(req, res) {
   res.redirect('/search');
 });
-
 
 /* 로그인, 로그아웃, 회원가입, 회원탈퇴 처리 */
 
