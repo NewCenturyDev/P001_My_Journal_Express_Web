@@ -77,10 +77,21 @@ router.get('/profile', function(req, res) {
 
 /* GET search pages */
 router.get('/search', function(req, res) {
-  res.render('sub_search', { title: 'Express' });
+  var sql = "SELECT member_id, member_nick, member_msg FROM member";
+  // 회원 추천 및 검색 위해 현재 가입된 회원들의 정보 전달
+  connection.query(sql, function(err, rows, fields) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('sub_search', {
+        rows: rows
+      });
+    }
+  });
 });
 
 router.post('/sendMessage', function(req, res) {
+
   if (!req.session.user) {
     res.send('<script>alert("로그인해야 사용할 수 있는 기능입니다!"); location.href = "/search";</script>');
     return;
@@ -89,7 +100,7 @@ router.post('/sendMessage', function(req, res) {
   var msgInfo = {
     "s_num": 0,
     "r_num": 0,
-    "r_nick": '천승아', // 받는 사람 임시로
+    "r_nick": req.body.r_nick, // 받는 사람 임시로
     "s_nick": req.session.user.nick,
     "contents": req.body.msg_cont
   } // DB에 삽입할 쪽지 내용
@@ -153,7 +164,7 @@ router.post('/sendMessage', function(req, res) {
         }
       });
     }
-  }); // 쪽지 삭제 구현 전 임시로 num 갱신 (member 에서도 쓰일 것)
+  }); // 쪽지 삭제 구현 전 임시로 num 갱신 (회원 탈퇴 에서도 쓰임)
 
   res.send ('<script>alert("쪽지를 보냈습니다!"); location.href = "/search";</script>');
 }); // 쪽지 보내기 구현
@@ -324,6 +335,5 @@ router.post('/resign', function(req, res){
   //디버깅용 로그
   console.log(auth);
 });
-
 
 module.exports = router;
