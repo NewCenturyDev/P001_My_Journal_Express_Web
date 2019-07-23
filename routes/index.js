@@ -98,8 +98,6 @@ router.post('/sendMessage', function(req, res) {
   } // 로그아웃 시 기능 사용 제한
 
   var msgInfo = {
-    "s_num": 0,
-    "r_num": 0,
     "r_nick": req.body.r_nick, // 받는 사람 임시로
     "s_nick": req.session.user.nick,
     "contents": req.body.msg_cont
@@ -109,37 +107,16 @@ router.post('/sendMessage', function(req, res) {
     res.send('<script>alert("보낼 내용을 입력해주세요!"); location.href = "/search";</script>');
     return;
   } // 내용이 없을 때 예외 처리
-  
-  var r_params = [msgInfo.r_nick];
-  var sql_sel1 = 'SELECT member_num FROM member WHERE member_nick= ?';
-  connection.query(sql_sel1, r_params, function (err, rows, fields) {
+   
+  var params_ins = [msgInfo.s_nick, msgInfo.r_nick, msgInfo.contents];
+  var sql_ins = 'INSERT INTO message(s_nick, r_nick, contents) values(?, ?, ?)';
+  connection.query(sql_ins, params_ins, function (err, rows, fields) {
     if (err) {
-      console.log(err+'\n'+'삽입 실패!');
+      console.log(err);
     }
-    else { // 쪽지 받는 사람의 num을 검색 후 msg_info에 저장
-      msgInfo.r_num = rows[0].member_num;
-
-      var s_params = [req.session.user.nick];
-      connection.query(sql_sel1, s_params, function (err, rows, fields) {
-        if (err) {
-          console.log(err+'\n'+'삽입 실패!');
-        }
-        else { // 쪽지 보내는 사람의 num을 검색 후 msg_info에 저장
-          msgInfo.s_num = rows[0].member_num;
-      
-          var params_ins = [msgInfo.s_num, msgInfo.r_num, msgInfo.s_nick, msgInfo.r_nick, msgInfo.contents];
-          var sql_ins = 'INSERT INTO message(s_num, r_num, s_nick, r_nick, contents) values(?, ?, ?, ?, ?)';
-          connection.query(sql_ins, params_ins, function (err, rows, fields) {
-            if (err) {
-              console.log(err);
-            }
-            else { // msg_info 내용을 message table에 삽입
-              console.log(msgInfo);
-              console.log('삽입 성공!');
-            }
-          });
-        }
-      });
+    else { // msg_info 내용을 message table에 삽입
+      console.log(msgInfo);
+      console.log('삽입 성공!');
     }
   });
 
@@ -306,22 +283,6 @@ router.post('/resign', function(req, res){
               connection.query(sql_udt1, function (err, rows, fields) {
                 if (err) {
                   console.log(err);
-                }
-                else {
-                  var sql_udt2 = "SET @count=0";
-                  connection.query(sql_udt2, function (err, rows, fields) {
-                    if (err) {
-                      console.log(err);
-                    }
-                    else {
-                      var sql_udt3 = "UPDATE member SET member_num = @count:=@count+1";
-                      connection.query(sql_udt3, function (err, rows, fields) {
-                        if (err) {
-                          console.log(err);
-                        }
-                      });
-                    }
-                  });
                 }
               }); // 회원 탈퇴 후 회원 번호 갱신
               
