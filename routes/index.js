@@ -98,7 +98,7 @@ router.post('/sendMessage', function(req, res) {
   } // 로그아웃 시 기능 사용 제한
 
   var msgInfo = {
-    "r_nick": req.body.r_nick, // 받는 사람 임시로
+    "r_nick": req.body.r_nick,
     "s_nick": req.session.user.nick,
     "contents": req.body.msg_cont
   } // DB에 삽입할 쪽지 내용
@@ -141,7 +141,7 @@ router.post('/sendMessage', function(req, res) {
         }
       });
     }
-  }); // 쪽지 삭제 구현 전 임시로 num 갱신 (회원 탈퇴 에서도 쓰임)
+  }); // 쪽지 삭제 구현 전 임시로 num 갱신
 
   res.send ('<script>alert("쪽지를 보냈습니다!"); location.href = "/search";</script>');
 }); // 쪽지 보내기 구현
@@ -265,34 +265,52 @@ router.post('/resign', function(req, res){
   /* 알고리즘 */
   //세션정보 검증 (세션정보의 id값으로 DB에서 비밀번호 조회)
   connection.query(sql, params_s, function(err, rows, fields){
-	  if(err || rows[0]==undefined){
+	  if(err) {
       console.log(err);
+    }
+    else if (rows[0]==undefined || auth.id != user.id) {
       res.send ('<script>alert("2차 인증이 실패했습니다. ID와 PW를 다시 확인해 주십시오!"); location.href = "/profile";</script>');
     } //일치하는 id,pw가 없음
     else {
-          console.log('회원탈퇴 처리 시작');
-          //회원탈퇴 쿼리
-          sql = 'DELETE FROM member WHERE member_id = ?';
-          params_d = auth.id;
-          connection.query(sql, params_d, function(err, result){
-            if(err){
-              console.log('회원탈퇴 처리 실패 - ', err);
-              res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
-            } else {
-              var sql_udt1 = "ALTER TABLE member AUTO_INCREMENT = 1";
-              connection.query(sql_udt1, function (err, rows, fields) {
+      console.log('회원탈퇴 처리 시작');
+      //회원탈퇴 쿼리
+      sql = 'DELETE FROM member WHERE member_id = ?';
+      params_d = auth.id;
+      connection.query(sql, params_d, function(err, result){
+        if(err) {
+          console.log('회원탈퇴 처리 실패 - ', err);
+          res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
+        }
+        else {
+          var sql_udt1 = "ALTER TABLE message AUTO_INCREMENT = 1";
+          connection.query(sql_udt1, function (err, rows, fields) {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              var sql_udt2 = "SET @count=0";
+              connection.query(sql_udt2, function (err, rows, fields) {
                 if (err) {
                   console.log(err);
                 }
-              }); // 회원 탈퇴 후 회원 번호 갱신
-              
-              console.log('회원탈퇴 처리 완료' + result);
-              req.session.destroy();
-              res.send ('<script>alert("회원탈퇴 되었습니다!"); location.href = "/";</script>');
+                else {
+                  var sql_udt3 = "UPDATE message SET num = @count:=@count+1";
+                  connection.query(sql_udt3, function (err, rows, fields) {
+                    if (err) {
+                      console.log(err);
+                    }
+                  });
+                }
+              });
             }
-          });
+          }); // 쪽지 번호 갱신
+          console.log('회원탈퇴 처리 완료' + result);
+          req.session.destroy();
+          res.send ('<script>alert("회원 탈퇴 되었습니다!"); location.href = "/";</script>');
         }
       });
+    }
+  });
   //디버깅용 로그
   console.log(auth);
 });
