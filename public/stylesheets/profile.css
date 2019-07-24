@@ -108,9 +108,9 @@ header > #left_h > div{
 }
 
 /*왼쪽 박스들*/
-.button_box{
+.button{
     text-align: center;
-    display: block;
+    display: inline-block;
     margin: 0 15px;
     margin-top: 15px;
     width: 150px;
@@ -125,6 +125,11 @@ header > #left_h > div{
     border-radius: 25px;
     cursor: pointer;
 }
+
+.button.input:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+    
 
 /*오른쪽 박스-내정보*/
 .myinfo{
@@ -254,6 +259,23 @@ header > #left_h > div{
     border: 1px solid black;
 }
 
+.button_smaller{
+    text-align: center;
+    display: inline-block;
+    margin: 1px, 1px, 1px, 1px;
+    width: 120px;
+    height: 35px;
+    background-color: rgba(0,0,0,0.5);
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    border: 0;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
 .subbox{
     margin-left: 10px;
     font-size: 10px;
@@ -261,9 +283,6 @@ header > #left_h > div{
 
 .nicname{
     width: 10px;
-}
-
-.realname{
 }
 
 .move{
@@ -296,16 +315,20 @@ header > #left_h > div{
 .downs{
     width: 580px;
     height: 470px;
+    border: 1px;
+    border-color: black;
 }
 
 .tables{
-    margin-left: 0px;
-    margin-right: 0px;
-    width: 580px;
-    height: 460px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 560px;
+    height: 450px;
     text-align: center;
     border: 1px;
-    border-color: #fafafa;
+    border-color: black;
 }
 
 th{
