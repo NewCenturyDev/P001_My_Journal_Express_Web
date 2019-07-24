@@ -90,6 +90,46 @@ router.get('/search', function(req, res) {
   });
 });
 
+router.post('/subscribe', function(req, res) {
+
+  if (!req.session.user) {
+    res.send('<script>alert("로그인해야 사용할 수 있는 기능입니다!"); location.href = "/search";</script>');
+    return;
+  } // 로그아웃 시 기능 사용 제한
+
+  var subInfo = {
+    "s_id": req.session.user.id,
+    "r_id": req.body.sub_r_id,
+    "r_nick": req.body.sub_r_nick
+  };
+  
+  var params_sel = [subInfo.s_id, subInfo.r_id];
+  var sql_sel = "SELECT * FROM subscribe WHERE s_id = ? AND r_id = ?";
+  connection.query(sql_sel, params_sel, function(err, rows, field) {
+    if (err) {
+      console.log(err);
+    }
+    else if (rows[0]!=undefined) {
+      res.send('<script>alert("이미 구독했습니다!"); location.href = "/search";</script>');
+      return;
+    }
+    else {
+      var params_ins = [subInfo.s_id, subInfo.r_id, subInfo.r_nick];
+      var sql_ins = "INSERT INTO subscribe(s_id, r_id, r_nick) values(?, ?, ?)";
+      connection.query(sql_ins, params_ins, function(err, rows, field) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log(subInfo+'\n'+'구독 성공');
+          res.send('<script>alert("구독했습니다!"); location.href = "/search";</script>');
+        }
+      });
+    }
+  });
+
+}); // 원하는 회원 구독 하는 기능 구현
+
 router.post('/sendMessage', function(req, res) {
 
   if (!req.session.user) {
@@ -119,30 +159,7 @@ router.post('/sendMessage', function(req, res) {
       console.log('삽입 성공!');
     }
   });
-
-  var sql_udt1 = "ALTER TABLE message AUTO_INCREMENT = 1";
-  connection.query(sql_udt1, function (err, rows, fields) {
-    if (err) {
-      console.log(err);
-    }
-    else {
-      var sql_udt2 = "SET @count=0";
-      connection.query(sql_udt2, function (err, rows, fields) {
-        if (err) {
-          console.log(err);
-        }
-        else {
-          var sql_udt3 = "UPDATE message SET num = @count:=@count+1";
-          connection.query(sql_udt3, function (err, rows, fields) {
-            if (err) {
-              console.log(err);
-            }
-          });
-        }
-      });
-    }
-  }); // 쪽지 삭제 구현 전 임시로 num 갱신
-
+  edit_msg_num(); // 임시로 쪽지 번호 갱신
   res.send ('<script>alert("쪽지를 보냈습니다!"); location.href = "/search";</script>');
 }); // 쪽지 보내기 구현
 
@@ -282,28 +299,7 @@ router.post('/resign', function(req, res){
           res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
         }
         else {
-          var sql_udt1 = "ALTER TABLE message AUTO_INCREMENT = 1";
-          connection.query(sql_udt1, function (err, rows, fields) {
-            if (err) {
-              console.log(err);
-            }
-            else {
-              var sql_udt2 = "SET @count=0";
-              connection.query(sql_udt2, function (err, rows, fields) {
-                if (err) {
-                  console.log(err);
-                }
-                else {
-                  var sql_udt3 = "UPDATE message SET num = @count:=@count+1";
-                  connection.query(sql_udt3, function (err, rows, fields) {
-                    if (err) {
-                      console.log(err);
-                    }
-                  });
-                }
-              });
-            }
-          }); // 쪽지 번호 갱신
+          edit_msg_num(); // 쪽지 번호 갱신
           console.log('회원탈퇴 처리 완료' + result);
           req.session.destroy();
           res.send ('<script>alert("회원 탈퇴 되었습니다!"); location.href = "/";</script>');
@@ -314,5 +310,32 @@ router.post('/resign', function(req, res){
   //디버깅용 로그
   console.log(auth);
 });
+
+/* 정의한 함수 */
+
+function edit_msg_num() {
+  var sql_udt1 = "ALTER TABLE message AUTO_INCREMENT = 1";
+  connection.query(sql_udt1, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      var sql_udt2 = "SET @count=0";
+      connection.query(sql_udt2, function (err, rows, fields) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          var sql_udt3 = "UPDATE message SET num = @count:=@count+1";
+          connection.query(sql_udt3, function (err, rows, fields) {
+            if (err) {
+              console.log(err);
+            }
+          });
+        }
+      });
+    }
+  }); // 쪽지 번호 갱신
+}
 
 module.exports = router;

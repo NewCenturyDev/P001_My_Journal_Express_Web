@@ -62,7 +62,7 @@ main > div {
 
 /* 사용자 목록 블록 */
 #user {
-    margin-top: 40px;
+    margin-bottom: 3%;
     width: 55%;
     height: 300px;
     border-radius: 15px;
@@ -79,7 +79,7 @@ main > div {
 
 /* 사용자 프로필 이미지 */
 #user > div > img {
-    margin-top: 22%;
+    margin-top: 23%;
     width: 200px;
     object-fit: cover;
     border-radius: 50%;
@@ -116,7 +116,16 @@ main > div {
     width: 33%;
 }
 
-#user_but > div > button {
+.sub {
+    width: 100%;
+    height: 100%;
+}
+
+.sub > input {
+    display: none;
+}
+
+#user_but > div > button, #user_but > div > form > button {
     cursor: pointer;
     background-color: rgba(0,0,0,0.6);
     color: white;
@@ -137,9 +146,8 @@ main > div {
 
 /* 검색 결과 메시지 */
 #message {
-    margin-top: 30px;
-    width: 60%;
-    text-align: center;
+    margin-top: 3%;
+    margin-bottom: 3%;
 }
 
 /* 쪽지 모달창 */
