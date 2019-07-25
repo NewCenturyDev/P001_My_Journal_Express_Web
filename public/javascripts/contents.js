@@ -2,6 +2,7 @@ var profile = document.getElementById('profile');
 var logout = document.getElementById('logout');
 var people = document.getElementById('people');
 var mini_profile = document.getElementById('mini_profile');
+var upload = document.getElementById('upload');
 
 function goProfile() {
     location.href = "/profile";
@@ -12,6 +13,9 @@ function logOut() {
 }
 function goPeople() {
     location.href = "/search";
+}
+function goUpload() {
+    location.href = "/file/upload";
 }
 
 $(function(){
@@ -26,3 +30,4 @@ $(function(){
 profile.addEventListener("click", goProfile);
 logout.addEventListener("click", logOut);
 people.addEventListener("click", goPeople);
+upload.addEventListener("click", goUpload);

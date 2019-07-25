@@ -1,21 +1,16 @@
 var express = require('express');
-var session = require('express-session'); // session 부분 -> 지워도 되는지?
 var mysql = require('mysql');
 var router = express.Router();
 var connection = mysql.createConnection({
   host : 'localhost',
-  user : 'IMNOOK',
-  password : 'dhksthxpa12', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  user : 'nodejs',
+  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
 });
 
-router.use(session({
-  secret: '12345',
-  resave: false,
-  saveUninitialized: true
-})); // session 부분-> 지워도 되는지?
+//app.js에 세션정보 등록해놔서 별도의 세션 등록은 필요없음.
 
 /* mysql 접속 및 이용할 데이터베이스 설정 */
 connection.connect();
@@ -26,6 +21,8 @@ connection.query('USE project', function(err,rows,fields){
     consile.log('ERR_', err);
 });
 
+
+/* ------------------------------- 페이지뷰 (EJS 등록) -------------------------------- */
 /* GET home page */
 router.get('/', function(req, res) {
   res.render('main_search', { title: 'Express' });
@@ -38,7 +35,7 @@ router.get('/login', function(req, res) {
     res.redirect('/contents');
   }
   else{
-    res.render('login', { title: 'Express', ecode: 0 });
+    res.render('login', { title: 'Express' });
   }
 });
 router.get('/register', function(req, res) {
@@ -47,7 +44,7 @@ router.get('/register', function(req, res) {
     res.redirect('/contents');
   }
   else{
-    res.render('register', { title: 'Express', ecode: 0 });
+    res.render('register', { title: 'Express' });
   }
 });
 router.get('/finder', function(req, res) {
@@ -90,8 +87,12 @@ router.get('/search', function(req, res) {
   });
 });
 
-router.post('/subscribe', function(req, res) {
 
+/* ------------------------------- 기능 구현 -------------------------------- */
+
+
+/* 회원 구독 기능 */
+router.post('/subscribe', function(req, res) {
   if (!req.session.user) {
     res.send('<script>alert("로그인해야 사용할 수 있는 기능입니다!"); location.href = "/search";</script>');
     return;
@@ -128,8 +129,9 @@ router.post('/subscribe', function(req, res) {
     }
   });
 
-}); // 원하는 회원 구독 하는 기능 구현
+});
 
+/* 쪽지 수발신 기능 */
 router.post('/sendMessage', function(req, res) {
 
   if (!req.session.user) {
@@ -167,8 +169,7 @@ router.post('/search', function(req, res) {
   res.redirect('/search');
 });
 
-/* 로그인, 로그아웃, 회원가입, 회원탈퇴 처리 */
-
+/* 로그인, 로그아웃, 회원가입, 회원탈퇴 기능 */
 //로그인 처리 알고리즘
 router.post('/login', function(req, res){
   /* 변수 선언 */
