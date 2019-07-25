@@ -90,6 +90,46 @@ router.get('/search', function(req, res) {
   });
 });
 
+router.post('/subscribe', function(req, res) {
+
+  if (!req.session.user) {
+    res.send('<script>alert("로그인해야 사용할 수 있는 기능입니다!"); location.href = "/search";</script>');
+    return;
+  } // 로그아웃 시 기능 사용 제한
+
+  var subInfo = {
+    "s_id": req.session.user.id,
+    "r_id": req.body.sub_r_id,
+    "r_nick": req.body.sub_r_nick
+  };
+  
+  var params_sel = [subInfo.s_id, subInfo.r_id];
+  var sql_sel = "SELECT * FROM subscribe WHERE s_id = ? AND r_id = ?";
+  connection.query(sql_sel, params_sel, function(err, rows, field) {
+    if (err) {
+      console.log(err);
+    }
+    else if (rows[0]!=undefined) {
+      res.send('<script>alert("이미 구독했습니다!"); location.href = "/search";</script>');
+      return;
+    }
+    else {
+      var params_ins = [subInfo.s_id, subInfo.r_id, subInfo.r_nick];
+      var sql_ins = "INSERT INTO subscribe(s_id, r_id, r_nick) values(?, ?, ?)";
+      connection.query(sql_ins, params_ins, function(err, rows, field) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log(subInfo+'\n'+'구독 성공');
+          res.send('<script>alert("구독했습니다!"); location.href = "/search";</script>');
+        }
+      });
+    }
+  });
+
+}); // 원하는 회원 구독 하는 기능 구현
+
 router.post('/sendMessage', function(req, res) {
 
   if (!req.session.user) {
@@ -98,9 +138,7 @@ router.post('/sendMessage', function(req, res) {
   } // 로그아웃 시 기능 사용 제한
 
   var msgInfo = {
-    "s_num": 0,
-    "r_num": 0,
-    "r_nick": req.body.r_nick, // 받는 사람 임시로
+    "r_nick": req.body.r_nick,
     "s_nick": req.session.user.nick,
     "contents": req.body.msg_cont
   } // DB에 삽입할 쪽지 내용
@@ -109,63 +147,19 @@ router.post('/sendMessage', function(req, res) {
     res.send('<script>alert("보낼 내용을 입력해주세요!"); location.href = "/search";</script>');
     return;
   } // 내용이 없을 때 예외 처리
-  
-  var r_params = [msgInfo.r_nick];
-  var sql_sel1 = 'SELECT member_num FROM member WHERE member_nick= ?';
-  connection.query(sql_sel1, r_params, function (err, rows, fields) {
-    if (err) {
-      console.log(err+'\n'+'삽입 실패!');
-    }
-    else { // 쪽지 받는 사람의 num을 검색 후 msg_info에 저장
-      msgInfo.r_num = rows[0].member_num;
-
-      var s_params = [req.session.user.nick];
-      connection.query(sql_sel1, s_params, function (err, rows, fields) {
-        if (err) {
-          console.log(err+'\n'+'삽입 실패!');
-        }
-        else { // 쪽지 보내는 사람의 num을 검색 후 msg_info에 저장
-          msgInfo.s_num = rows[0].member_num;
-      
-          var params_ins = [msgInfo.s_num, msgInfo.r_num, msgInfo.s_nick, msgInfo.r_nick, msgInfo.contents];
-          var sql_ins = 'INSERT INTO message(s_num, r_num, s_nick, r_nick, contents) values(?, ?, ?, ?, ?)';
-          connection.query(sql_ins, params_ins, function (err, rows, fields) {
-            if (err) {
-              console.log(err);
-            }
-            else { // msg_info 내용을 message table에 삽입
-              console.log(msgInfo);
-              console.log('삽입 성공!');
-            }
-          });
-        }
-      });
-    }
-  });
-
-  var sql_udt1 = "ALTER TABLE message AUTO_INCREMENT = 1";
-  connection.query(sql_udt1, function (err, rows, fields) {
+   
+  var params_ins = [msgInfo.s_nick, msgInfo.r_nick, msgInfo.contents];
+  var sql_ins = 'INSERT INTO message(s_nick, r_nick, contents) values(?, ?, ?)';
+  connection.query(sql_ins, params_ins, function (err, rows, fields) {
     if (err) {
       console.log(err);
     }
-    else {
-      var sql_udt2 = "SET @count=0";
-      connection.query(sql_udt2, function (err, rows, fields) {
-        if (err) {
-          console.log(err);
-        }
-        else {
-          var sql_udt3 = "UPDATE message SET num = @count:=@count+1";
-          connection.query(sql_udt3, function (err, rows, fields) {
-            if (err) {
-              console.log(err);
-            }
-          });
-        }
-      });
+    else { // msg_info 내용을 message table에 삽입
+      console.log(msgInfo);
+      console.log('삽입 성공!');
     }
-  }); // 쪽지 삭제 구현 전 임시로 num 갱신 (회원 탈퇴 에서도 쓰임)
-
+  });
+  edit_msg_num(); // 임시로 쪽지 번호 갱신
   res.send ('<script>alert("쪽지를 보냈습니다!"); location.href = "/search";</script>');
 }); // 쪽지 보내기 구현
 
@@ -288,52 +282,60 @@ router.post('/resign', function(req, res){
   /* 알고리즘 */
   //세션정보 검증 (세션정보의 id값으로 DB에서 비밀번호 조회)
   connection.query(sql, params_s, function(err, rows, fields){
-	  if(err || rows[0]==undefined){
+	  if(err) {
       console.log(err);
+    }
+    else if (rows[0]==undefined || auth.id != user.id) {
       res.send ('<script>alert("2차 인증이 실패했습니다. ID와 PW를 다시 확인해 주십시오!"); location.href = "/profile";</script>');
     } //일치하는 id,pw가 없음
     else {
-          console.log('회원탈퇴 처리 시작');
-          //회원탈퇴 쿼리
-          sql = 'DELETE FROM member WHERE member_id = ?';
-          params_d = auth.id;
-          connection.query(sql, params_d, function(err, result){
-            if(err){
-              console.log('회원탈퇴 처리 실패 - ', err);
-              res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
-            } else {
-              var sql_udt1 = "ALTER TABLE member AUTO_INCREMENT = 1";
-              connection.query(sql_udt1, function (err, rows, fields) {
-                if (err) {
-                  console.log(err);
-                }
-                else {
-                  var sql_udt2 = "SET @count=0";
-                  connection.query(sql_udt2, function (err, rows, fields) {
-                    if (err) {
-                      console.log(err);
-                    }
-                    else {
-                      var sql_udt3 = "UPDATE member SET member_num = @count:=@count+1";
-                      connection.query(sql_udt3, function (err, rows, fields) {
-                        if (err) {
-                          console.log(err);
-                        }
-                      });
-                    }
-                  });
-                }
-              }); // 회원 탈퇴 후 회원 번호 갱신
-              
-              console.log('회원탈퇴 처리 완료' + result);
-              req.session.destroy();
-              res.send ('<script>alert("회원탈퇴 되었습니다!"); location.href = "/";</script>');
+      console.log('회원탈퇴 처리 시작');
+      //회원탈퇴 쿼리
+      sql = 'DELETE FROM member WHERE member_id = ?';
+      params_d = auth.id;
+      connection.query(sql, params_d, function(err, result){
+        if(err) {
+          console.log('회원탈퇴 처리 실패 - ', err);
+          res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
+        }
+        else {
+          edit_msg_num(); // 쪽지 번호 갱신
+          console.log('회원탈퇴 처리 완료' + result);
+          req.session.destroy();
+          res.send ('<script>alert("회원 탈퇴 되었습니다!"); location.href = "/";</script>');
+        }
+      });
+    }
+  });
+  //디버깅용 로그
+  console.log(auth);
+});
+
+/* 정의한 함수 */
+
+function edit_msg_num() {
+  var sql_udt1 = "ALTER TABLE message AUTO_INCREMENT = 1";
+  connection.query(sql_udt1, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      var sql_udt2 = "SET @count=0";
+      connection.query(sql_udt2, function (err, rows, fields) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          var sql_udt3 = "UPDATE message SET num = @count:=@count+1";
+          connection.query(sql_udt3, function (err, rows, fields) {
+            if (err) {
+              console.log(err);
             }
           });
         }
       });
-  //디버깅용 로그
-  console.log(auth);
-});
+    }
+  }); // 쪽지 번호 갱신
+}
 
 module.exports = router;
