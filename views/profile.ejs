@@ -16,7 +16,7 @@
             </div>
             <div id="center_h">
                 <div id="find">
-                    <form action="search" method="post">
+                    <form action="sub_search.html" method="post">
                         <input type="text" name="search" placeholder="search">
                         </form>
                     </div>
@@ -41,10 +41,10 @@
         </header>
         <div class="box">
             <div class="left_box">
-                <div class="button_box" onclick="myDisplay();">정보 수정</div>
-                <div class="button_box" onclick="subDisplay();">구독 수정</div>
-                <div class="button_box" onclick="letDisplay();">쪽지함</div>
-                <div class="button_box" onclick="idDisplay();">회원탈퇴</div>
+                <div class="button box" onclick="myDisplay();">정보 수정</div>
+                <div class="button box" onclick="subDisplay();">구독 수정</div>
+                <div class="button box" onclick="letDisplay();">쪽지함</div>
+                <div class="button box" onclick="idDisplay();">회원탈퇴</div>
             </div>
             <div class="right_box">
                 <!--정보 수정-->
@@ -84,8 +84,8 @@
                         <div class="subbox">
                             <div class="nicname"><h1>IMNOOK</h1></div>
                             <div class="realname"><h2>이민욱</h2></div>
-                            <div class="move"><button class="button" type="button">이동</button></div>
-                            <div class="remove"><button class="button" type="button">구독 삭제</button></div>
+                            <div class="move"><button class="button_smaller" type="button">이동</button></div>
+                            <div class="remove"><button class="button_smaller" type="button">구독 삭제</button></div>
                         </div>
                     </div>
                 </div>
@@ -108,8 +108,9 @@
                 <div class="idout" style="display: none">
                     <div class="ups"><h1 style="text-align: center">회원 탈퇴</h1></div>
                     <div class="outcontent">
-                        <div class="longtext1"><h2>회원탈퇴시 유의사항</h2></div>
-                    </div>
+                        <div class="longtext1">
+                            <div style="margin-left: 10px"><h2>회원탈퇴시 유의사항</h2><br><h3>회원을 탈퇴하면 개인 정보는 7일 후에 삭제 되며 다시 로그인을 할 수 없습니다.</h3><br><h4>본 서비스 해지시 클라우드에 업로드된 모든 데이터 및 이용 내역이 삭제되며, 탈퇴후 복구가 불가능합니다.<br>삭제 데이터:클라우드에 업로드된 모든 파일, 서비스 이용 내역(사진, 공유URL, 쪽지, 구독 내용)</h4></div>
+                    </div></div>
                     <div class="reok" style="margin-top: 2px;">
                         <form action="/resign" method="POST">
                             <input id="authid" type="text" name="id" placeholder="ID"></input>
@@ -117,6 +118,7 @@
                             <button class="button">회원 탈퇴</button>
                         </form>
                         <div>
+                            <input type="checkbox">
                             <p>회원탈퇴를 요청한 이용객은 위 사항에 동의한 것으로 간주합니다.</p>
                         </div>
                     </div>
@@ -124,22 +126,23 @@
             </div>      
         </div>
         <!--편지 모달 창-->
-        <div class="plettle" style="display: none">
+                <div class="plettle" style="display: none;">
             <div class="modal">
+                <button class="modalcomeout" type="button">X</button>
             <div class="upss">
-                <button class="modalcomeout" style="float: right; border: 0px; background: inherit;" type="button">X</button>
-                <div class="Spicture"><img class="pictures1" src="https://instagram.ficn6-1.fna.fbcdn.net/vp/466efc55594472ab9b9ab6e885b06825/5D72B7DC/t51.2885-15/e35/57009221_306777196917572_856435609160832386_n.jpg?_nc_ht=instagram.ficn6-1.fna.fbcdn.net"></div>
+                <div class="Spicture"><img src="https://instagram.ficn6-1.fna.fbcdn.net/vp/466efc55594472ab9b9ab6e885b06825/5D72B7DC/t51.2885-15/e35/57009221_306777196917572_856435609160832386_n.jpg?_nc_ht=instagram.ficn6-1.fna.fbcdn.net"></div>
                 <div class="subbox">
-                    <div class="nicname"><h1>IMNOOK</h1></div>
-                    <div class="date"><h2>2019-07-09</h2></div>
+                    <div id="nicname"><h1>받는 사람</h1></div>
+                    <div id="date"><h2>보내는 날짜 발신</h2></div>
                 </div>
             </div>
             <div class="middle">
-                <div class="longtext2"><h2>쪽지 내용</h2></div>
-            </div>
-            <div class="downss">
-                <button class="button" type="button">쪽지 답장</button>
-                <button class="button" type="button">쪽지 삭제</button>
+                <form id="msg" action="sendMessage" method="post">
+                    <textarea id="msg_cont" name="msg_cont" placeholder="보낼 내용을 입력하세요!"></textarea>
+                    <input type="text" id="r_nick" name="r_nick" style="display: none;">
+                    <input class="button but" id="button" type="submit" value="쪽지 답장">
+                    <input class="button but" id="button" type="submit" value="쪽지 삭제">
+                </form>
             </div>
             </div>
         </div>  

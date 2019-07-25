@@ -14,6 +14,13 @@ html,body{
     flex-direction: row;
 }
 
+h3, h4{
+    text-align: left;
+    text-decoration-color: gray;
+}
+
+
+
  /* header의 로고 및 room 버튼 부분 */
 #left_h {
     width: 37%;
@@ -108,9 +115,9 @@ header > #left_h > div{
 }
 
 /*왼쪽 박스들*/
-.button_box{
+.button{
     text-align: center;
-    display: block;
+    display: inline-block;
     margin: 0 15px;
     margin-top: 15px;
     width: 150px;
@@ -125,6 +132,11 @@ header > #left_h > div{
     border-radius: 25px;
     cursor: pointer;
 }
+
+.button :hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+    
 
 /*오른쪽 박스-내정보*/
 .myinfo{
@@ -254,6 +266,23 @@ header > #left_h > div{
     border: 1px solid black;
 }
 
+.button_smaller{
+    text-align: center;
+    display: inline-block;
+    margin: 1px, 1px, 1px, 1px;
+    width: 120px;
+    height: 35px;
+    background-color: rgba(0,0,0,0.5);
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    border: 0;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
 .subbox{
     margin-left: 10px;
     font-size: 10px;
@@ -263,12 +292,8 @@ header > #left_h > div{
     width: 10px;
 }
 
-.realname{
-}
-
 .move{
     display: inline;
-    margin-left: 50px;
 }
 
 .remove{
@@ -295,68 +320,37 @@ header > #left_h > div{
 
 .downs{
     width: 580px;
-    height: 470px;
+    height: 450px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
 }
 
 .tables{
-    margin-left: 0px;
-    margin-right: 0px;
     width: 580px;
-    height: 460px;
+    height: 450px;
     text-align: center;
-    border: 1px;
-    border-color: #fafafa;
 }
 
 th{
     background-color: rgba(0,0,0,0.3);
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    height: 62px;
 }
 
 td{
     background-color: rgba(223, 213, 213, 0.788);
-}
-
-/*모달창*/
-.plettle{
-    z-index: 10;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(1,1,1,0.7);
-}
-
-.modal{
-    z-index: 11;
-    display: block;
-    position: center;
-    width: 500px;
-    height: 500px;
-    text-align: center;
-    background-color: rgba(255, 255, 255,100);
-    border-radius: 5%;
-}
-
-.upss{
-    width:500px;
-    height: 100px;
-}
-
-.middle{
-    width: 500px;
-    height: 300px;
-}
-
-.longtext2{
-    border: 1px;
+    border-width: 1px;
+    border-style: solid;
     border-color: black;
-    margin-left: 50px;
-    margin-right: 50px;
-    width: 400px;
-    height: 300px;
+    height: 40px;
 }
 
-.downss{
-    width: 500px;
-    height: 100px;
+td :hover a{
+    color: white;
+    text-decoration-color: #fafafa;
 }
 
 /*오른쪽 박스-회원 탈퇴*/
@@ -386,8 +380,114 @@ td{
 .reok{
     width: 580px;
     height: 150px;
+    margin-left: 20px;
 }
 
-.reok_password{
-    
+.authid{
+    margin-right: 10px;
+}
+
+
+/* 쪽지 모달창 */
+
+/* 모달창 배경 */
+.plettle{
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1,1,1,0.7);
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+
+/* 모달창 내용 */
+.modalcomeout {
+    z-index: 1;
+    background: none;
+    margin-right: 2%;
+    height: 8%;
+    float: right;
+    border: none;
+}
+
+#msg_but {
+    width: 30%;
+    height: 10%;
+    margin-top: 4%;
+    margin-left: 6%;
+}
+
+.modal{
+    margin: auto;
+    z-index: 1;
+    width: 500px;
+    height: 500px;
+    background-color: lightgray;
+    border-radius: 5%;
+}
+
+.upss{
+    margin-top: 7%;
+    width: 70%;
+    height: 23%;
+    display: flex;
+    margin-left: 6%;
+}
+
+.middle{
+    margin: 4% auto;
+    width: 80%;
+    height: 65%;
+    text-align: center;
+}
+
+#msg {
+    width: 94%;
+    height: 100%;
+
+}
+
+#msg_cont {
+    padding: 10px;
+    width: 99%;
+    height: 70%;
+    border: none;
+    outline: 0;
+    resize: none;
+    border: solid black;
+    background-color: white;
+}
+
+.longtext2{
+    border: 1px;
+    border-color: black;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 400px;
+    height: 300px;
+}
+
+.Spicture{
+    width: 110px;
+    height: 110px;
+}
+
+.subbox{
+    font-size: 10px;
+    width: 50%;
+    margin-left: 10%;
+}
+
+#nicname{
+    width: 100%;
+}
+
+.Spicture > img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid;
 }
