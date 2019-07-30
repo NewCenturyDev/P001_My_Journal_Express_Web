@@ -24,7 +24,7 @@ var connection = mysql.createConnection({
 connection.connect();
 connection.query('USE project', function(err,rows,fields){
   if(!err)
-    console.log('Selected DB : ', rows);
+    console.log('DB INFO_ ', rows);
   else
     consile.log('DB ERR_', err);
 });
@@ -265,12 +265,11 @@ router.post('/idfinder', function(req, res){
   var auth = {
     "email": req.body.e1
   }
-  var result;
+  let result;
   //Mysql 쿼리 양식
   var sql = 'SELECT * FROM member';
 
   /* 알고리즘 */
-  //세션정보 검증 (세션정보의 email값으로 DB에서 id 조회)
   connection.query(sql, function(err, rows, fields){
     if(err){
       console.log(err);
@@ -281,14 +280,14 @@ router.post('/idfinder', function(req, res){
         if(rows[i].member_email == auth.email){
           console.log('id조회 처리 시작');
           //email이 일치하는 member의 열에서 id 반환
-          result = rows[i].member_id;
-          res.send ('<script>alert(해당 E-mail로 조회한 사용자의 ID는 '+result+' 입니다.);</script>');
+          result = '<script>alert("해당 정보로 조회한 사용자의 ID는 ' + rows[i].member_id + ' 입니다."); location.href = "/login";</script>';
+          res.send (result);
         }
       }
+      //일치하는 id,pw가 없음
+      res.send ('<script>alert("입력하신 내용과 일치하는 회원정보가 없습니다."); location.href = "/finder";</script>');
     }
   });
-  //일치하는 id,pw가 없음
-  res.send ('<script>alert("입력하신 내용과 일치하는 회원정보가 없습니다.");</script>');
 });
 
 //PW 찾기 알고리즘
@@ -300,12 +299,11 @@ router.post('/pwfinder', function(req, res){
     "name": req.body.name,
     "email": req.body.e2
   }
-  var result;
+  let result;
   //Mysql 쿼리 양식
   var sql = 'SELECT * FROM member';
 
   /* 알고리즘 */
-  //세션정보 검증 (세션정보의 email값으로 DB에서 id 조회)
   connection.query(sql, function(err, rows, fields){
     if(err){
       console.log(err);
@@ -315,15 +313,15 @@ router.post('/pwfinder', function(req, res){
       for(var i=0; i<rows.length; i++){
         if(rows[i].member_email == auth.email && rows[i].member_name == auth.name && rows[i].member_id == auth.id){
           console.log('pw조회 처리 시작');
-          //email,성명,id가 일치하는 member의 열에서 id 반환
-          result = rows[i].member_pw;
-          res.send ('<script>alert(해당 정보로 조회한 사용자의 PW는 '+result+' 입니다.); location.href = "/login";</script>');
+          //email,성명,id가 일치하는 member의 열에서 pw 반환
+          result = '<script>alert("해당 정보로 조회한 사용자의 PW는 ' + rows[i].member_pw + ' 입니다."); location.href = "/login";</script>';
+          res.send (result);
         }
       }
+      //일치하는 id,pw가 없음
+      res.send ('<script>alert("입력하신 내용과 일치하는 회원정보가 없습니다."); location.href = "/finder";</script>');
     }
   });
-  //일치하는 id,pw가 없음
-  res.send ('<script>alert("입력하신 내용과 일치하는 회원정보가 없습니다."); location.href = "/login";</script>');
 });
 /* ------------------------- 계정 관련 기능 끝 ------------------------- */
 
