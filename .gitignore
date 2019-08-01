@@ -124,6 +124,5 @@ $RECYCLE.BIN/
 .vscode/
 bin/
 node_modules/
-app.js
 .vscode
 package.json
