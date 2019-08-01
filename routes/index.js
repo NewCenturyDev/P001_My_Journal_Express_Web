@@ -78,16 +78,6 @@ router.get('/contents', function(req, res) {
   res.render('contents', { title: 'Express' });
 });
 
-// router.get('/profile', function(req, res) {
-//   if(req.session.user){
-//     res.render('profile', { title: 'Express' });
-//   }
-//   else{
-//     //로그인하지 않은 경우
-//     res.send('<script>alert("로그인 해주세요!"); location.href = "/login";</script>');
-//   }
-// });
-
 router.get('/profile', function(req, res) {
   
   if(req.session.user) {
@@ -166,6 +156,11 @@ router.get('/search', function(req, res) {
 /* --------------------------------------------------------------------------- */
 /* -------------------------------- 기능 구현 --------------------------------- */
 /* --------------------------------------------------------------------------- */
+
+router.post('/search', function(req, res) {
+  res.send('<script> location.href = "/contents"; </script>');
+});
+
 
 /* --------- 계정 관련 기능 (로그인, 로그아웃, 회원가입, 회원탈퇴 기능) --------- */
 //참고 : 계정 관련 기능은 프로젝트 막바지에 Route 분리할 예정입니다. 소스 전체를 건드려야 하므로 1차 완성 이후에 하는 것으로 합시다. (/users 라우트 | 소스파일 -> users.js)
