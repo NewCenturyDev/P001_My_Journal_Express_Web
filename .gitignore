@@ -120,7 +120,7 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/node,windows
 
-# our ignore
+# our ignore (public, app.js, view, routes 공유)
 .vscode/
 bin/
 node_modules/
