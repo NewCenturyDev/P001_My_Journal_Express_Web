@@ -4,9 +4,9 @@ var mysql = require('mysql');
 var router = express.Router();
 var connection = mysql.createConnection({
   host : 'localhost',
-  user : 'IMNOOK',
-  password : 'dhksthxpa12', // 각자 nodejs가 사용할 user, password로 변경 후 작업
-  // port : 3306,
+  user : 'nodejs',
+  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  //port : 3306,
   database : 'project',
   charset  : 'utf8'
 });
@@ -23,7 +23,7 @@ connection.query('USE project', function(err,rows,fields){
   if(!err)
     console.log('Select DB : ', rows);
   else
-    consile.log('ERR_', err);
+    console.log('ERR_', err);
 });
 
 /* GET home page */
@@ -65,15 +65,70 @@ router.get('/contents', function(req, res) {
   res.render('contents', { title: 'Express' });
 });
 
+// router.get('/profile', function(req, res) {
+//   if(req.session.user){
+//     res.render('profile', { title: 'Express' });
+//   }
+//   else{
+//     //로그인하지 않은 경우
+//     res.send('<script>alert("로그인 해주세요!"); location.href = "/login";</script>');
+//   }
+// });
+
 router.get('/profile', function(req, res) {
-  if(req.session.user){
-    res.render('profile', { title: 'Express' });
+  
+  if(req.session.user) {
+    var id = req.session.user.id;
+    var sql1 = "SELECT r_id, r_nick FROM subscribe WHERE s_id = ?";
+    var params = [id];
+    connection.query(sql1, params, function(err1, rows1) {
+      if (err1) {
+        console.log(err);
+      } else {
+        var nick = req.session.user.nick;
+        var sql2 = "SELECT *, left(contents, 20) preveal, date_format(date, '%Y-%m-%d') s_date FROM message WHERE r_nick = ?";
+        var params2 = [nick];
+        connection.query(sql2, params2, function(err2, rows2) {
+          if (err2) {
+            console.log(err);
+          } else {
+            res.render('profile', {
+              rows1: rows1,
+              rows2: rows2
+            });
+          }
+        });
+      }
+    });
   }
   else{
     //로그인하지 않은 경우
     res.send('<script>alert("로그인 해주세요!"); location.href = "/login";</script>');
   }
 });
+
+router.post('/move_and_remove', function(req, res) {
+  var move = req.body.move;
+  var remove = req.body.remove;
+  var member = {
+    "r_id": req.body.r_id,
+    "r_nick": req.body.r_nick
+  }
+  if (move==='move') {
+    res.send('<script>location.href = "/contents";</script>');
+  }
+  else if (remove=='remove') {
+    var sql_del = 'DELETE FROM subscribe WHERE s_id = ? AND r_id = ?';
+    var params_del = [req.session.user.id, member.r_id];
+    
+    connection.query(sql_del, params_del, function(err, rows, field) {
+      if (err) {console.log(err)}
+      else {
+        res.send('<script>alert("구독을 취소했습니다!"); location.href = "/profile";</script>');
+      }
+    });
+  }
+}); // 구독 취소, 이동 기능
 
 /* GET search pages */
 router.get('/search', function(req, res) {
@@ -130,38 +185,48 @@ router.post('/subscribe', function(req, res) {
 
 }); // 원하는 회원 구독 하는 기능 구현
 
-router.post('/sendMessage', function(req, res) {
+router.post('/message', function(req, res) {
 
   if (!req.session.user) {
     res.send('<script>alert("로그인해야 사용할 수 있는 기능입니다!"); location.href = "/search";</script>');
     return;
   } // 로그아웃 시 기능 사용 제한
 
-  var msgInfo = {
-    "r_nick": req.body.r_nick,
-    "s_nick": req.session.user.nick,
-    "contents": req.body.msg_cont
-  } // DB에 삽입할 쪽지 내용
-
-  if (msgInfo.contents==="") {
-    res.send('<script>alert("보낼 내용을 입력해주세요!"); location.href = "/search";</script>');
-    return;
-  } // 내용이 없을 때 예외 처리
-   
-  var params_ins = [msgInfo.s_nick, msgInfo.r_nick, msgInfo.contents];
-  var sql_ins = 'INSERT INTO message(s_nick, r_nick, contents) values(?, ?, ?)';
-  connection.query(sql_ins, params_ins, function (err, rows, fields) {
-    if (err) {
-      console.log(err);
-    }
-    else { // msg_info 내용을 message table에 삽입
-      console.log(msgInfo);
-      console.log('삽입 성공!');
-    }
-  });
-  edit_msg_num(); // 임시로 쪽지 번호 갱신
-  res.send ('<script>alert("쪽지를 보냈습니다!"); location.href = "/search";</script>');
-}); // 쪽지 보내기 구현
+  if (req.body.msg_del) {
+    var num = req.body.msg_del;
+    var sql_del = 'DELETE FROM message WHERE num = ?';
+    connection.query(sql_del, num, function(err) {
+      if (err) {console.log(err);}
+      else {
+        console.log('삭제 성공!');
+        res.send('<script>alert("쪽지를 삭제했습니다!"); location.href = "/profile";</script>');
+      }
+    });
+  } // 쪽지 삭제일 경우
+  else {
+    if (req.body.msg_cont==="") {
+      res.send('<script>alert("보낼 내용을 입력해주세요!"); location.href = "/search";</script>');
+      return;
+    } // 보낼 내용이 없을 때 예외 처리
+  
+    var msgInfo = {
+      "r_nick": req.body.r_nick,
+      "s_nick": req.session.user.nick,
+      "contents": req.body.msg_cont
+    } // DB에 삽입할 쪽지 내용
+  
+    var params_ins = [msgInfo.s_nick, msgInfo.r_nick, msgInfo.contents];
+    var sql_ins = 'INSERT INTO message(s_nick, r_nick, contents) values(?, ?, ?)';
+    connection.query(sql_ins, params_ins, function (err) {
+      if (err) {console.log(err);}
+      else {
+        console.log('삽입 성공!');
+        res.send ('<script>alert("쪽지를 보냈습니다!"); location.href = "/search";</script>');
+      } // msg_info 내용을 message table에 삽입
+    });
+  } // 쪽지 보내기일 경우
+  edit_msg_num(); // 쪽지 번호 갱신 함수
+}); 
 
 router.post('/search', function(req, res) {
   res.redirect('/search');
@@ -182,7 +247,7 @@ router.post('/login', function(req, res){
 
   //DB에서 회원정보 읽어와서 사용자가 입력한 내용과 대조
   connection.query(sql, function(err, rows, fields){
-	  if(err){
+     if(err){
       console.log(err);
     }
     else {
@@ -201,7 +266,7 @@ router.post('/login', function(req, res){
       //일치하는 id,pw가 없음
       //추후 로그인 에러 페이지로 리다이렉트하는 것으로 변경을 검토
       res.send ('<script>alert("ID와 PW를 다시 확인하여 주십시오!"); location.href = "/login";</script>');
-	  }
+     }
   });
   //디버깅용 로그
   console.log(auth);
@@ -252,14 +317,14 @@ router.post('/register', function(req, res){
   //양식에 문제 없으면 DB에 저장
   else{
     connection.query(sql, params, function(err, rows, fields){
-	    if(err){
+       if(err){
         console.log(err);
         res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
       }
       else {
         console.log(rows.insertId);
         res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
-	    }
+       }
     });
   }
   //디버깅용 로그
@@ -282,7 +347,7 @@ router.post('/resign', function(req, res){
   /* 알고리즘 */
   //세션정보 검증 (세션정보의 id값으로 DB에서 비밀번호 조회)
   connection.query(sql, params_s, function(err, rows, fields){
-	  if(err) {
+     if(err) {
       console.log(err);
     }
     else if (rows[0]==undefined || auth.id != user.id) {

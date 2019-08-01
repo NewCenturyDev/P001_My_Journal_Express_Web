@@ -14,14 +14,16 @@ function goPeople() {
     location.href = "/search";
 }
 
-$(function(){
-  $('#profile').mouseenter(function(){
-    $('#mini_profile').css('display', 'grid');
+if (mini_profile.value) {
+  $(function(){
+    $('#profile').mouseenter(function(){
+      $('#mini_profile').css('display', 'grid');
+    });
+    $('#profile').mouseleave(function(){
+      $('#mini_profile').css('display', 'none');
+    });
   });
-  $('#profile').mouseleave(function(){
-    $('#mini_profile').css('display', 'none');
-  });
-});
+}
 
 profile.addEventListener("click", goProfile);
 logout.addEventListener("click", logOut);
