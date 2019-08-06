@@ -11,7 +11,7 @@ var router = express.Router();
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
@@ -41,7 +41,13 @@ connection.query('USE project', function(err,rows,fields){
 
 /* GET home page */
 router.get('/', function(req, res) {
-  res.render('main_search', { title: 'Express' });
+  if(req.session.user){
+    //이미 로그인되어 있을 경우
+    res.redirect('/contents');
+  }
+  else{
+    res.render('main', { title: 'Express' });
+  }
 });
 
 /* GET auth pages */
@@ -79,7 +85,6 @@ router.get('/contents', function(req, res) {
 });
 
 router.get('/profile', function(req, res) {
-  
   if(req.session.user) {
     var id = req.session.user.id;
     var sql1 = "SELECT r_id, r_nick FROM subscribe WHERE s_id = ?";
@@ -109,29 +114,6 @@ router.get('/profile', function(req, res) {
     res.send('<script>alert("로그인 해주세요!"); location.href = "/login";</script>');
   }
 });
-
-router.post('/move_and_remove', function(req, res) {
-  var move = req.body.move;
-  var remove = req.body.remove;
-  var member = {
-    "r_id": req.body.r_id,
-    "r_nick": req.body.r_nick
-  }
-  if (move==='move') {
-    res.send('<script>location.href = "/contents";</script>');
-  }
-  else if (remove=='remove') {
-    var sql_del = 'DELETE FROM subscribe WHERE s_id = ? AND r_id = ?';
-    var params_del = [req.session.user.id, member.r_id];
-    
-    connection.query(sql_del, params_del, function(err, rows, field) {
-      if (err) {console.log(err)}
-      else {
-        res.send('<script>alert("구독을 취소했습니다!"); location.href = "/profile";</script>');
-      }
-    });
-  }
-}); // 구독 취소, 이동 기능
 
 /* GET search pages */
 router.get('/search', function(req, res) {
@@ -415,6 +397,30 @@ router.post('/subscribe', function(req, res) {
   });
 
 }); // 원하는 회원 구독 하는 기능 구현
+
+// 구독 취소, 이동 기능
+router.post('/move_and_remove', function(req, res) {
+  var move = req.body.move;
+  var remove = req.body.remove;
+  var member = {
+    "r_id": req.body.r_id,
+    "r_nick": req.body.r_nick
+  }
+  if (move==='move') {
+    res.send('<script>location.href = "/contents";</script>');
+  }
+  else if (remove=='remove') {
+    var sql_del = 'DELETE FROM subscribe WHERE s_id = ? AND r_id = ?';
+    var params_del = [req.session.user.id, member.r_id];
+    
+    connection.query(sql_del, params_del, function(err, rows, field) {
+      if (err) {console.log(err)}
+      else {
+        res.send('<script>alert("구독을 취소했습니다!"); location.href = "/profile";</script>');
+      }
+    });
+  }
+});
  
 /* ------------------------- 회원 구독 기능 끝 ------------------------- */
 
