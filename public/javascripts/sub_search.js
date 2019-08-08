@@ -25,7 +25,7 @@ function goProfile() {
 }
 function logOut() {
     alert('로그아웃 되었습니다!');
-    location.href = "/";
+    location.href = "/logout";
 }
 function goPeople() {
     location.href = "/search";

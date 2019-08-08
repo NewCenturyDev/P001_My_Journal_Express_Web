@@ -33,7 +33,7 @@ header {
 }
 
  /* room 버튼 디자인 부분 */
-#room > div > input {
+#room > form > input {
     margin-top: 10px;
     margin-left: 8px;
     background: none;
@@ -63,7 +63,7 @@ header {
 }
 
  /* header의 search 디자인 부분 */
-#center_h > div > form > input {
+#center_h > div > #search > input {
     width: 90%;
     color: white;
     margin-top: 6px;
@@ -110,13 +110,20 @@ main {
     height: 100%;
 }
 
- /* profile에 커서 올릴 때 나타나는 프로필 */
+/* 회원이 등록한 사진 */
+.user_photo {
+    border: solid;
+    border-color: #353535;
+}
+
+ /* 로그인 시 나타나는 회원의 미니 프로필 */
 #mini_profile {
     z-index: 1;
+    position: fixed;
     margin-top: 20px;
     width: 13%;
     height: 80px;
-    position: relative;
+    top: 8%;
     left: 85%;
     background-color: white;
     border: groove;
@@ -134,6 +141,8 @@ main {
     width: 75px;
     object-fit: cover;
     border-radius: 50%;
+    position: relative;
+    left: 5%;
 }
 
  /* 미니 프로필의 이름, 아이디 부분 */
@@ -162,9 +171,89 @@ main {
     top: 85%;
 }
 
+/* 사진 등록 모달창 */
+#modal {
+    margin: auto;
+    width: 25%;
+    height: 50%;
+    background-color: white;
+    border-radius: 5%;
+}
+
+#modal_bg{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1,1,1,0.7);
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+}
+
+/* 사진 등록 모달창 닫기 */
+#modalcomeout {
+    background: none;
+    width: 10%;
+    height: 30px;
+    float: right;
+    border: none;
+}
+
+#msg_but {
+    width: 30%;
+    height: 10%;
+    margin-top: 4%;
+    margin-left: 6%;
+}
+
+#modal > h1 {
+    margin-top: 9%;
+    margin-bottom: 15%;
+    text-align: center;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+#modal > form {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#modal > form > input {
+    margin: 0 auto;
+}
+
+/* 등록 사진의 이름 */
+#photo_name {
+    border: solid 3px;
+    border-radius: 5px;
+    height: 20%;
+
+    padding: 0 10px;
+}
+
+#add_submit {
+    width: 30%;
+    border: none;
+    height: 20%;
+    background-color: rgba(0,0,0,0.8);
+    font-size: 14px;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* 정의 및 기본 선택자 */
+
 input::placeholder {
     color: white;
     font-size: 15px; 
+}
+
+#modal > form > input::placeholder {
+    color: black;
+    font-size: 14px; 
 }
 
 input, button {
