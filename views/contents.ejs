@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>사진 전시회 서비스 - 내용 페이지</title>
     <link rel="stylesheet" href="/stylesheets/contents.css"></link>
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 </head>
 <body>
@@ -16,15 +17,12 @@
                 </a>
             </div>
             <div id="room">
-                <div>
-                    <input type="button" value="Room #1">
-                </div>
-                <div>
-                    <input type="button" value="Room #2">
-                </div>
-                <div>
-                    <input type="button" value="Room #3">
-                </div>
+                <form action="/contents" method="post">
+                    <input type="text" name="change_room" style="display: none;">
+                    <input type="submit" value="Room #1">
+                    <input type="submit" value="Room #2">
+                    <input type="submit" value="Room #3">
+                </form>
                 <div>
                    <button type="button" id="upload"><img src="/images/setting.png" width="20px"></button>
                 </div>
@@ -32,7 +30,7 @@
         </div>
             <div id="center_h">
                 <div id="find">
-                    <form action="search" method="post">
+                    <form id="search" action="search" method="post">
                         <input type="text" name="search" placeholder="search">
                     </form>
                 </div>
@@ -63,19 +61,36 @@
     </header>
 
     <main>
+        <!-- 회원이 등록한 사진 -->
+        <% for (var i = 0; i < rows.length; i++) { %>
+            <img class="user_photo" src="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>" width="300px" height="200px">
+        <% } %>
         <!-- profile에 커서 올릴 때 미니 프로필 -->
         <div id="mini_profile">
             <div>
-                <img src="/images/profile_img.jpg">
+                <img src="/images/profile_list.jpg">
             </div>
             <div id="mini_info">
-                <p><b>1000peach</b></p>
-                <p id="mini_name">천승아</p>
+                <p><b><%= login.id %></b></p>
+                <p id="mini_name"><%= login.nick %></p>
             </div>
         </div>
-        <button id="add" type="button">
-            <img src="/images/add_icon.png" width="60px">
-        </button>
+            <button id="add" type="button" value="<%= login.id%>">
+                <img src="/images/add_icon.png" width="60px">
+            </button>
+        <!-- 사진 등록 시 모달창 -->
+        <div id="modal_bg" style="display: none;">
+            <div id="modal">
+                <button id="modalcomeout" type="button">X</button>
+                <h1>사진 추가</h1>
+                <form action="/file/upload" method="post" enctype="multipart/form-data">
+                    <input type="text" name="room_num" id="room_num" style="display: none;" value="<%= room_num %>">
+                    <input type="text" name="photo_name" id="photo_name" placeholder="사진 이름">
+                    <input type="file" name="file">
+                    <input type="submit" id="add_submit" value="추가 하기">
+                </form>
+            </div>
+        </div> 
     </main>
 </body>
     <script src="/javascripts/contents.js"></script>
