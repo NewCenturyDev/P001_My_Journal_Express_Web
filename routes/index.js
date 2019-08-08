@@ -11,7 +11,7 @@ var router = express.Router();
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
