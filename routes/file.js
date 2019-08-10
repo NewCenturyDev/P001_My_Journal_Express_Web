@@ -42,19 +42,10 @@ router.post('/upload', function(req, res, next) {
   } // 로그아웃 시 사진 등록 기능 제한
 
   var login_id = req.session.user.id;
-  if (!fs.existsSync('uploads/'+login_id)) {
-    fs.mkdirSync('uploads/'+login_id);
-    fs.mkdirSync('uploads/'+login_id+'/1');
-    fs.mkdirSync('uploads/'+login_id+'/2');
-    fs.mkdirSync('uploads/'+login_id+'/3');
-    console.log(login_id+' 폴더 생성');
-  } // 첫 사진 등록 시 회원의 사진 폴더 생성, 회원 가입 때 만들기
-
-  //console.log(req.body.photo_name);//왜?
-  
+  // console.log(req.body.photo_name);//왜?
   var storage = multer.diskStorage({
     destination: function (req, file, cb){
-      cb(null, 'uploads/'+login_id+'/'+req.body.room_num);
+      cb(null, 'uploads/'+login_id+'/'+req.body.add_num);
     }, // 회원 폴더에 사진 저장
     filename: function (req, file, cb){
       var extension = path.extname(file.originalname); //파일 확장자
@@ -63,7 +54,8 @@ router.post('/upload', function(req, res, next) {
       cb(null, file_name);
 
       // 등록 회원 및 사진 정보를 DB의 photo table에도 저장
-      var params_ins = [file_name, login_id, req.body.room_num];
+      console.log(req.body.add_num);
+      var params_ins = [file_name, login_id, req.body.add_num];
       var sql_ins = "INSERT INTO photo(photo_name, member_id, room_num) values(?, ?, ?)";
       connection.query(sql_ins, params_ins, function(err, rows, field) {
         if (err) {

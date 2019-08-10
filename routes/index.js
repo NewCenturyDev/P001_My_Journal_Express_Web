@@ -91,6 +91,9 @@ router.get('/contents', function(req, res) {
 router.post('/contents', function(req, res) {
   var visit_to = req.body.visit_to;
   var room_num = req.body.room_num;
+  if (!req.session.visit_to || req.body.move) {
+    req.session.visit_to = visit_to;
+  }
   var login = {
     "id": ""
   }
@@ -100,7 +103,8 @@ router.post('/contents', function(req, res) {
   }
 
   var sql_sel = "SELECT * FROM photo WHERE member_id = ? AND room_num = ?";
-  var params = [visit_to, room_num];
+  var params = [req.session.visit_to, room_num];
+  console.log(params);
   connection.query(sql_sel, params, function(err1, rows) {
     if (err1) {
       console.log(err);
@@ -122,7 +126,6 @@ router.get('/img/:id/:num/:name', function(req, res) {
   var name = req.params.name;
   fs.readFile('./uploads/'+id+'/'+num+'/'+name, function (err, data) {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    // console.log(data);
     res.end(data);
   });
 });
@@ -276,11 +279,17 @@ router.post('/register', function(req, res){
        if(err){
         console.log(err);
         res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
+        return;
       }
       else {
         console.log(rows.insertId);
+        fs.mkdirSync('uploads/'+info.id);
+        fs.mkdirSync('uploads/'+info.id+'/1');
+        fs.mkdirSync('uploads/'+info.id+'/2');
+        fs.mkdirSync('uploads/'+info.id+'/3');
+        console.log(info.id+' 폴더 생성');
         res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
-       }
+       } // 첫 사진 등록 시 회원의 사진 폴더 생성
     });
   }
   //디버깅용 로그
