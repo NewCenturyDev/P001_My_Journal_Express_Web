@@ -87,7 +87,7 @@ router.post('/upload', function(req, res, next) {
       // console.log(result);
        res.send ('<form id="sample" action="/contents" method="post">'
           +'<input style="display: none;" name="visit_to" type="text" value="'+req.session.user.id+'">'
-          +'<input style="display: none;" name="room_num" type="text" value="1">'
+          +'<input style="display: none;" name="room_num" type="text" value="'+req.body.upload_num+'">'
           +'<input style="display: none;" type="submit" value="submit">'
           +'<script>alert("업로드 되었습니다!"); document.getElementById("sample").submit();</script>');
     } // 업로드 후 갤러리로 이동

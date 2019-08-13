@@ -28,6 +28,14 @@
                     <button class="r_c" value="3">Room #3</button>
                 </form>
                 <div>
+                    <form id="edit" action="/editPhoto" method="post" style="display: none;">
+                        <input type="text" name="edit_room_num" value="<%= room_num %>">
+                        <input type="text" id="photos_x_pos" name="photos_x_pos">
+                        <input type="text" id="photos_y_pos" name="photos_y_pos">
+                        <input type="text" id="photos_w" name="photos_w">
+                        <input type="text" id="photos_h" name="photos_h">
+                        <input type="text" id="photos_name" name="photos_name">
+                    </form>
                    <button type="button" id="upload" value="stop">
                        <img src="/images/setting.png" width="20px">
                     </button>
@@ -69,8 +77,10 @@
     <main>
         <!-- 회원이 등록한 사진 -->
         <% for (var i = 0; i < rows.length; i++) { %>
-            <div class="user_photo">
+            <div class="user_photo" style="width: <%= rows[i].width %>px; height: <%= rows[i].height %>px;
+            left: <%= rows[i].x_pos %>px; top: <%= rows[i].y_pos %>px;">
                 <img src="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>">
+                <input type="text" class="photo_name" style="display: none;" value="<%= rows[i].photo_name %>">
             </div>
         <% } %>
         <!-- profile에 커서 올릴 때 미니 프로필 -->
@@ -94,6 +104,7 @@
                 <form action="/file/upload" method="post" enctype="multipart/form-data">
                     <input type="text" name="add_num" id="add_num" style="display: none;">
                     <input type="text" name="photo_name" id="photo_name" placeholder="사진 이름">
+                    <input type="text" name="upload_num" value="<%= room_num %>" style="display: none;">
                     <input type="file" name="file">
                     <input type="submit" id="add_submit" value="추가 하기">
                 </form>

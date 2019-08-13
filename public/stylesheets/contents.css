@@ -114,8 +114,8 @@ main {
     cursor: pointer;
     border: solid;
     border-color: #353535;
-    width: 250px;
-    height: 250px;
+    position: absolute;
+   
 }
 
 .user_photo > img {
@@ -170,7 +170,7 @@ main {
 
 /* 사진 등록 버튼 */
 #add {
-    z-index: 1;
+    z-index: 50;
     width: 70px;
     height: 70px;
     position: fixed;
@@ -188,6 +188,7 @@ main {
 }
 
 #modal_bg{
+    z-index: 51;
     width: 100%;
     height: 100%;
     background-color: rgba(1,1,1,0.7);
