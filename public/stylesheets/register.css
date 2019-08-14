@@ -2,7 +2,8 @@
 html, body{
     margin: 0;
     height: 100%;
-    background-image: url("/images/background.png");
+    overflow: scroll-y;
+    background-color: rgb(43, 83, 193);
 }
 a{
     text-decoration: none;
@@ -12,18 +13,16 @@ a{
 /*상단바*/
 header{
     width: 100%;
-    height: 50px;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.3);
+    height: 120px;
 }
 header > div{
     width: 500px;
-    height: 50px;
+    height: 120px;
     margin-left: 50%;
 }
 header > div > a > img{
     width: 500px;
-    height: 50px;
+    height: 120px;
     margin-left: -250px;
 }
 
@@ -31,11 +30,7 @@ header > div > a > img{
 section{
     width: 500px;
     height: 550px;
-    margin: 0 auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.6);
+    margin: 30px auto;
     border-radius: 10px;
 }
 section > h2{
@@ -55,8 +50,9 @@ form > input{
     margin: 0 100px;
     margin-top: 10px;
     background-color: inherit;
-    border: 2px solid white;
-    border-radius: 5px;
+    border: 0;
+    border-bottom: 2px solid white;
+    border-radius: 1px;
     color: white;
 }
 form > div{
@@ -77,8 +73,15 @@ form > div{
 }
 input::placeholder{
     color: white;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 15px;
+}
+input ::-webkit-input-placeholder{
+    color: white;
+    font-size: 15px;
+}
+input ::-moz-placeholder{
+    color: white;
+    font-size: 15px;
 }
 form > button{
     width: 200px;
@@ -114,21 +117,22 @@ article {
     width: 100%;
     height: 100%;
     z-index: 100;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.6);
     margin: auto;
 }
 article > div{
     width: 750px;
     height: 350px;
     z-index: 100;
-    margin: 100px auto;
+    margin: 0 auto;
+    margin-top: 150px;
     padding: 25px;
-    border-radius: 20px;
-    background-color: rgb(255,255,255);
+    border: 2px solid white;
+    color: white;
+    background-color: rgb(43, 83, 193);
 }
 article > div > div{
     float: right;
+    color: white;
     font-size: 32px;
     font-weight: bold;
     text-align: right;
