@@ -13,7 +13,7 @@ var fs = require("fs-extra");
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
@@ -45,7 +45,7 @@ connection.query('USE project', function(err,rows,fields){
 router.get('/', function(req, res) {
   if(req.session.user){
     //이미 로그인되어 있을 경우
-    res.send (go_contents(req.session.user.id));
+    res.send (go_contents(req.session.user.id, 1));
   }
   else{
     res.render('main', { title: 'Express' });
@@ -56,7 +56,7 @@ router.get('/', function(req, res) {
 router.get('/login', function(req, res) {
   if(req.session.user){
     //이미 로그인되어 있을 경우
-    res.send (go_contents(req.session.user.id));
+    res.send (go_contents(req.session.user.id, 1));
   }
   else{
     res.render('login', { title: 'Express' });
@@ -65,7 +65,7 @@ router.get('/login', function(req, res) {
 router.get('/register', function(req, res) {
   if(req.session.user){
     //이미 로그인되어 있을 경우
-    res.send (go_contents(req.session.user.id));
+    res.send (go_contents(req.session.user.id, 1));
   }
   else{
     res.render('register', { title: 'Express' });
@@ -74,7 +74,7 @@ router.get('/register', function(req, res) {
 router.get('/finder', function(req, res) {
   if(req.session.user){
     //이미 로그인되어 있을 경우
-    res.send (go_contents(req.session.user.id));
+    res.send (go_contents(req.session.user.id, 1));
   }
   else{
     res.render('finder', { title: 'Express' });
@@ -91,6 +91,11 @@ router.get('/contents', function(req, res) {
 router.post('/contents', function(req, res) {
   var visit_to = req.body.visit_to;
   var room_num = req.body.room_num;
+  // 방문한 사람과 room number를 불러옴
+
+  if (!req.session.visit_to || req.body.move) {
+    req.session.visit_to = visit_to;
+  }
   var login = {
     "id": ""
   }
@@ -99,8 +104,9 @@ router.post('/contents', function(req, res) {
     login.nick = req.session.user.nick;
   }
 
-  var sql_sel = "SELECT * FROM photo WHERE member_id = ? AND room_num = ?";
-  var params = [visit_to, room_num];
+  var sql_sel = "SELECT * FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
+  var params = [req.session.visit_to, room_num];
+  console.log(params);
   connection.query(sql_sel, params, function(err1, rows) {
     if (err1) {
       console.log(err);
@@ -112,7 +118,7 @@ router.post('/contents', function(req, res) {
         room_num: room_num
       });
     }
-  });
+  }); // 방문한 사람이 등록한 사진들 불러옴 (시간 순)
 
 });
 
@@ -120,12 +126,12 @@ router.get('/img/:id/:num/:name', function(req, res) {
   var id = req.params.id;
   var num = req.params.num;
   var name = req.params.name;
+
   fs.readFile('./uploads/'+id+'/'+num+'/'+name, function (err, data) {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    // console.log(data);
     res.end(data);
   });
-});
+}); // 사진을 서버 폴더에서 불러와 페이지에 넘겨줌
 
 router.get('/profile', function(req, res) {
   if(req.session.user) {
@@ -182,6 +188,46 @@ router.get('/search', function(req, res) {
 /* -------------------------------- 기능 구현 --------------------------------- */
 /* --------------------------------------------------------------------------- */
 
+router.post('/editPhoto', function(req, res) {
+  var photos_x_pos = new Array();
+  var photos_y_pos = new Array();
+  var photo_name = new Array();
+  // 사진 정보를 전달 받을 배열
+
+  var visit_to = req.session.visit_to;
+  var room_num = req.body.edit_room_num;
+  
+  photo_name = req.body.photos_name.split(',');
+  photos_x_pos = req.body.photos_x_pos.split(',');
+  photos_y_pos = req.body.photos_y_pos.split(','); // 배열에 넘겨준 값 저장
+ 
+  var sql_crt = "CREATE VIEW room AS SELECT photo_name, x_pos, y_pos, width, height, degree FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
+  var params_crt = [visit_to, room_num];
+  connection.query(sql_crt, params_crt, function(err) {
+    if (err) {
+      console.log(err);
+    } // 날짜 순으로 사진 정보 변경 하기 위해 view 생성 
+    else {
+      for (var i = 0; i < photo_name.length; i++) {
+        var sql_udt = "UPDATE room SET x_pos = ?, y_pos = ? WHERE photo_name = ?";
+        var params_udt = [photos_x_pos[i], photos_y_pos[i], photo_name[i]];
+        connection.query(sql_udt, params_udt, function(err) {
+          if (err) {console.log(err);}
+        });
+      } // 받은 사진 정보로 변경
+      var sql_del = "DROP VIEW room";
+      connection.query(sql_del, function (err) {
+        if (err) {console.log(err);}
+        else {
+          console.log('삭제 까지 완료');
+        }
+      }); // 작업이 끝났으므로 view 삭제
+    }
+  });
+  
+  res.send ('<script>alert("변경 사항이 저장되었습니다!");</script>'+go_contents(visit_to, room_num));
+}); // 사진 정보로 변경
+
 router.post('/search', function(req, res) {
   res.send('<script> location.href = "/search"; </script>');
 });
@@ -216,7 +262,7 @@ router.post('/login', function(req, res){
             "name" : rows[i].member_name
           }
           console.log('로그인 처리 - 세션 저장');
-          res.send ('<script>alert("로그인 되었습니다!");</script>'+go_contents(req.session.user.id));
+          res.send ('<script>alert("로그인 되었습니다!");</script>'+go_contents(req.session.user.id, 1));
         }
       }
       //일치하는 id,pw가 없음
@@ -276,11 +322,17 @@ router.post('/register', function(req, res){
        if(err){
         console.log(err);
         res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
+        return;
       }
       else {
         console.log(rows.insertId);
+        fs.mkdirSync('uploads/'+info.id);
+        fs.mkdirSync('uploads/'+info.id+'/1');
+        fs.mkdirSync('uploads/'+info.id+'/2');
+        fs.mkdirSync('uploads/'+info.id+'/3');
+        console.log(info.id+' 폴더 생성');
         res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
-       }
+       } // 첫 사진 등록 시 회원의 사진 폴더 생성
     });
   }
   //디버깅용 로그
@@ -514,10 +566,10 @@ router.post('/message', function(req, res) {
 
 /* 함수 정의 */
 
-function go_contents(login_go) {
+function go_contents(login_go, r_num) {
   var contents_st = '<form id="sample" action="/contents" method="post">'
   +'<input style="display: none;" name="visit_to" type="text" value="'+login_go+'">'
-  +'<input style="display: none;" name="room_num" type="text" value="1">'
+  +'<input style="display: none;" name="room_num" type="text" value="'+r_num+'">'
   +'<input style="display: none;" type="submit" value="submit">'
   +'<script>document.getElementById("sample").submit();</script>';
   return contents_st;

@@ -6,7 +6,11 @@
     <title>사진 전시회 서비스 - 내용 페이지</title>
     <link rel="stylesheet" href="/stylesheets/contents.css"></link>
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+ 
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+   
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
 <body>
     <header>
@@ -18,13 +22,23 @@
             </div>
             <div id="room">
                 <form action="/contents" method="post">
-                    <input type="text" name="change_room" style="display: none;">
-                    <input type="submit" value="Room #1">
-                    <input type="submit" value="Room #2">
-                    <input type="submit" value="Room #3">
+                    <input type="text" id="room_num" name="room_num" style="display: none;" value="<%= room_num %>">
+                    <button class="r_c" value="1">Room #1</button>
+                    <button class="r_c" value="2">Room #2</button>
+                    <button class="r_c" value="3">Room #3</button>
                 </form>
                 <div>
-                   <button type="button" id="upload"><img src="/images/setting.png" width="20px"></button>
+                    <form id="edit" action="/editPhoto" method="post" style="display: none;">
+                        <input type="text" name="edit_room_num" value="<%= room_num %>">
+                        <input type="text" id="photos_x_pos" name="photos_x_pos">
+                        <input type="text" id="photos_y_pos" name="photos_y_pos">
+                        <input type="text" id="photos_w" name="photos_w">
+                        <input type="text" id="photos_h" name="photos_h">
+                        <input type="text" id="photos_name" name="photos_name">
+                    </form>
+                   <button type="button" id="upload" value="stop">
+                       <img src="/images/setting.png" width="20px">
+                    </button>
                 </div>
             </div>
         </div>
@@ -63,7 +77,11 @@
     <main>
         <!-- 회원이 등록한 사진 -->
         <% for (var i = 0; i < rows.length; i++) { %>
-            <img class="user_photo" src="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>" width="300px" height="200px">
+            <div class="user_photo" style="width: <%= rows[i].width %>px; height: <%= rows[i].height %>px;
+            left: <%= rows[i].x_pos %>px; top: <%= rows[i].y_pos %>px;">
+                <img src="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>">
+                <input type="text" class="photo_name" style="display: none;" value="<%= rows[i].photo_name %>">
+            </div>
         <% } %>
         <!-- profile에 커서 올릴 때 미니 프로필 -->
         <div id="mini_profile">
@@ -84,8 +102,9 @@
                 <button id="modalcomeout" type="button">X</button>
                 <h1>사진 추가</h1>
                 <form action="/file/upload" method="post" enctype="multipart/form-data">
-                    <input type="text" name="room_num" id="room_num" style="display: none;" value="<%= room_num %>">
+                    <input type="text" name="add_num" id="add_num" style="display: none;">
                     <input type="text" name="photo_name" id="photo_name" placeholder="사진 이름">
+                    <input type="text" name="upload_num" value="<%= room_num %>" style="display: none;">
                     <input type="file" name="file">
                     <input type="submit" id="add_submit" value="추가 하기">
                 </form>
