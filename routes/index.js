@@ -26,7 +26,7 @@ var connection = mysql.createConnection({
 connection.connect();
 connection.query('USE project', function(err,rows,fields){
   if(!err)
-    console.log('DB INFO_ ', rows);
+    console.log('DB OK_ (index)');
   else
     console.log('DB ERR_', err);
 });
@@ -188,6 +188,7 @@ router.get('/search', function(req, res) {
 /* -------------------------------- 기능 구현 --------------------------------- */
 /* --------------------------------------------------------------------------- */
 
+/* --------------------------- 컨텐츠 박스 이동 기능 --------------------------- */
 router.post('/editPhoto', function(req, res) {
   var photos_x_pos = new Array();
   var photos_y_pos = new Array();
@@ -231,6 +232,7 @@ router.post('/editPhoto', function(req, res) {
 router.post('/search', function(req, res) {
   res.send('<script> location.href = "/search"; </script>');
 });
+/* ------------------------- 컨텐츠 박스 이동 기능 끝 ------------------------- */
 
 
 /* --------- 계정 관련 기능 (로그인, 로그아웃, 회원가입, 회원탈퇴 기능) --------- */
