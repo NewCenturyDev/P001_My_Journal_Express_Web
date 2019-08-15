@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 connection.connect();
 connection.query('USE project', function(err,rows,fields){
   if(!err)
-    console.log('DB INFO_ ', rows);
+    console.log('DB OK_ (files)');
   else
     console.log('DB ERR_', err);
 });
