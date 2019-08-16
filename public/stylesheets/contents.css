@@ -107,6 +107,7 @@ header {
 
 main {
     height: 100%;
+    overflow-y: scroll;
 }
 
 /* 회원이 등록한 사진 */
@@ -115,7 +116,6 @@ main {
     border: solid;
     border-color: #353535;
     position: absolute;
-   
 }
 
 .user_photo > img {
@@ -179,7 +179,7 @@ main {
 }
 
 /* 사진 등록 모달창 */
-#modal {
+#modal, #modal2 {
     margin: auto;
     width: 25%;
     height: 50%;
@@ -187,8 +187,7 @@ main {
     border-radius: 5%;
 }
 
-#modal_bg{
-    z-index: 51;
+#modal_bg, #modal_bg2 {
     width: 100%;
     height: 100%;
     background-color: rgba(1,1,1,0.7);
@@ -199,7 +198,7 @@ main {
 }
 
 /* 사진 등록 모달창 닫기 */
-#modalcomeout {
+.modalcomeout {
     background: none;
     width: 10%;
     height: 30px;
@@ -221,11 +220,23 @@ main {
     font-family: 'Do Hyeon', sans-serif;
 }
 
+#modal2 > h1 {
+    margin-top: 9%;
+    margin-bottom: 7%;
+    text-align: center;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
 #modal > form {
     height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+#modal2 > form {
+    height: 50%;
+    text-align: center;
 }
 
 #modal > form > input {
@@ -237,11 +248,18 @@ main {
     border: solid 3px;
     border-radius: 5px;
     height: 20%;
-
     padding: 0 10px;
 }
 
-#add_submit {
+.edit_input {
+    border: solid 3px;
+    border-radius: 5px;
+    height: 20%;
+    padding: 0 10px;
+    margin-bottom: 6%;
+}
+
+#add_submit, #edit_submit, #delete_submit {
     width: 30%;
     border: none;
     height: 20%;
@@ -259,7 +277,7 @@ input::placeholder {
     font-size: 15px; 
 }
 
-#modal > form > input::placeholder {
+#modal > form > input::placeholder, #modal2 > form > input::placeholder {
     color: black;
     font-size: 14px; 
 }

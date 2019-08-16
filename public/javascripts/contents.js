@@ -6,10 +6,11 @@ var upload = document.getElementById('upload');
 
 /* 사진 등록 위한 모달 및 버튼 */
 var add_modal = document.getElementById('modal_bg');
+var edit_modal = document.getElementById('modal_bg2');
 var add = document.getElementById('add');
 var r_c = document.getElementsByClassName("r_c");
 var add_num = document.getElementById('add_num');
-var modalcomeout = document.getElementById('modalcomeout');
+var modalcomeout = document.getElementsByClassName("modalcomeout");
 var room_num = document.getElementById('room_num');
 
 /* 사용자가 등록한 사진 관련 객체 */
@@ -42,7 +43,12 @@ function addPhoto() {
 }
 
 function closeMsg() {
-  add_modal.style.display = 'none';
+  if (add_modal.style.display === 'flex') {
+    add_modal.style.display = 'none';
+  }
+  if (edit_modal.style.display === 'flex') {
+    edit_modal.style.display = 'none';
+  }
 }
 
 function change_room_num() {
@@ -98,7 +104,13 @@ function move_photo() {
     cursor: "pointer",
     containment: "main"
   });
-}
+};
+
+/* 우클릭 시 사진 변경 모달 띄우기 */
+$(".user_photo").bind("contextmenu", function(e) {
+  $("#modal_bg2").css('display', 'flex');
+  return false;
+});
 
 profile.addEventListener("click", goProfile);
 logout.addEventListener("click", logOut);
@@ -107,7 +119,9 @@ people.addEventListener("click", goPeople);
 for (var i = 0; i < r_c.length; i++) {
   r_c[i].addEventListener("click", change_room_num);
 }
+for (var i = 0; i < modalcomeout.length; i++) {
+  modalcomeout[i].addEventListener("click", closeMsg);
+}
 
 add.addEventListener("click", addPhoto);
-modalcomeout.addEventListener("click", closeMsg);
 upload.addEventListener("click", move_and_stop); // 사진 편집 후 DB에 저장

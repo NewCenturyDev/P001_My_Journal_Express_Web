@@ -78,7 +78,7 @@
         <!-- 회원이 등록한 사진 -->
         <% for (var i = 0; i < rows.length; i++) { %>
             <div class="user_photo" style="width: <%= rows[i].width %>px; height: <%= rows[i].height %>px;
-            left: <%= rows[i].x_pos %>px; top: <%= rows[i].y_pos %>px;">
+            left: <%= rows[i].x_pos %>px; top: <%= rows[i].y_pos %>px; z-index: <%= i %>+1;">
                 <img src="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>">
                 <input type="text" class="photo_name" style="display: none;" value="<%= rows[i].photo_name %>">
             </div>
@@ -99,7 +99,7 @@
         <!-- 사진 등록 시 모달창 -->
         <div id="modal_bg" style="display: none;">
             <div id="modal">
-                <button id="modalcomeout" type="button">X</button>
+                <button class="modalcomeout" type="button">X</button>
                 <h1>사진 추가</h1>
                 <form action="/file/upload" method="post" enctype="multipart/form-data">
                     <input type="text" name="add_num" id="add_num" style="display: none;">
@@ -107,6 +107,23 @@
                     <input type="text" name="upload_num" value="<%= room_num %>" style="display: none;">
                     <input type="file" name="file">
                     <input type="submit" id="add_submit" value="추가 하기">
+                </form>
+            </div>
+        </div>
+        <!-- 사진 크기, 각도 변경 및 삭제 모달창 -->
+        <div id="modal_bg2" style="display: none;">
+            <div id="modal2">
+                <button class="modalcomeout" type="button">X</button>
+                <h1>사진 변경</h1>
+                <form action="/edit_detail_photo" method="post">
+                    <input type="text" name="edit_photo_user" class="edit_input" style="display: none;">
+                    <input type="text" name="edit_photo_name" class="edit_input" style="display: none;">
+                    <input type="text" name="edit_photo_width" class="edit_input" placeholder="가로 크기 (px)"><br>
+                    <input type="text" name="edit_photo_height" class="edit_input" placeholder="세로 크기 (px)"><br>
+                    <input type="text" name="edit_photo_degree" class="edit_input" placeholder="각도"><br>
+                    <input type="text" name="edit_room_num" value="<%= room_num %>" style="display: none;">
+                    <input type="submit" name="edit_submit" id="edit_submit" value="변경 하기">
+                    <input type="submit" name="delete_submit" id="delete_submit" value="삭제 하기">
                 </form>
             </div>
         </div> 

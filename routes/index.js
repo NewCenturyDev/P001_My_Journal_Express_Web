@@ -13,7 +13,7 @@ var fs = require("fs-extra");
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
@@ -228,6 +228,17 @@ router.post('/editPhoto', function(req, res) {
   
   res.send ('<script>alert("변경 사항이 저장되었습니다!");</script>'+go_contents(visit_to, room_num));
 }); // 사진 정보로 변경
+
+router.post('/edit_detail_photo', function (req, res) {
+  var visit_to = req.session.visit_to;
+  var room_num = req.body.edit_room_num;
+
+  var width = req.body.edit_photo_width;
+  var height = req.body.edit_photo_height;
+  var degree = req.body.edit_photo_degree;
+  
+  res.send ('<script>alert("변경 사항이 저장되었습니다!");</script>'+go_contents(visit_to, room_num));
+}); // 사진 크기, 각도 변경
 
 router.post('/search', function(req, res) {
   res.send('<script> location.href = "/search"; </script>');
