@@ -104,7 +104,7 @@ router.post('/contents', function(req, res) {
     login.nick = req.session.user.nick;
   }
 
-  var sql_sel = "SELECT * FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
+  var sql_sel = "SELECT *, date_format(date, '%Y-%m-%d') p_date FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
   var params = [req.session.visit_to, room_num];
   console.log(params);
   connection.query(sql_sel, params, function(err1, rows) {
@@ -202,7 +202,7 @@ router.post('/editPhoto', function(req, res) {
   photos_x_pos = req.body.photos_x_pos.split(',');
   photos_y_pos = req.body.photos_y_pos.split(','); // 배열에 넘겨준 값 저장
  
-  var sql_crt = "CREATE VIEW room AS SELECT photo_name, x_pos, y_pos, width, height, degree FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
+  var sql_crt = "CREATE VIEW room AS SELECT photo_name, x_pos, y_pos, width, height, FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
   var params_crt = [visit_to, room_num];
   connection.query(sql_crt, params_crt, function(err) {
     if (err) {
@@ -232,13 +232,39 @@ router.post('/editPhoto', function(req, res) {
 router.post('/edit_detail_photo', function (req, res) {
   var visit_to = req.session.visit_to;
   var room_num = req.body.edit_room_num;
+  var photo_name = req.body.edit_photo_name;
 
   var width = req.body.edit_photo_width;
   var height = req.body.edit_photo_height;
-  var degree = req.body.edit_photo_degree;
-  
-  res.send ('<script>alert("변경 사항이 저장되었습니다!");</script>'+go_contents(visit_to, room_num));
-}); // 사진 크기, 각도 변경
+
+  if (req.body.mode==="edit") {
+    var sql_udt = "UPDATE photo SET width = ?, height = ? WHERE member_id = ? AND photo_name = ? AND room_num = ?";
+    var params_udt = [width, height, visit_to, photo_name, room_num];
+    connection.query(sql_udt, params_udt, function(err) {
+      if (err) {
+        console.log(err);
+        console.log('사진 변경 실패');
+      }
+      else {
+        console.log('변경 완료');
+        res.send ('<script>alert("변경 사항이 저장되었습니다!");</script>'+go_contents(visit_to, room_num));
+      }
+    });
+  } // 변경을 눌렀을 때 사진 크기 변경
+  else if (req.body.mode==="delete") {
+    var sql_del = "DELETE FROM photo WHERE member_id = ? AND photo_name = ? AND room_num = ?";
+    var params_del = [visit_to, photo_name, room_num];
+    connection.query(sql_del, params_del, function(err) {
+      if (err) {
+        console.log('사진 삭제 실패');
+      }
+      else {
+        console.log('삭제 완료');
+        res.send ('<script>alert("사진이 삭제되었습니다!");</script>'+go_contents(visit_to, room_num));
+      }
+    });
+  } // 삭제 눌렀을 때 사진 크기 삭제
+}); // 사진 크기 변경 및 삭제
 
 router.post('/search', function(req, res) {
   res.send('<script> location.href = "/search"; </script>');

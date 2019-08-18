@@ -5,7 +5,7 @@ html, body{
 }
 
 header {
-    z-index: 1;
+    z-index: 50;
     width: 100%;
     height: 50px;
     background-color: rgba(0,0,0,0.3);
@@ -116,11 +116,17 @@ main {
     border: solid;
     border-color: #353535;
     position: absolute;
+    z-index: 0;
 }
 
 .user_photo > img {
     width: 100%;
     height: 100%;
+}
+
+.photohover:hover {
+    transform: rotate(20deg);
+    transition: all ease 0.4s;
 }
 
  /* 로그인 시 나타나는 회원의 미니 프로필 */
@@ -187,7 +193,13 @@ main {
     border-radius: 5%;
 }
 
-#modal_bg, #modal_bg2 {
+#modal3 {
+    margin: auto;
+    width: 42%;
+    height: 80%;
+}
+
+#add_modal_bg, #edit_modal_bg, #zoom_modal_bg {
     width: 100%;
     height: 100%;
     background-color: rgba(1,1,1,0.7);
@@ -204,6 +216,11 @@ main {
     height: 30px;
     float: right;
     border: none;
+}
+
+#photo_zoom > .modalcomeout {
+    height: 30px;
+    padding-left: 7%;
 }
 
 #msg_but {
@@ -268,6 +285,41 @@ main {
     color: white;
     border-radius: 25px;
     cursor: pointer;
+}
+
+/* 사진 확대 선택자 */
+
+#photo_zoom {
+    width: 100%;
+    height: 93%;
+}
+
+#photo_info {
+    widows: 100%;
+    height: 7%;
+    font-size: 14px;
+}
+
+#photo_info > p {
+    color: white;
+}
+
+#cnt {
+    float: left;
+}
+
+#zoom_date {
+    float: right;
+    margin-right: 2%;
+}
+
+#zoom_name {
+    float: right;
+}
+
+#zoom_img {
+    width: 100%;
+    height: 95%;;
 }
 
 /* 정의 및 기본 선택자 */

@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="/stylesheets/contents.css"></link>
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
- 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-   
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
 <body>
@@ -32,8 +30,6 @@
                         <input type="text" name="edit_room_num" value="<%= room_num %>">
                         <input type="text" id="photos_x_pos" name="photos_x_pos">
                         <input type="text" id="photos_y_pos" name="photos_y_pos">
-                        <input type="text" id="photos_w" name="photos_w">
-                        <input type="text" id="photos_h" name="photos_h">
                         <input type="text" id="photos_name" name="photos_name">
                     </form>
                    <button type="button" id="upload" value="stop">
@@ -78,9 +74,14 @@
         <!-- 회원이 등록한 사진 -->
         <% for (var i = 0; i < rows.length; i++) { %>
             <div class="user_photo" style="width: <%= rows[i].width %>px; height: <%= rows[i].height %>px;
-            left: <%= rows[i].x_pos %>px; top: <%= rows[i].y_pos %>px; z-index: <%= i %>+1;">
+            left: <%= rows[i].x_pos %>px; top: <%= rows[i].y_pos %>px;">
                 <img src="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>">
+                <input type="text" class="photo_src" value="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>" style="display: none;">
                 <input type="text" class="photo_name" style="display: none;" value="<%= rows[i].photo_name %>">
+                <input type="text" class="photo_w" style="display: none;" value="<%= rows[i].width %>">
+                <input type="text" class="photo_h" style="display: none;" value="<%= rows[i].height %>">
+                <input type="text" class="photo_d" style="display: none;" value="<%= rows[i].degree %>">
+                <input type="text" class="photo_date" style="display: none;" value="<%= rows[i].p_date %>">
             </div>
         <% } %>
         <!-- profile에 커서 올릴 때 미니 프로필 -->
@@ -97,7 +98,7 @@
                 <img src="/images/add_icon.png" width="60px">
             </button>
         <!-- 사진 등록 시 모달창 -->
-        <div id="modal_bg" style="display: none;">
+        <div id="add_modal_bg" style="display: none;">
             <div id="modal">
                 <button class="modalcomeout" type="button">X</button>
                 <h1>사진 추가</h1>
@@ -111,22 +112,37 @@
             </div>
         </div>
         <!-- 사진 크기, 각도 변경 및 삭제 모달창 -->
-        <div id="modal_bg2" style="display: none;">
+        <div id="edit_modal_bg" style="display: none;">
             <div id="modal2">
                 <button class="modalcomeout" type="button">X</button>
                 <h1>사진 변경</h1>
                 <form action="/edit_detail_photo" method="post">
                     <input type="text" name="edit_photo_user" class="edit_input" style="display: none;">
-                    <input type="text" name="edit_photo_name" class="edit_input" style="display: none;">
-                    <input type="text" name="edit_photo_width" class="edit_input" placeholder="가로 크기 (px)"><br>
-                    <input type="text" name="edit_photo_height" class="edit_input" placeholder="세로 크기 (px)"><br>
-                    <input type="text" name="edit_photo_degree" class="edit_input" placeholder="각도"><br>
+                    <input type="text" id="e_p_n" name="edit_photo_name" class="edit_input" style="display: none;">
+                    <input type="text" id="e_p_w" name="edit_photo_width" class="edit_input" placeholder="가로 크기 (px)"><br>
+                    <input type="text" id="e_p_h" name="edit_photo_height" class="edit_input" placeholder="세로 크기 (px)"><br>
+                    <input type="text" id="e_p_d" name="edit_photo_degree" class="edit_input" placeholder="각도"><br>
                     <input type="text" name="edit_room_num" value="<%= room_num %>" style="display: none;">
-                    <input type="submit" name="edit_submit" id="edit_submit" value="변경 하기">
-                    <input type="submit" name="delete_submit" id="delete_submit" value="삭제 하기">
+                    <input type="text" id="mode" name="mode" style="display: none;">
+                    <button name="edit_submit" id="edit_submit">변경 하기</button>
+                    <button name="delete_submit" id="delete_submit">삭제 하기</button>
                 </form>
             </div>
-        </div> 
+        </div>
+        <!-- 사진 또는 동영상 클릭 시 확대 모달창 -->
+        <div id="zoom_modal_bg" style="display: none;">
+            <div id="modal3">
+                <div id="photo_zoom">
+                    <button class="modalcomeout" type="button">X</button>
+                    <img id="zoom_img" src="">
+                </div>
+                <div id="photo_info">
+                    <p id="cnt">조회수 n회</p>
+                    <p id="zoom_name">사진 이름</p>
+                    <p id="zoom_date">날짜</p>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
     <script src="/javascripts/contents.js"></script>
