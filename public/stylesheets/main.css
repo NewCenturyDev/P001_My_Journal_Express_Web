@@ -1,7 +1,7 @@
 html, body{
     margin: 0;
     overflow: scroll-y;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: white;
 }
 
 header {
@@ -37,46 +37,59 @@ header {
 
 /* header의 login 버튼 */
 #login {
-    margin-top: 5px;
+    margin-top: 9px;
 }
 
 /* header의 register 버튼 */
 #register {
-    margin-top: 9px;
+    margin-top: 10px;
 }
 
 main {
+    width: 90%;
+    margin: 0 auto;
     display: block;
     padding-bottom: 3.5%;
 }
 
 main > div {
-    margin: auto;
+    margin-bottom: 60px;
 }
 
 #logo {
-    margin-top: 4%;
-    width: 500px;
-    height: 150px;
+    text-align: center;
+    float: left;
+    width: 100%;
+}
+
+#logo > a {
+    font-size: 140px;
+    font-family: 'impact';
 }
 
 form {
-    margin: auto;
+    margin: 0 auto;
     margin-top: 3.5%;
     width: 55%;
 }
 
 /* 검색 부분 */
 main > form > input {
+    margin-bottom: 60px;
     height: 100px;
     width: 90%;
     background-color: inherit;
     border: 0;
-    border-bottom: 2px solid rgb(43, 83, 193);
+    border-bottom: 2px solid #2b53c1;
     border-radius: 1px;
     color: rgb(43, 83, 193);
     font-size: 33px;
     padding: 0 25px;
+}
+
+#main_img > img {
+    width: 100%;
+    height: 450px;
 }
 
 input ::placeholder {
@@ -93,18 +106,29 @@ input ::-moz-placeholder{
 
 /* 서비스 소개 부분 */
 #introduce {
-    margin-top: 4%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 75%;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
+    width: 100%;
+    height: 450px;
 }
 
 #introduce > div {
-    width: 33%;
+    margin: 0 auto;
+    width: 80%;
 }
+
+#title {
+    height: 13%;
+}
+
+.title_font {
+    font-family: 'impact';
+    font-size: 30px;
+    color: rgb(43, 83, 193);
+}
+
+#contetns {
+    height: 87%;
+}
+
 
 input::placeholder {
     text-align: center;
@@ -116,4 +140,11 @@ input, button {
 
 img {
     cursor: pointer;
+    outline: 0;
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    color: #002266;
 }

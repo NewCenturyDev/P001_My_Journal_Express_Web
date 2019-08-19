@@ -202,7 +202,7 @@ router.post('/editPhoto', function(req, res) {
   photos_x_pos = req.body.photos_x_pos.split(',');
   photos_y_pos = req.body.photos_y_pos.split(','); // 배열에 넘겨준 값 저장
  
-  var sql_crt = "CREATE VIEW room AS SELECT photo_name, x_pos, y_pos, width, height, FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
+  var sql_crt = "CREATE VIEW room AS SELECT photo_name, x_pos, y_pos, width, height FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
   var params_crt = [visit_to, room_num];
   connection.query(sql_crt, params_crt, function(err) {
     if (err) {
