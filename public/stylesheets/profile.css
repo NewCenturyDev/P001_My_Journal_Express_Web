@@ -1,112 +1,112 @@
-html,body{
+/*------------------------------ CSS 초기화 ------------------------------*/
+html{
     margin: 0;
-    height: 100%;
-    background-image: url("/images/background.png");
-  }
+    background-color: rgba(0, 0, 0, 0.05);
+}
+body{
+    margin: 0;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+button {
+    outline: 0;
+}
+/*---------------------------- CSS 초기화 끝 ----------------------------*/
 
-  header {
+/*------------------------------- 헤더 부분 -------------------------------*/
+/* header 기본 */
+header {
     width: 100%;
     height: 50px;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.3);
-    display: flex;
+    background-color: rgb(43, 83, 193);
     flex-direction: row;
 }
 
-h3, h4{
-    text-align: left;
-    text-decoration-color: gray;
-}
-
-
-
- /* header의 로고 및 room 버튼 부분 */
-#left_h {
-    width: 37%;
+/* header의 로고 및 room 버튼 부분 */
+#header_left {
+    width: 35%;
     height: 50px;
-    display: flex;
-    flex-direction: row;
+    float: left;
+}
+#logo{
+    width: 220px;
 }
 
-header > #left_h > div{
+/* header의 검색 부분 */
+#header_center {
+    width: 30%;
     height: 50px;
+    margin: 0;
+    float: left;
+}
+#header_center > #find {
+    width: 100%;
+}
+#header_center > #find > form{
+    width: 100%;
+    margin: 0;
 }
 
- /* header의 검색 부분 */
-#center_h {
-    width: 55%;
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-    left: 3%;
-    position: relative;
-}
-
-#center_h > #find {
-    width: 45%;
-}
-
- /* header의 search 디자인 부분 */
-#center_h > div > form > input {
-    width: 90%;
-    color: white;
+/* header의 search 디자인 부분 */
+#header_center > div > form > input {
+    width: 100%;
     margin-top: 6px;
+    background-color: inherit;
     border: none;
-    border-radius: 5px;
+    border-bottom: 2px solid white;
+    border-radius: 1px;
     height: 35px;
+    color: white;
     padding: 0 10px;
-    outline: 0;
-    background-color: rgba(0,0,0,0.6);
+}
+#header_center > div > form > input::placeholder {
+    color: white;
+    font-size: 15px;
 }
 
- /* header의 사용자 버튼 */
-#right_h {
-    width: 200px;
+/* header의 사용자 버튼 */
+#header_right {
+    width: 35%;
     height: 50px;
     position: relative;
     float: right;
-    display: flex;
-    flex-direction: row;
+    overflow: hidden;
 }
-
-#right_h > div {
-    margin-right: 7%;
+#header_right > div {
+    margin-right: 1%;
+    float: right;
 }
-
-#right_h > div > button {
+#header_right > div > button {
     margin-top: 7%;
     cursor: pointer;
     border: none;
     color: white;
     font-size: 13px;
-    outline: 0;
     background: none;
 }
+/*----------------------------- 헤더 부분 끝 -----------------------------*/
 
-/* 본문 부분 */
+
+
+/*------------------------------ 본문 부분 -------------------------------*/
+/* 본문 부분 기본 */
 section{
     z-index: 1;
     display: relative;
     margin: 50px auto;
     padding: 0;
-    width: 50%;
-    height: 700px;
-    background-color: rgba(0,0,0,0.5);
-    border: 1px solid black;
+    width: 80%;
+    /*height: 700px;*/
+    border: 0;
 }
 
 /* 내부 상단 탭 메뉴 */
 nav{
     width: 100%;
     height: 50px;
-    background-color: rgba(0,0,0,0.5);
-    border-bottom: 2px solid white;
-    box-sizing: content-box;
-}
-
-article{
-    width: 100%;
-    height: 550px;
+    border-bottom: 2px solid black;
     box-sizing: content-box;
 }
 
@@ -115,127 +115,101 @@ article{
     text-align: center;
     display: inline-block;
     margin: auto 0;
-    width: 20%;
+    width: 10%;
     height: 50px;
-    font-size: 20px;
-    color: white;
+    font-size: 15px;
+    color: grey;
     text-align: center;
-    line-height: 40px;
+    line-height: 50px;
     cursor: pointer;
 }
 
-.navbutton:hover{
-    box-shadow: 0 12px 16px 0 rgba(255,255,255,0.5), 0 17px 50px 0 rgba(0,0,0,0.19);
+/* 본문 내용 */
+article{
+    width: 100%;
+    box-sizing: content-box;
 }
-    
+h3, h4{
+    text-align: left;
+    text-decoration-color: gray;
+}
 
 /*내정보 탭*/
 .myinfo{
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 580px;
-    height: 530px;
+    margin: 0 10%;
+    width: 80%;
+    height: 350px;
 }
-
-.Lpicture{
+.Mypicture{
     display: block;
-    width: 200px;
-    height: 530px;
-    margin-right: 20px;
+    float: left;
+    width: 30%;
+    height: 350px;
+    margin-right: 10%;
 }
-
 .picture{
-    margin-top: 100px;
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 180px;
-    height: 180px;
-}
-
-.pictures{
+    margin: 0 auto;
+    margin-top: 80px;
     width: 180px;
     height: 180px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 1px solid black;
+    background-image: url("http://placehold.it/180x180");
+    border: 2px solid black;
 }
-
-.picture_agree{
+.picture_modify{
+    margin-top: 10px;
+    line-height: 15px;
     text-align: center;
 }
-
+.picture_modify > a{
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(43, 83, 193);
+}
 .info{
     display: block;
-    flex-direction: row;
-    width: 380px;
-    height: 530px;
-}
-
-.id{
-    margin-top: 100px;
-    width: 300px;
-    height: 70px;
-}
-
-.replytext_id{
-    width: 240px;
-    height: 25px;
-    border: 1px solid black;
-}
-
-.name{
-    margin-top: 2px;
-    width: 300px;
-    height: 70px;
-}
-
-.replytext_name{
-    width: 240px;
-    height: 25px;
-    border: 1px solid black;
-}
-
-.password{
-    margin-top: 2px;
-    width: 300px;
-    height: 70px;
-}
-
-.replytext_password{
-    width: 240px;
-    height: 25px;
-    border: 1px solid black;
-}
-
-.state{
-    margin-top: 2px;
-    width: 300px;
-    height: 140px;
-}
-
-.replytext_state{
-    width: 280px;
-    height: 90px;
-    border: 1px solid black;
-}
-
-.agree{
     float: right;
-    margin-right: 10px;
+    width: 60%;
+    margin-top: 50px;
+    height: 300px;
 }
-.agreebutton{
-    height: 35px;
-    background-color: rgba(0,0,0,0.5);
-    font-size: 15px;
-    color: white;
+.info > table{
+    width: 100%;
+    margin: auto 0;
+    border-collapse: collapse;
+}
+#t_head{
+    width: 100%;
+    height: 50px;
+    font-size: 45px;
+    font-weight: bold;
+    line-height: 50px;
+    color: rgb(43, 83, 193);
+}
+.t_label{
+    width: 15%;
+    height: 23px;
+    margin: 0;
     border: 0;
-    border-radius: 25px;
-    cursor: pointer;
+    border-bottom: 2px solid rgb(43, 83, 193);
+    background-color: rgba(0,0,0,0);
+}
+.t_data{
+    width: 85%;
+    height: 23px;
+    margin: 0;
+    border: 0;
+    border-bottom: 2px solid rgb(43, 83, 193);
+    background-color: rgba(0,0,0,0);
 }
 
 /*구독 탭*/
-
+.subscribe{
+    display: flex;
+    flex-direction: column;
+    padding: 0 auto;
+    height: 100%;
+}
 #sub_msg {
     font-weight: bold;
     font-size: 20px;
@@ -243,62 +217,53 @@ article{
     z-index: 1;
     height: 60px;
 }
-
-.sub{
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    height: 100%;
-}
-
 #sub_msg  > h1 {
     font-family: 'Do Hyeon', sans-serif;
 }
-
 .people{
-    display: flex;
-    margin-bottom: 10%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    padding-left: 4%;
+    display: inline-block;
+    padding: 2.5%;
+    margin-bottom: 5px;
+    width: 200px;
+    height: 325px;
+    border: 2px solid black;
 }
-
 .Spicture{
     width: 90px;
     height: 90px;
+    background-image: url("http://placehold.it/90x90");
+    margin: 10px auto;
 }
-
-.pictures1{
-    height: 90px;
-}
-
-.subbox > form > button {
-    width: 45%;
-    height: 35px;
-    background-color: rgba(0,0,0,0.5);
-    font-size: 15px;
-    color: white;
-    border: 0;
-    border-radius: 25px;
-    cursor: pointer;
-    margin-right: 4%;
-}
-
 .subbox{
-    width: 45%;
-    padding-left: 5%;
-    margin-left: 10%;
+    width: 100%;
+    margin: 0;
     font-size: 10px;
 }
-
+.subbox > form > button {
+    width: 70%;
+    margin: 5px 15%;
+    height: 25px;
+    background-color: rgb(43, 83, 193);
+    font-size: 15px;
+    line-height: 15px;
+    text-align: center;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
 .subbox > form > input {
     display: none;
 }
-
+.realname {
+    margin-bottom: 12%;
+}
 
 /*쪽지 탭*/
-
+.letter{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
 #let_msg {
     font-weight: bold;
     font-size: 20px;
@@ -306,119 +271,156 @@ article{
     z-index: 1;
     height: 60px;
 }
-
 #let_msg > h1 {
     font-family: 'Do Hyeon', sans-serif;
 }
-
-.lettle{
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-}
-
 .ups{
     height: 60px;
 }
-
 .downs{
     border-width: 1px;
     border-color: black;
 }
-
 .tables{
     width: 100%;
     text-align: center;
+    border-collapse: collapse;
 }
-
 .pre_nick, .pre_cont, .pre_date, .pre_num {
     display: none;
 }
-
-th{
-    background-color: rgba(0,0,0,0.3);
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
+.tables > th{
+    border: 0;
+    border-bottom: 2px solid black;
 }
-
-td{
-    background-color: rgba(223, 213, 213, 0.788);
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
+.tables > td{
+    border: 0;
+    border-bottom: 2px solid black;
 }
-
 .modalcomeon {
     font-size: 18px;
     font-family: 'Do Hyeon', sans-serif;
     background: none;
     border: none;
-}
-
-th, tr {
-    height: 100%;
-}
-
-td :hover a{
-    color: white;
-    text-decoration-color: #fafafa;
-}
-
-/*회원탈퇴 탭*/
-.idout{
-    margin: 10px auto;
-    width: 580px;
-    height: 530px;
-}
-
-.outcontent{
-    width: 580px;
-    height: 320px;
-}
-
-.longtext1{
-    text-align: center;
-    width: 560px;
-    height: 320px;
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color: #fafafa;
-}
-
-.reok{
-    width: 580px;
-    height: 150px;
-    margin-left: 20px;
-}
-
-.authid{
-    margin-right: 10px;
-}
-
-.resignbutton{
-    margin: 5px 0;
-    height: 35px;
-    background-color: rgba(0,0,0,0.5);
-    font-size: 15px;
-    color: white;
-    border: 0;
-    border-radius: 25px;
     cursor: pointer;
 }
 
-.reok > p{
-    font-size: 15px;
+/*회원정보수정 탭*/
+.modify_info{
+    margin: 0 10%;
+    width: 80%;
+    height: 320px;
+}
+.modify_info_title{
     font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    z-index: 1;
+}
+.modify_info_title > h1{
+    font-family: 'Do Hyeon', sans-serif;
+}
+.modify_auth{
+    width: 100%;
+    height: 200px;
+    margin-top: 50px;
+}
+.modify_auth > form > p{
+    width: 100%;
+    height: 15px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 15px;
+}
+.remodify{
+    width: 100%;
+    height: 200px;
+    margin-top: 50px;
+}
+.remodify > form > p{
+    width: 100%;
+    height: 15px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 15px;
+}
+.modi_input{
+    display: block;
+    width: 30%;
+    height: 20px;
+    margin: 15px auto;
+    border: 0;
+    border-bottom: 2px solid rgb(43, 83, 193);
+    background-color: rgba(0,0,0,0);
+}
+.modi_confirm{
+    width: 150px;
+    height: 30px;
+    border: 0;
+    background-color: rgb(43, 83, 193);
     color: white;
 }
 
+/*회원탈퇴 탭*/
+.resign{
+    margin: 10px auto;
+    width: 80%;
+    height: 320px;
+}
+.resign_title {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    z-index: 1;
+}
+.resign_title > h1 {
+    font-family: 'Do Hyeon', sans-serif;
+}
+#resign_warnings{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+#resign_warnings > h2{
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+#resign_warnings > p{
+    margin: 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+}
+#resign_confirm{
+    width: 100%;
+    margin-top: 30px;
+}
+#resign_confirm > input{
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+    width: 30%;
+    height: 25px;
+    border: 0;
+    border-bottom: 2px solid rgb(43, 83, 193);
+    background-color: rgba(0,0,0,0);
+}
+.resignbutton{
+    height: 35px;
+    float: right;
+    background-color: rgb(43, 83, 193);
+    font-size: 15px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+/*------------------------------ 본문 부분 끝 -------------------------------*/
 
-/* 쪽지 모달창 */
-
+/*------------------------------- 쪽지 모달창 -------------------------------*/
 /* 모달창 배경 */
 .plettle{
-    padding-top: 6%;
     z-index: 1;
     width: 100%;
     height: 100%;
@@ -430,10 +432,13 @@ td :hover a{
     overflow: auto;
 }
 
-/* 모달창 내용 */
-
-.modalcomeon {
-    cursor: pointer;
+/* 모달창 내용 기본 */
+.modal{
+    margin: auto;
+    z-index: 1;
+    width: 300px;
+    height: 300px;
+    background-color: white;
 }
 .modalcomeout {
     z-index: 1;
@@ -444,101 +449,70 @@ td :hover a{
     border: none;
 }
 
-#msg_but {
-    width: 30%;
-    height: 10%;
-    margin-top: 4%;
-    margin-left: 6%;
-}
-
-.msgbutton{
-    margin: 5px 0;
-    height: 35px;
-    background-color: rgba(0,0,0,0.5);
-    font-size: 15px;
-    color: white;
-    border: 0;
-    border-radius: 25px;
-    cursor: pointer;
-}
-
-.modal{
-    margin: auto;
-    z-index: 1;
-    width: 500px;
-    height: 500px;
-    background-color: lightgray;
-    border-radius: 5%;
-}
-
+/* 모달창 내용 상단정보 */
 .upss{
+    margin: 0 5%;
     margin-top: 7%;
     padding-top: 6%;
-    width: 70%;
+    width: 90%;
     height: 23%;
     display: flex;
-    margin-left: 6%;
+    
 }
-
-.middle{
-    margin: 4% auto;
-    width: 80%;
-    height: 65%;
-    text-align: center;
-}
-
-#msg {
-    width: 94%;
-    height: 100%;
-
-}
-
-#msg_cont {
-    padding: 10px;
-    width: 99%;
-    height: 70%;
-    border: none;
-    outline: 0;
-    resize: none;
-    border: solid black;
-    background-color: white;
-}
-
-.longtext2{
-    border: 1px;
-    border-color: black;
-    margin-left: 50px;
-    margin-right: 50px;
-    width: 400px;
-    height: 300px;
-}
-
-.Spicture{
-    width: 110px;
-    height: 110px;
-}
-
-.subbox{
+.msg_info{
     font-size: 10px;
-    width: 50%;
+    width: 90%;
     margin-left: 10%;
 }
-
+#msg_nick{
+    font-size: 13px;
+}
+#msg_nick > h1{
+    margin: 0;
+}
 #date {
     font-size: 10px;
 }
-
-.realname {
-    margin-bottom: 12%;
+#date > h2{
+    margin: 0;
 }
 
-.Spicture > img {
+/* 모달창 메시지*/
+.middle{
+    margin: 5% 5%;
+    width: 90%;
+    height: 60%;
+    text-align: center;
+}
+#msg {
     width: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: solid;
-}
+    height: 100%;
 
-button {
-    outline: 0;
 }
+#msg_cont {
+    width: 97.5%;
+    height: 70%;
+    outline: 0;
+    resize: none;
+    border: 2px solid black;
+    background-color: white;
+}
+.msgbutton{
+    margin: 5px 0;
+    height: 25px;
+    background-color: rgb(43, 83, 193);
+    font-size: 15px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+#msg_send {
+    margin: 5px 0;
+    height: 25px;
+    background-color: rgb(43, 83, 193);
+    font-size: 15px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+/*----------------------------- 쪽지 모달창 끝 -----------------------------*/

@@ -8,21 +8,21 @@
     </head>
     <body>
         <header>
-            <div id="left_h">
+            <div id="header_left">
                 <div id="logo">
                     <a href="/">
                         <img src="http://placehold.it/220x50">
                     </a>
                 </div>
             </div>
-            <div id="center_h">
+            <div id="header_center">
                 <div id="find">
                     <form action="search" method="post">
                         <input type="text" name="" placeholder="search">
                     </form>
                 </div>
             </div>
-            <div id="right_h">
+            <div id="header_right">
                 <div>
                     <button type="button" id="logout">
                         <img src="/images/logout.png" width="30px">
@@ -42,52 +42,39 @@
         </header>
         <section>
             <nav>
-                <div class="navbutton" onclick="myDisplay();">정보 수정</div>
-                <div class="navbutton" onclick="subDisplay();">구독 수정</div>
-                <div class="navbutton" onclick="letDisplay();">쪽지함</div>
-                <div class="navbutton" onclick="idDisplay();">회원탈퇴</div>
+                <div class="navbutton" onclick="display_Myprofile();">내 프로필</div>
+                <div class="navbutton" onclick="display_Subscribe();">구독 수정</div>
+                <div class="navbutton" onclick="display_Letterbox();">쪽지함</div>
+                <div class="navbutton" onclick="display_Modifyinfo();">정보 수정</div>
+                <div class="navbutton" onclick="display_Resign();">회원탈퇴</div>
             </nav>
             <article>
                 <!--정보 수정-->
                 <div class="myinfo" style="display: flex">
-                    <div class="Lpicture">
-                        <div class="picture"><img class="pictures" src="https://instagram.ficn6-1.fna.fbcdn.net/vp/466efc55594472ab9b9ab6e885b06825/5D72B7DC/t51.2885-15/e35/57009221_306777196917572_856435609160832386_n.jpg?_nc_ht=instagram.ficn6-1.fna.fbcdn.net"></div>
-                        <div class="picture_agree"><p>사진 변경</p></div>
+                    <div class="Mypicture">
+                        <div class="picture"></div>
+                        <div class="picture_modify"><a href="">사진 변경</a></div>
                     </div>
                     <div class="info">
-                        <div class="id">
-                            <form class="id_box">
-                                <input class="replytext_id" type="text" placeholder="아이디"></input> 
-                            </form>
-                        </div>
-                        <div class="name">
-                            <form class="name_box">
-                                <input class="replytext_name" type="text" placeholder="이름"></input> 
-                            </form>
-                        </div>
-                        <div class="password">
-                            <form class="password_box">
-                                <input class="replytext_password" type="text" placeholder="비밀번호"></input> 
-                            </form>
-                        </div>
-                        <div class="state">
-                            <form class="state_box">
-                                <input class="replytext_state" type="text" placeholder="상태 메시지"></input> 
-                            </form>
-                    </div>
-                        <div class="agree"><button class="agreebutton" type="button">수정</button></div>
+                        <table id="infotable">
+                            <thead><h3 id="t_head">NULL</h3></thead>
+                            <tr><td class="t_label">Name</td><td class="t_data"></td></tr>
+                            <tr><td class="t_label">성명</td><td class="t_data"></td></tr>
+                            <tr><td class="t_label">E-mail</td><td class="t_data"></td></tr>
+                            <tr><td class="t_label">Phone</td><td class="t_data"></td></tr>
+                        </table>
                     </div>
                 </div>
                 <!--구독 수정-->
-                <div class="sub" style="display: none">
+                <div class="subscribe" style="display: none">
                 <div id="sub_msg">
                     <h1>구독 수정</h1>
                 </div>
                 <% for (var i=0; i< rows1.length; i++) { %> 
                     <div class="people">
-                        <div class="Spicture"><img class="pictures1" src="https://instagram.ficn6-1.fna.fbcdn.net/vp/466efc55594472ab9b9ab6e885b06825/5D72B7DC/t51.2885-15/e35/57009221_306777196917572_856435609160832386_n.jpg?_nc_ht=instagram.ficn6-1.fna.fbcdn.net"></div>
+                        <div class="Spicture"></div>
                         <div class="subbox">
-                            <div class="nicname"><h1><%= rows1[i].r_id %></h1></div>
+                            <div class="nickname"><h1><%= rows1[i].r_id %></h1></div>
                             <div class="realname"><h2><%= rows1[i].r_nick%></h2></div>
                             <form class="mar" action="move_and_remove" method="POST">
                                 <input type="text" name="r_id" value="<%= rows1[i].r_id%>">
@@ -99,7 +86,7 @@
                     <% } %>
                 </div>
                 <!--편지 보기-->
-                <div class="lettle" style="display: none">
+                <div class="letter" style="display: none">
                     <div id="let_msg">
                         <h1>쪽지함</h1>
                     </div>
@@ -123,58 +110,73 @@
                         </table>
                     </div>
                 </div>
+                 <!--회원 정보 수정 -->
+                 <div class="modify_info" style="display: none">
+                    <div class="modify_info_title">
+                        <h1 style="text-align: center">정보 수정</h1>
+                    </div>
+                    <div class="modify_auth" style="display:block; text-align: center; margin-top: 2px;">
+                        <form action="modify" method="POST">
+                            <p>본인 확인을 위해 아이디와 비밀번호를 입력해 주십시오.</p>
+                            <input class="modi_input" id="modi_id" type="text" name="modi_id" placeholder="ID"></input>
+                            <input class="modi_input" id="modi_pw" type="password" name="modi_pw" placeholder="PW"></input>
+                            <button class="modi_confirm">회원 확인</button>
+                        </form>
+                    </div>
+                    <div class="remodify" style="display: none; text-align: center;">
+                        <form action="remodify" method="POST">
+                            <p>변경할 아이디와 닉네임, 폰 번호를 입력해 주십시오.</p>
+                            <input class="modi_input" id="remodi_id" type="text" name="remodi_id" placeholder="ID" ></input>
+                            <input class="modi_input" id="remodi_nic" type="text" name="remodi_nic" placeholder="Nicname" ></input>
+                            <input class="modi_input" id="remodi_phone" type="text" name="remodi_phone" placeholder="Phone_n" ></input>
+                            <button class="modi_confirm">변경 확인</button>
+                        </form>
+                    </div>
+                </div>
                 <!--회원 탈퇴-->
-                <div class="idout" style="display: none">
-                    <div class="ups">
+                <div class="resign" style="display: none">
+                    <div class="resign_title">
                         <h1 style="text-align: center">회원 탈퇴</h1>
                     </div>
-                    <div class="outcontent">
-                        <div class="longtext1">
-                            <div style="margin-left: 10px">
-                                <h2>회원탈퇴시 유의사항</h2><br>
-                                <h3>회원을 탈퇴하면 개인 정보는 7일 후에 삭제 되며 다시 로그인을 할 수 없습니다.</h3><br>
-                                <h4>본 서비스 해지시 클라우드에 업로드된 모든 데이터 및 이용 내역이 삭제되며, 탈퇴후 복구가 불가능합니다.<br>
-                                삭제 데이터:클라우드에 업로드된 모든 파일, 서비스 이용 내역(사진, 공유URL, 쪽지, 구독 내용)</h4>
-                            </div>
-                        </div>
+                    <div id="resign_warnings">
+                        <h2>회원탈퇴시 유의사항</h2><br>
+                        <p>회원을 탈퇴하면 개인 정보는 7일 후에 삭제 되며 다시 로그인을 할 수 없습니다.</p>
+                        <p>본 서비스 해지시 클라우드에 업로드된 모든 데이터 및 이용 내역이 삭제되며, 탈퇴후 복구가 불가능합니다.<br>
+                        삭제 데이터:클라우드에 업로드된 모든 파일, 서비스 이용 내역(사진, 공유URL, 쪽지, 구독 내용)</p>
                     </div>
-                    <div class="reok" style="margin-top: 2px;">
-                        <form action="/resign" method="POST">
-                            <input id="authid" type="text" name="id" placeholder="ID"></input>
-                            <input id="authpw" type="password" name="pw" placeholder="PW"></input>
-                            <button class="resignbutton">회원 탈퇴</button>
-                        </form>
-                        <p>회원탈퇴를 요청한 이용객은 위 사항에 동의한 것으로 간주합니다.</p>
-                    </div>
+                    <form id="resign_confirm" action="/resign" method="POST">
+                        <input id="authid" type="text" name="id" placeholder="ID"></input>
+                        <input id="authpw" type="password" name="pw" placeholder="PW"></input>
+                        <button class="resignbutton">회원 탈퇴</button>
+                    </form>
                 </div>
             </div>
         </article>
+        </section>
         <!--편지 모달 창-->
         <div class="plettle" style="display: none;">
             <div class="modal">
                 <button class="modalcomeout" type="button">X</button>
-            <div class="upss">
-                <div class="Spicture">
-                    <img src="https://instagram.ficn6-1.fna.fbcdn.net/vp/466efc55594472ab9b9ab6e885b06825/5D72B7DC/t51.2885-15/e35/57009221_306777196917572_856435609160832386_n.jpg?_nc_ht=instagram.ficn6-1.fna.fbcdn.net">
+                <div class="upss">
+                    <div class="msg_info">
+                        <div id="msg_nick"><h1>보내는 사람</h1></div>
+                        <div id="date"><h2>받은 날짜 수신</h2></div>
+                    </div>
                 </div>
-                <div class="subbox">
-                    <div id="nicname" ><h1>보내는 사람</h1></div>
-                    <div id="date"><h2>받은 날짜 수신</h2></div>
+                <div class="middle">
+                    <form id="msg" action="message" method="post">
+                        <textarea id="msg_cont" name="msg_cont" readonly="readonly"></textarea>
+                        <input type="text" id="r_nick" name="r_nick" style="display: none;">
+                        <input id="msg_reply" class="msgbutton" type="button" value="쪽지 답장">
+                        <button id="msg_del" name="msg_del" class="msgbutton">쪽지 삭제</button>
+                        <input id="msg_send" type="submit" value="보내기" style="display:none;">
+                    </form>
                 </div>
             </div>
-            <div class="middle">
-                <form id="msg" action="message" method="post">
-                    <textarea id="msg_cont" name="msg_cont" readonly="readonly"></textarea>
-                    <input type="text" id="r_nick" name="r_nick" style="display: none;">
-                    <input id="msg_reply" class="msgbutton" type="button" value="쪽지 답장">
-                    <button id="msg_del" name="msg_del" class="msgbutton">쪽지 삭제</button>
-                    <input class="button but" id="msg_but" type="submit" value="보내기" style="display:none;">
-                </form>
-            </div>
-        </section>
+        </div>
     </body>
     <script src="/javascripts/profile.js"></script>
     <script> //최초 로딩 완료 후 초기화
-        window.onload = myDisplay();
+        window.onload = Initalize();
     </script>
 </html>
