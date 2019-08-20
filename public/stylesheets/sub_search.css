@@ -1,7 +1,9 @@
-html, body{
+html{
     margin: 0;
-    width: 100%;
     background-color: rgba(0, 0, 0, 0.05);
+}
+body{
+    margin: 0;
 }
 
 header {
@@ -22,7 +24,6 @@ form {
     position: relative;
     width: 30%;
 }
-
 #search {
     width: 100%;
     margin-top: 6px;

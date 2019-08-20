@@ -13,7 +13,7 @@ var fs = require("fs-extra");
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
@@ -638,7 +638,82 @@ function edit_msg_num() {
     }
   }); // 쪽지 번호 갱신
 }
+
 /* ------------------------- 쪽지 수발신 기능 끝 ------------------------- */
+
+/* ------------------------- 상태 메세지 수정 기능 시작 ------------------------- */
+//재설계 예정
+router.post('/profile',  function(req, res){
+  /* 변수 선언 */
+  var user = req.session.user;
+  var auths = {
+    "id": req.body.reid,
+  }
+  var state = req.body.remsg;
+  var params_d = [state,user.id];
+  var sql = 'UPDATE member SET member_msg = ? WHERE member_id = ?';
+  connection.query(sql, params_d, function(err, rows, fields){
+    if(err) {
+      console.log('상태 메세지 수정 실패 - ', err);
+      res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
+    }
+    else {
+      res.send ('<script>alert("상태 메세지가 수정 되었습니다!"); location.href = "/profile";</script>');
+    }
+  });
+});
+
+/* ------------------------- 상태 메세지 수정 기능 끝 ------------------------- */
+
+/* ------------------------- 회원 정보 수정 기능 시작 ------------------------- */
+
+router.post('/modify',  function(req, res){  
+  /* 변수 선언 */
+  var user = req.session.user;
+  var authss = {
+    "id": req.body.modi_id,
+    "pw": req.body.modi_pw
+  }
+
+  //Mysql 쿼리 양식
+  var sql = 'SELECT member_id FROM member WHERE member_id = ? AND member_pw = ?';
+  var params_s = [authss.id, authss.pw];
+  //검증 (세션정보의 id값으로 DB에서 비밀번호 조회)
+  connection.query(sql, params_s, function(err, rows, fields){
+     if(err) {
+      console.log(err);
+    }
+    else if (rows[0] == undefined || authss.id != user.id) {
+      res.send ('<script>alert("2차 인증이 실패했습니다. ID와 PW를 다시 확인해 주십시오!"); location.href = "/profile";</script>');
+    } //일치하는 id,pw가 없음
+    else {
+      console.log('회원 정보 수정 시작');
+      res.send('<script>location.href = "/profile?auth=1";</script>')
+    }
+  });
+});
+
+router.post('/remodify', function(req, res){ 
+  var user = req.session.user;
+  var remodif = {
+    "id": req.body.remodi_id,
+    "nic": req.body.remodi_nic,
+    "phone": req.body.remodi_phone
+  }
+var sql = 'UPDATE member SET member_id = ?, member_nick = ?, member_phone = ? WHERE member_id = ?';
+params_m = [remodif.id, remodif.nic, remodif.phone, user.id];
+connection.query(sql, params_m, function(err, rows, fields){
+  if(err) {
+    console.log('회원 정보 수정 실패 - ', err);
+    res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
+  }
+  else {
+    console.log('회원 정보 수정 완료');
+    res.send ('<script>alert("회원 정보가 수정 되었습니다!"); location.href = "/profile";</script>');
+  }
+});
+});
+/* ------------------------- 회원 정보 수정 기능 끝 ------------------------- */
 
 /* --------------------------------------------------------------------------- */
 /* ------------------------------- 기능 구현 끝 -------------------------------- */
