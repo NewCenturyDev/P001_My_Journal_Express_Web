@@ -83,7 +83,7 @@
                             <div class="nickname"><h1><%= rows1[i].r_id %></h1></div>
                             <div class="realname"><h2><%= rows1[i].r_nick%></h2></div>
                             <form class="mar" action="move_and_remove" method="POST">
-                                <input type="text" name="r_id" value="<%= rows1[i].r_id%>">
+                                <input type="text" name="r_id" value="<%= rows1[i].r_id %>">
                                 <button class="move" name="move">이동</button>
                                 <button class="remove" name="remove">구독 삭제</button>
                             </form>

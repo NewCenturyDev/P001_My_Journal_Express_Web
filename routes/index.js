@@ -549,11 +549,12 @@ router.post('/move_and_remove', function(req, res) {
   var move = req.body.move;
   var remove = req.body.remove;
   var member = {
-    "r_id": req.body.r_id,
-    "r_nick": req.body.r_nick
+    "r_id": req.body.r_id
   }
-  if (move==='move') {
-    res.send('<script>location.href = "/contents";</script>');
+  if (move=='move') {
+    req.session.visit_to = member.r_id;
+    res.send (go_contents(member.r_id, 1));
+    return;
   }
   else if (remove=='remove') {
     var sql_del = 'DELETE FROM subscribe WHERE s_id = ? AND r_id = ?';
