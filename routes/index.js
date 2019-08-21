@@ -148,10 +148,22 @@ router.get('/profile', function(req, res) {
         connection.query(sql2, params2, function(err2, rows2) {
           if (err2) {
             console.log(err);
-          } else {
-            res.render('profile', {
-              rows1: rows1,
-              rows2: rows2
+          }
+          else {
+            var id = req.session.user.id;
+            var sql3 = "SELECT * FROM member WHERE member_id = ?";
+            var params3 = [id];
+            connection.query(sql3, params3, function(err3, rows0) {
+              if (err3) {
+                console.log(err);
+              }
+              else {
+                res.render('profile', {
+                  rows0: rows0,
+                  rows1: rows1,
+                  rows2: rows2
+                });
+              }
             });
           }
         });
@@ -642,15 +654,11 @@ function edit_msg_num() {
 /* ------------------------- 쪽지 수발신 기능 끝 ------------------------- */
 
 /* ------------------------- 상태 메세지 수정 기능 시작 ------------------------- */
-//재설계 예정
-router.post('/profile',  function(req, res){
+router.post('/personalmsg',  function(req, res){
   /* 변수 선언 */
   var user = req.session.user;
-  var auths = {
-    "id": req.body.reid,
-  }
-  var state = req.body.remsg;
-  var params_d = [state,user.id];
+  var msg = req.body.p_msg
+  var params_d = [msg,user.id];
   var sql = 'UPDATE member SET member_msg = ? WHERE member_id = ?';
   connection.query(sql, params_d, function(err, rows, fields){
     if(err) {
@@ -662,7 +670,6 @@ router.post('/profile',  function(req, res){
     }
   });
 });
-
 /* ------------------------- 상태 메세지 수정 기능 끝 ------------------------- */
 
 /* ------------------------- 회원 정보 수정 기능 시작 ------------------------- */
@@ -674,7 +681,6 @@ router.post('/modify',  function(req, res){
     "id": req.body.modi_id,
     "pw": req.body.modi_pw
   }
-
   //Mysql 쿼리 양식
   var sql = 'SELECT member_id FROM member WHERE member_id = ? AND member_pw = ?';
   var params_s = [authss.id, authss.pw];
@@ -696,22 +702,38 @@ router.post('/modify',  function(req, res){
 router.post('/remodify', function(req, res){ 
   var user = req.session.user;
   var remodif = {
-    "id": req.body.remodi_id,
-    "nic": req.body.remodi_nic,
+    "pw": req.body.remodi_pw,
+    "nick": req.body.remodi_nick,
+    "email": req.body.remodi_email,
     "phone": req.body.remodi_phone
   }
-var sql = 'UPDATE member SET member_id = ?, member_nick = ?, member_phone = ? WHERE member_id = ?';
-params_m = [remodif.id, remodif.nic, remodif.phone, user.id];
-connection.query(sql, params_m, function(err, rows, fields){
-  if(err) {
-    console.log('회원 정보 수정 실패 - ', err);
-    res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
+  //양식 검증용 정규식
+  var RegExp1 = /^[0-9]*$/;
+  var RegExp2 = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/;
+  //사용자가 입력한 회원정보변경 양식 검증
+  if(remodif.pw==""||remodif.nick==""||remodif.email==""||remodif.phone==""){
+    res.send ('<script>alert("회원정보변경 양식의 모든 필드를 채워주셔야 합니다. 변경하지 않을 정보는 원래 정보를 입력하십시오 (보안강화 차원의 조치입니다.) 빈 칸은 허용되지 않습니다!"); location.href = "/profile";</script>');
   }
-  else {
-    console.log('회원 정보 수정 완료');
-    res.send ('<script>alert("회원 정보가 수정 되었습니다!"); location.href = "/profile";</script>');
+  if(!RegExp1.test(remodif.phone)){
+    res.send ('<script>alert("전화번호는 숫자만 입력하여 주십시오! ( - 는 생략해 주십시오.)"); location.href = "/profile";</script>');
   }
-});
+  if(!RegExp2.test(remodif.email)){
+    res.send ('<script>alert("이메일 양식이 올바르지 않습니다! ( example@service.com 형식으로 입력해 주십시오)"); location.href = "/profile";</script>');
+  }
+  else{
+    var sql = 'UPDATE member SET member_pw = ?, member_nick = ?, member_email = ?, member_phone = ? WHERE member_id = ?';
+    params_m = [remodif.pw, remodif.nick, remodif.email, remodif.phone, user.id];
+    connection.query(sql, params_m, function(err, rows, fields){
+      if(err) {
+        console.log('회원 정보 수정 실패 - ', err);
+        res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
+      }
+     else {
+        console.log('회원 정보 수정 완료');
+        res.send ('<script>alert("회원 정보가 수정 되었습니다!"); location.href = "/profile";</script>');
+      }
+    });
+  }
 });
 /* ------------------------- 회원 정보 수정 기능 끝 ------------------------- */
 

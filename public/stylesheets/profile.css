@@ -161,10 +161,20 @@ h3, h4{
     line-height: 15px;
     text-align: center;
 }
-.picture_modify > a{
+.profile_simple_modify{
     font-size: 15px;
     font-weight: bold;
     color: rgb(43, 83, 193);
+    cursor: pointer;
+}
+#p_msg_input{
+    display: inline-block;
+    width: 50%;
+    height: 20px;
+    margin: 0 10px;
+    border: 0;
+    border-bottom: 2px solid rgb(43, 83, 193);
+    background-color: rgba(0,0,0,0);
 }
 .info{
     display: block;
