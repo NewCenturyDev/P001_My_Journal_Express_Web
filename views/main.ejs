@@ -30,7 +30,8 @@
     
     <main>
         <div id="logo">
-            <a href="/">MY Journals</a>
+            <a href="/" id="subject">MY Journals</a>
+            <p id="short_intro">Photos & video<br>Express</p>
         </div>
         <form action="search" method="post">
             <input type="text" name="" id="" placeholder="사진 또는 아이디를 검색하세요!">
@@ -38,15 +39,176 @@
         <div id="main_img">
             <img src="images/main_img.png" alt="">
         </div>
-        <div id="introduce">
+        <div id="popular">
             <div id="title">
-                <p class="title_font">Introduce</p>
+                <p class="title_font">Popular</p>
             </div>
             <div id="contents">
-                
+                <div class="block">
+                    <div class="mini_img">
+                        <img src="images/cat.jpg" alt="">
+                    </div>
+                    <div class="mini_title">
+                        <p><b>사진 이름</b></p>
+                    </div>
+                    <div class="cnt_and_go">
+                        <img src="images/cnt.png" alt="조회수">
+                        <p class="cnt">조회수</p>
+                        <p class="nick">닉네임</p>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="mini_title">
+                        <p><b>게시글 제목</b></p>
+                    </div>
+                    <div class="mini_img">
+                        <p>어쩌구 저쩌구.. 어쩍저쩍 게시글 내용</p>
+                    </div>
+                    <div class="cnt_and_go">
+                        <img src="images/cnt.png" alt="조회수">
+                        <p class="cnt">조회수</p>
+                        <p class="nick">닉네임</p>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="mini_img">
+                        <img src="images/cat.jpg" alt="조회수">
+                    </div>
+                    <div class="mini_title">
+                        <p><b>동영상 이름</b></p>
+                    </div>
+                    <div class="cnt_and_go">
+                        <img src="images/cnt.png" alt="조회수">
+                        <p class="cnt">조회수</p>
+                        <p class="nick">닉네임</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="people">
+            <div id="title">
+                <p class="title_font">People</p>
+            </div>
+            <div id="contents">
+                <div class="block">
+                    <div class="mini_img">
+                        <img src="images/cat.jpg" alt="">
+                    </div>
+                    <div class="mini_title">
+                        <p><b>회원 닉네임</b></p>
+                    </div>
+                    <div class="cnt_and_go">
+                        <img src="images/msg.png" alt="상태 메시지">
+                        <p class="cnt">상태 메시지</p>
+                    </div>
+                </div>
+                <div class="block">
+                        <div class="mini_img">
+                            <img src="images/cat.jpg" alt="조회수">
+                        </div>
+                        <div class="mini_title">
+                            <p><b>회원 닉네임</b></p>
+                        </div>
+                        <div class="cnt_and_go">
+                            <img src="images/msg.png" alt="상태 메시지">
+                            <p class="cnt">상태 메시지</p>
+                        </div>
+                    </div>
+                <div class="block">
+                    <div class="mini_img">
+                        <img src="images/cat.jpg" alt="조회수">
+                    </div>
+                    <div class="mini_title">
+                        <p><b>회원 닉네임</b></p>
+                    </div>
+                    <div class="cnt_and_go">
+                        <img src="images/msg.png" alt="상태 메시지">
+                        <p class="cnt">상태 메시지</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="new">
+            <div id="title">
+                <p class="title_font">New</p>
+            </div>
+            <div id="contents">
+                <div class="block">
+                    <div class="mini_img">
+                        <img src="images/cat.jpg" alt="">
+                    </div>
+                    <div class="mini_title">
+                        <p><b>사진 이름</b></p>
+                    </div>
+                    <div class="cnt_and_go">
+                        <img src="images/cnt.png" alt="조회수">
+                        <p class="cnt">조회수</p>
+                        <p class="nick">닉네임</p>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="mini_title">
+                        <p><b>게시글 제목</b></p>
+                    </div>
+                    <div class="mini_img">
+                        <p>어쩌구 저쩌구.. 어쩍저쩍 게시글 내용</p>
+                    </div>
+                    <div class="cnt_and_go">
+                        <img src="images/cnt.png" alt="조회수">
+                        <p class="cnt">조회수</p>
+                        <p class="nick">닉네임</p>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="mini_img">
+                        <img src="images/cat.jpg" alt="조회수">
+                    </div>
+                    <div class="mini_title">
+                        <p><b>동영상 이름</b></p>
+                    </div>
+                    <div class="cnt_and_go">
+                        <img src="images/cnt.png" alt="조회수">
+                        <p class="cnt">조회수</p>
+                        <p class="nick">닉네임</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
+    <footer>
+        <div id="menu">
+            <div id="menu_left">
+                <p id="menu_intro"><b>Contribute to Service</b></p>
+                <p id="error">
+                    <a href="https://github.com/1000peach/openyearround/issues" target="_blank">
+                        <b>* You find error?</b>
+                    </a>
+                </p>
+                <p id="contribute">
+                    <a href="https://github.com/1000peach/openyearround/pulls" target="_blank">
+                        <b>* You want to contribute?</b>
+                    </a>
+                </p>
+                <p id="repository">
+                    <b>
+                        <a href="https://github.com/1000peach/openyearround" target="_blank">
+                            Visit Our Repository!
+                        </a>
+                    </b>
+                </p>
+            </div>
+            <div id="menu_right">
+                <p><b><a href="">Home</a></b></p>
+                <p><b><a href="">About</a></b></p>
+                <p><b><a href="">Contact</a></b></p>
+            </div>
+        </div>
+        <div id="contributor">
+            <p>@ 2019 by MY Journals. Created with 1000.peach, HyperTech99, IMNOOK</p>
+        </div>
+    </footer>
 </body>
 <script src="/javascripts/main.js"></script>
 </html>
