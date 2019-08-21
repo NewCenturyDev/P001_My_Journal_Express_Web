@@ -1,3 +1,4 @@
+/*------------------------------ CSS 초기화 ------------------------------*/
 html,body{
     width : 100%;
     height : 100%;
@@ -8,11 +9,17 @@ html,body{
 body{
     background-color: rgba(0, 0, 0, 0.05);
 }
+/*---------------------------- CSS 초기화 끝 ----------------------------*/
+
+/*------------------------------- 헤더 부분 -------------------------------*/
+/* header 기본 */
 header{
     width: 100%;
     height: 10%;
     background-color: rgb(43, 83, 193);
 }
+
+/* header 로고 */
 header > #title{
     display: inline-block;
     color: white;
@@ -25,6 +32,8 @@ header > #title{
     width: 50%;
     height: 65%;
 }
+
+/* header 로고2 */
 header > #title2{
     display: inline-block;
     color: white;
@@ -37,6 +46,8 @@ header > #title2{
     width: 50%;
     height: 35%;
 }
+
+/* header 버튼 */
 header > button {
     width: 15%;
     height: 100%;
@@ -49,27 +60,363 @@ header > button {
     color: white;
     font-size: 30px;
 }
-#subtitle {
-    width: 100%;
-    height: 10%;
-    color: black;
-    font-size: 100px;
-    font-weight: bold;
-    margin: 0;
-    text-align: center;
-}
+/*----------------------------- 헤더 부분 끝 -----------------------------*/
+
+/*------------------------------ 본문 부분 -------------------------------*/
+/* 본문 부분 기본 */
 section {
     width: 100%;
-    height: 68.5%;
+    height: 78.5%;
     margin: 0 auto;
-    /*background-image: ;*/
 }
-section > iframe{
-    display: block;
-    margin: 0;
-    padding: 0;
+
+/* 내 프로필 탭*/
+#myprofile{
     width: 100%;
     height: 100%;
-    transform-origin: top left;
-    transform: scale(1.865);
+    margin: 0;
 }
+#Mypicture{
+    width: 900px;
+    height: 900px;
+    margin: 25px auto;
+    border: 2px solid black;
+}
+#Mypicture > div{
+    width: 100%;
+    height: 100%;
+    background-image: url(http://placehold.it/90x90);
+    background-size: 100%;
+}
+#info{
+    width: 100%;
+    height: 500px;
+    margin: 0 auto;
+}
+#infotable{
+    width: 90%;
+    height: 400px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+#t_head{
+    width: 90%;
+    margin: 0 auto;
+    height: 80px;
+    line-height: 80px;
+    font-size: 72px;
+    font-weight: bold;
+    text-align: center;
+    color:rgb(43, 83, 193);
+    border-bottom: 2px solid black;
+}
+.t_label{
+    width: 30%;
+    margin: 0;
+    margin-left: 5%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 55px;
+    font-weight: bold;
+}
+.t_data{
+    width: 30%;
+    margin: 0;
+    margin-left: 5%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 55px;
+    font-weight: bold;
+}
+
+/*구독 수정 탭*/
+#subscribe{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+#sub_msg{
+    width: 100%;
+    height: 75px;
+    line-height: 70px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 12.5px;
+    border-bottom: 2px solid black;
+}
+#sub_msg > h1{
+    margin: 0;
+    font-family: 'Do Hyeon', sans-serif;
+}
+.people{
+    width: 100%;
+    height: 150px;
+    padding: 30px;
+    border-bottom: 2px solid black;
+}
+.subbox{
+    width: 100%;
+    height: inherit;
+    overflow: hidden;
+}
+.subbox > div{
+    float: left;
+}
+.nickname{
+    width: 60%;
+    height: 55%;
+    padding: 10px;
+    line-height: 60px;
+    font-size: 50px;
+    font-weight: bold;
+}
+.nickname > h1{
+    margin: 0;
+}
+.realname{
+    width: 60%;
+    height: 35%;
+    padding: 10px;
+    line-height: 40px;
+    font-size: 30px;
+}
+.realname > h2{
+    margin: 0;
+}
+.mar{
+    float: right;
+    width: 35%;
+    height: 100%;
+}
+.mar > input{
+    display: none;
+}
+.mar > button{
+    width: 40%;
+    height: 100%;
+    margin-left: 5%;
+    float: left;
+    border: 0;
+    background-color: rgb(43, 83, 193);
+    color: white;
+    font-size: 30px;
+}
+
+/* 편지 보기 탭 */
+#letter{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+#let_msg{
+    width: 100%;
+    height: 75px;
+    line-height: 70px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 12.5px;
+    border-bottom: 2px solid black;
+}
+#let_msg > h1{
+    margin: 0;
+    font-family: 'Do Hyeon', sans-serif;
+}
+.downs{
+    width: 100%;
+    height: inherit;
+    overflow: hidden;
+}
+.tables{
+    width: 100%;
+    border-collapse: collapse;
+    overflow-y: scroll;
+}
+.pre_nick, .pre_cont, .pre_date, .pre_num {
+    display: none;
+}
+.tables th:first-child{
+    width: 25%;
+    height: 100px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: left;
+}
+.tables th:nth-child(2){
+    width: 50%;
+    height: 100px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: left;
+}
+.tables th:nth-child(3){
+    width: 25%;
+    height: 100px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: left;
+}
+.tables td:first-child{
+    width: 25%;
+    height: 100px;
+    font-size: 40px;
+    text-align: left;
+    border-bottom: 2px solid black;
+}
+.tables td:nth-child(2){
+    width: 50%;
+    height: 100px;
+    font-size: 40px;
+    text-align: left;
+    border-bottom: 2px solid black;
+}
+.tables td:nth-child(3){
+    width: 25%;
+    height: 100px;
+    border-bottom: 2px solid black;
+}
+.tables td:nth-child(3) > button{
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+    float: left;
+    border: 0;
+    background-color: rgb(43, 83, 193);
+    color: white;
+    font-size: 30px;
+}
+/*------------------------------ 본문 부분 끝 -------------------------------*/
+
+/*------------------------------ 하단 부분 -------------------------------*/
+/* 하단 부분 기본 */
+#rooms {
+    width: 100%;
+    height: 10%;
+    z-index: 100;
+    background-color: rgb(43, 83, 193);
+}
+
+/* 하단 부분 버튼 */
+#rooms > button {
+    width: 32.5%;
+    height: 80%;
+    background-color: inherit;
+    border: 0;
+    border-bottom: 8px solid white;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 80px;
+    text-align: center;
+}
+/*------------------------------ 하단 부분 끝 -------------------------------*/
+
+/*------------------------------- 쪽지 모달창 -------------------------------*/
+/* 모달창 배경 */
+.plettle{
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1,1,1,0.7);
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+
+/* 모달창 내용 기본 */
+.modal{
+    margin: auto;
+    z-index: 1;
+    width: 100%;
+    height: 800px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+}
+.modalcomeout {
+    z-index: 1;
+    background: none;
+    margin-right: 2%;
+    height: 8%;
+    font-size: 100px;
+    font-weight: bold;
+    float: right;
+    border: none;
+}
+
+/* 모달창 내용 상단정보 */
+.upss{
+    margin: 0 5%;
+    margin-top: 2%;
+    width: 90%;
+    height: 20%;
+    display: flex;
+    
+}
+.msg_info{
+    font-size: 30px;
+    width: 90%;
+    margin-left: 10%;
+}
+#msg_nick{
+    font-size: 60px;
+}
+#msg_nick > h1{
+    margin: 0;
+}
+#date {
+    font-size: 30px;
+}
+#date > h2{
+    margin: 0;
+}
+
+/* 모달창 메시지*/
+.middle{
+    margin: 0 5%;
+    padding-top: 8%;
+    width: 90%;
+    height: 60%;
+    text-align: center;
+}
+#msg {
+    width: 100%;
+    height: 100%;
+}
+#msg_cont {
+    width: 97.5%;
+    height: 70%;
+    outline: 0;
+    resize: none;
+    border: 2px solid black;
+    background-color: white;
+    font-size: 50px;
+}
+.msgbutton{
+    margin: 5px 2.5%;
+    width: 40%;
+    height: 150px;
+    background-color: rgb(43, 83, 193);
+    font-size: 80px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+#msg_send {
+    margin: 5px 0;
+    width: 40%;
+    height: 150px;
+    background-color: rgb(43, 83, 193);
+    font-size: 80px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+/*----------------------------- 쪽지 모달창 끝 -----------------------------*/

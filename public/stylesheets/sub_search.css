@@ -1,7 +1,9 @@
-html, body{
+html{
     margin: 0;
-    width: 100%;
     background-color: rgba(0, 0, 0, 0.05);
+}
+body{
+    margin: 0;
 }
 
 header {
@@ -22,7 +24,6 @@ form {
     position: relative;
     width: 30%;
 }
-
 #search {
     width: 100%;
     margin-top: 6px;
@@ -156,11 +157,10 @@ main > div {
     margin-bottom: 3%;
 }
 
-/* 쪽지 모달창 */
-
+/*------------------------------- 쪽지 모달창 -------------------------------*/
 /* 모달창 배경 */
 .plettle{
-    z-index: 2;
+    z-index: 1;
     width: 100%;
     height: 100%;
     background-color: rgba(1,1,1,0.7);
@@ -171,7 +171,14 @@ main > div {
     overflow: auto;
 }
 
-/* 모달창 내용 */
+/* 모달창 내용 기본 */
+.modal{
+    margin: auto;
+    z-index: 1;
+    width: 300px;
+    height: 300px;
+    background-color: white;
+}
 .modalcomeout {
     z-index: 1;
     background: none;
@@ -181,84 +188,73 @@ main > div {
     border: none;
 }
 
-#msg_but {
-    width: 30%;
-    height: 10%;
-    margin-top: 4%;
-    margin-left: 6%;
-}
-
-.modal{
-    margin: auto;
-    z-index: 1;
-    width: 500px;
-    height: 500px;
-    background-color: lightgray;
-    border-radius: 5%;
-}
-
+/* 모달창 내용 상단정보 */
 .upss{
+    margin: 0 5%;
     margin-top: 7%;
-    width: 70%;
+    padding-top: 6%;
+    width: 90%;
     height: 23%;
     display: flex;
-    margin-left: 6%;
+    
+}
+.msg_info{
+    font-size: 10px;
+    width: 90%;
+    margin-left: 10%;
+}
+#msg_nick{
+    font-size: 13px;
+}
+#msg_nick > h1{
+    margin: 0;
+}
+#date {
+    font-size: 10px;
+}
+#date > h2{
+    margin: 0;
 }
 
+/* 모달창 메시지*/
 .middle{
-    margin: 4% auto;
-    width: 80%;
-    height: 65%;
+    margin: 5% 5%;
+    width: 90%;
+    height: 60%;
     text-align: center;
 }
-
 #msg {
-    width: 94%;
+    width: 100%;
     height: 100%;
 
 }
-
 #msg_cont {
-    padding: 10px;
-    width: 99%;
+    width: 97.5%;
     height: 70%;
-    border: none;
     outline: 0;
     resize: none;
-    border: solid black;
+    border: 2px solid black;
     background-color: white;
 }
-
-.longtext2{
-    border: 1px;
-    border-color: black;
-    margin-left: 50px;
-    margin-right: 50px;
-    width: 400px;
-    height: 300px;
+.msgbutton{
+    margin: 5px 0;
+    height: 25px;
+    background-color: rgb(43, 83, 193);
+    font-size: 15px;
+    color: white;
+    border: 0;
+    cursor: pointer;
 }
-
-.Spicture{
-    width: 110px;
-    height: 110px;
+#msg_send {
+    margin: 5px 0;
+    height: 25px;
+    background-color: rgb(43, 83, 193);
+    font-size: 15px;
+    color: white;
+    border: 0;
+    cursor: pointer;
 }
-
-.subbox{
-    font-size: 10px;
-    width: 50%;
-    margin-left: 10%;
-}
-
-#nicname{
-    width: 100%;
-}
-
-.Spicture > img {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: solid;
-}
+/*----------------------------- 쪽지 모달창 끝 -----------------------------*/
 
 /* 정의 및 기본 선택자 */
 input::placeholder {
