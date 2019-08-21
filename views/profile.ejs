@@ -53,16 +53,22 @@
                 <div class="myinfo" style="display: flex">
                     <div class="Mypicture">
                         <div class="picture"></div>
-                        <div class="picture_modify"><a href="">사진 변경</a></div>
+                        <div class="picture_modify"><a class="profile_simple_modify">사진 변경</a></div>
                     </div>
                     <div class="info">
                         <table id="infotable">
-                            <thead><h3 id="t_head">NULL</h3></thead>
-                            <tr><td class="t_label">Name</td><td class="t_data"></td></tr>
-                            <tr><td class="t_label">성명</td><td class="t_data"></td></tr>
-                            <tr><td class="t_label">E-mail</td><td class="t_data"></td></tr>
-                            <tr><td class="t_label">Phone</td><td class="t_data"></td></tr>
+                            <thead><h3 id="t_head"><%= rows0[0].member_nick %></h3></thead>
+                            <tr><td class="t_label">Name</td><td class="t_data"><%= rows0[0].member_name %></td></tr>
+                            <tr><td class="t_label">ID</td><td class="t_data"><%= rows0[0].member_id %></td></tr>
+                            <tr><td class="t_label">E-mail</td><td class="t_data"><%= rows0[0].member_email %></td></tr>
+                            <tr><td class="t_label">Phone</td><td class="t_data"><%= rows0[0].member_phone %></td></tr>
+                            <tr><td class="t_label">Message</td><td class="t_data"><%= rows0[0].member_msg %></td></tr>
                         </table>
+                        <a class="profile_simple_modify" onclick="modify_personal_msg();">상태메시지 변경</a>
+                        <form action="/personalmsg" method="POST" id="modify_personal_msg" style="display: none">
+                            <input id = "p_msg_input" type = "text" name = "p_msg">
+                            <button class = "modi_confirm"> 변경 </button>
+                        </form>
                     </div>
                 </div>
                 <!--구독 수정-->
@@ -125,10 +131,11 @@
                     </div>
                     <div class="remodify" style="display: none; text-align: center;">
                         <form action="remodify" method="POST">
-                            <p>변경할 아이디와 닉네임, 폰 번호를 입력해 주십시오.</p>
-                            <input class="modi_input" id="remodi_id" type="text" name="remodi_id" placeholder="ID" ></input>
-                            <input class="modi_input" id="remodi_nic" type="text" name="remodi_nic" placeholder="Nicname" ></input>
-                            <input class="modi_input" id="remodi_phone" type="text" name="remodi_phone" placeholder="Phone_n" ></input>
+                            <p>변경할 비밀번호 및 이메일과 닉네임, 전화번호를 입력해 주십시오. 변경하지 않은 정보는 그대로 유지됩니다.</p>
+                            <input class="modi_input" id="remodi_pw" type="text" name="remodi_pw" placeholder="PW" ></input>
+                            <input class="modi_input" id="remodi_nick" type="text" name="remodi_nick" placeholder="Nickname" ></input>
+                            <input class="modi_input" id="remodi_email" type="text" name="remodi_email" placeholder="E-Mail" ></input>
+                            <input class="modi_input" id="remodi_phone" type="text" name="remodi_phone" placeholder="Phone_No" ></input>
                             <button class="modi_confirm">변경 확인</button>
                         </form>
                     </div>

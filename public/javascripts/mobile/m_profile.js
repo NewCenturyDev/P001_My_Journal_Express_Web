@@ -2,22 +2,10 @@
 /* ------------------------------ 변수 선언 ------------------------------ */
 /* ---------------------------------------------------------------------- */
 
-// 상단 메뉴 버튼
-var profile = document.getElementById('profile');
-var logout = document.getElementById('logout');
-
 // 탭 메뉴 전환
-var navbutton = document.getElementsByClassName("navbutton");
-var myinfo = document.getElementsByClassName("myinfo")[0];
-var subscribe = document.getElementsByClassName("subscribe")[0];
-var letter = document.getElementsByClassName("letter")[0];
-var modify_info = document.getElementsByClassName("modify_info")[0];
-var resign = document.getElementsByClassName("resign")[0];
-
-// 회원정보 수정 div 전환
-var personal_msg = document.getElementById("modify_personal_msg");
-var remodifys = document.getElementsByClassName("remodify")[0];
-var modify_auth = document.getElementsByClassName("modify_auth")[0];
+var myinfo = document.getElementById('myprofile');
+var subscribe = document.getElementById('subscribe');
+var letter = document.getElementById('letter');
 
 // 구독 탭 타일 버튼
 var move = document.getElementsByClassName("move");
@@ -52,29 +40,11 @@ var r_nick = document.getElementById('r_nick');
 /* ---------------------------------------------------------------------- */
 
 /* ----------------------------- 탭 전환 기능 ----------------------------- */
-// 탭 전환 기능 초기화
-function Initalize(){
-    // 파람 값이 있을 경우는 정보 수정페이지로 이동
-    if(getParameterByName('auth') == 1){
-        initTab();
-        display_Modifyinfo();
-        modify_auth.style.display = "none";
-        remodifys.style.display ="block";
-    }
-    else{
-        initTab();
-        display_Myprofile();
-    }
-    return;
-}
-
 //내 프로필 탭 활성화 함수
 function display_Myprofile(){
-    console.log(myinfo.style.display);
+    console.log(myprofile.style.display);
     initTab();
-    myinfo.style.display = 'flex';
-    navbutton[0].style.color = "rgb(43, 83, 193)";
-    navbutton[0].style.fontWeight = "bold";
+    myprofile.style.display = 'block';
     return;
 }
 
@@ -83,8 +53,6 @@ function display_Subscribe(){
     console.log(subscribe.style.display);
     initTab();
     subscribe.style.display = 'block';
-    navbutton[1].style.color = "rgb(43, 83, 193)";
-    navbutton[1].style.fontWeight = "bold";
     return;
 }
 
@@ -93,63 +61,15 @@ function display_Letterbox(){
     console.log(letter.style.display);
     initTab();
     letter.style.display = 'block';
-    navbutton[2].style.color = "rgb(43, 83, 193)";
-    navbutton[2].style.fontWeight = "bold";
-    return;
-}
-
-//정보수정 탭 활성화 함수
-function display_Modifyinfo(){
-    console.log(modify_info.style.display);
-    initTab();
-    modify_info.style.display = 'block';
-    navbutton[3].style.color = "rgb(43, 83, 193)";
-    navbutton[3].style.fontWeight = "bold";
-    return;
-}
-
-//회원탈퇴 탭 활성화 함수
-function display_Resign(){
-    console.log(resign.style.display);
-    initTab();
-    resign.style.display = 'block';
-    navbutton[4].style.color = "rgb(43, 83, 193)";
-    navbutton[4].style.fontWeight = "bold";
     return;
 }
 
 //탭 전환시 초기화 함수
 function initTab(){
-    myinfo.style.display = 'none';
+    myprofile.style.display = 'none';
     subscribe.style.display = 'none';
     letter.style.display = 'none';
-    modify_info.style.display = 'none';
-    resign.style.display = 'none';
-    for(var i = 0; i < 5; i++){
-        navbutton[i].style.backgroundColor = '';
-        navbutton[i].style.color = "grey";
-        navbutton[i].style.fontWeight = "normal";
-    }
     return;
-}
-
-//내 프로필 탭 개인메시지 변경 함수
-function modify_personal_msg(){
-    if(personal_msg.style.display == 'block'){
-        personal_msg.style.display = 'none';
-    }
-    else{
-        personal_msg.style.display = 'block';
-    }
-    return;
-}
-
-//정보수정 탭 보안절차 통과 여부 확인 함수
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 //구독 탭 타일 링크
@@ -195,18 +115,6 @@ function change_modal() {
     this.style.display = 'none';
 }
 /* ------------------------- 쪽지 수발신 기능 끝 ------------------------- */
-
-/* --------------------------- 상단 메뉴 버튼 기능 --------------------------- */
-// 상단 메뉴 버튼 기능
-function goProfile() {
-    location.href = "/profile";
-}
-function logOut() {
-    alert('로그아웃 되었습니다!');
-    location.href = "/logout";
-}
-/* ------------------------- 상단 메뉴 버튼 기능 끝 ------------------------- */
-
 /* ---------------------------------------------------------------------- */
 /* ----------------------------- 기능 구현 끝 ----------------------------- */
 /* ---------------------------------------------------------------------- */
@@ -214,9 +122,6 @@ function logOut() {
 /* ---------------------------------------------------------------------- */
 /* ---------------------------- 이벤트 리스너 ---------------------------- */
 /* ---------------------------------------------------------------------- */
-//상단 메뉴
-profile.addEventListener("click", goProfile);
-logout.addEventListener("click", logOut);
 
 //쪽지 모달창
 for (var i = 0; i < modalcomeon.length; i++) {
@@ -230,6 +135,7 @@ for (var i = 0 ; i < move.length; i++) {
     move[i].addEventListener("click", move_cont);
     remove[i].addEventListener("click", remove_sub);
 }
+
 /* ---------------------------------------------------------------------- */
 /* --------------------------- 이벤트 리스너 끝 --------------------------- */
 /* ---------------------------------------------------------------------- */
