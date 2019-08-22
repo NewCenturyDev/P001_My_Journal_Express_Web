@@ -9,6 +9,7 @@ var add_modal = document.getElementById('add_modal_bg');
 var edit_modal = document.getElementById('edit_modal_bg');
 var zoom_modal = document.getElementById('zoom_modal_bg');
 var add = document.getElementById('add');
+var sel = document.getElementById('sel_submit');
 var upload = document.getElementById('upload');
 var r_c = document.getElementsByClassName("r_c"); // room 번호 버튼
 var modalcomeout = document.getElementsByClassName("modalcomeout");
@@ -32,7 +33,7 @@ var e_p_n = document.getElementById('e_p_n');
 
 $('#add_num').val($('#room_num').val());
 
-/* 사진에 커서 올릴 시 회전하도록 초기화 */
+/* 사진에 커서 올릴 시 커지도록 초기화 */
 $('.user_photo').addClass("photohover");
 $('.user_photo').css('transition', 'all ease 1s');
 
@@ -48,13 +49,36 @@ function goPeople() {
     location.href = "/search";
 }
 
-/* 사진 관련 모달 띄우기 및 닫기*/
+/* 사진 관련 모달 띄우기 및 닫기 */
+function selectContents() {
+  var selected = $('input:radio[name=sel]:checked').val();
+  $('#sel_contents').css('display', 'none');
+  if (selected==='photo') {
+    $('#add_title').html('사진 등록');
+    $('#add_photo').css('display', 'flex');
+    $('#add_text').css('display', 'none');
+  }
+  else if (selected==='video') {
+    $('#add_title').html('동영상 등록');
+    $('#add_photo').css('display', 'flex');
+    $('#add_text').css('display', 'none');
+  }
+  else if (selected==='text') {
+    $('h1').css('height', '5%');
+    $('#add_title').html('텍스트 등록');
+    $('#add_text').css('display', 'flex');
+    $('#add_photo').css('display', 'none');
+  }
+}
 function addPhoto() {
   add_modal.style.display = 'flex';
+  $('#add_photo').css('display', 'none');
+  $('#add_title').html('컨텐츠 등록하기');
 }
 function closeMsg() {
   if (add_modal.style.display === 'flex') {
     add_modal.style.display = 'none';
+    $('#sel_contents').css('display', 'block');
   }
   if (edit_modal.style.display === 'flex') {
     edit_modal.style.display = 'none';
@@ -194,6 +218,7 @@ for (var i = 0; i < modalcomeout.length; i++) {
   modalcomeout[i].addEventListener("click", closeMsg);
 } // 모달 닫기 이벤트
 
+sel.addEventListener("click", selectContents);
 add.addEventListener("click", addPhoto);
 upload.addEventListener("click", move_and_stop); // 사진 편집 후 DB에 저장
 // 사진 등록 및 변경 이벤트

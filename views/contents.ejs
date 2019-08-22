@@ -101,12 +101,27 @@
         <div id="add_modal_bg" style="display: none;">
             <div id="modal">
                 <button class="modalcomeout" type="button">X</button>
-                <h1>사진 추가</h1>
-                <form action="/file/upload" method="post" enctype="multipart/form-data">
+                <h1 id="add_title">사진 추가</h1>
+                <div id="sel_contents">
+                    <input type="radio" name="sel" value="photo" checked>사진 등록<br>
+                    <input type="radio" name="sel" value="video">동영상 등록<br>
+                    <input type="radio" name="sel" value="text">글 등록<br>
+                    <input type="button" id="sel_submit" value="추가 하기">
+                </div>
+                <!-- 사진 또는 동영상 추가하기 -->
+                <form id="add_photo" action="/file/upload" method="post" enctype="multipart/form-data">
                     <input type="text" name="add_num" id="add_num" style="display: none;">
                     <input type="text" name="photo_name" id="photo_name" placeholder="사진 이름">
                     <input type="text" name="upload_num" value="<%= room_num %>" style="display: none;">
                     <input type="file" name="file">
+                    <input type="submit" id="add_submit" value="추가 하기">
+                </form>
+                <!-- 텍스트 추가하기 -->
+                <form id="add_text" action="/file/upload" method="post">
+                    <input type="text" name="add_num" id="add_num" style="display: none;">
+                    <input type="text" name="text_name" id="photo_name" placeholder="글 제목">
+                    <textarea id="msg_cont" name="msg_cont"></textarea>
+                    <input type="text" name="upload_num" value="<%= room_num %>" style="display: none;">
                     <input type="submit" id="add_submit" value="추가 하기">
                 </form>
             </div>

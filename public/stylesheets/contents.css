@@ -116,8 +116,7 @@ main {
 /* 회원이 등록한 사진 */
 .user_photo {
     cursor: pointer;
-    border: solid;
-    border-color: #353535;
+    border: solid black 1.5px;
     position: absolute;
     z-index: 0;
 }
@@ -128,8 +127,8 @@ main {
 }
 
 .photohover:hover {
-    transform: rotate(20deg);
-    transition: all ease 0.4s;
+    transform: scale(1.1);
+    transition: all ease 0.01s;
 }
 
  /* 로그인 시 나타나는 회원의 미니 프로필 */
@@ -196,6 +195,15 @@ main {
     border-radius: 5%;
 }
 
+#sel_contents {
+    text-align: center;
+    height: 50%;
+}
+
+#sel_contents > input {
+    margin-bottom: 38px;
+}
+
 #modal3 {
     margin: auto;
     width: 42%;
@@ -248,10 +256,31 @@ main {
 }
 
 #modal > form {
-    height: 50%;
-    display: flex;
     flex-direction: column;
+}
+
+#add_photo, #sel_contents {
+    height: 50%;
     justify-content: space-between;
+}
+
+#add_text {
+    height: 70%;
+}
+
+#add_text > textarea {
+    height: 40%;
+}
+
+#test_name {
+    border: solid 3px;
+    border-radius: 5px;
+    height: 14%;
+    padding: 0 10px;
+}
+
+#add_photo, #add_text {
+    display: none;
 }
 
 #modal2 > form {
@@ -279,7 +308,7 @@ main {
     margin-bottom: 6%;
 }
 
-#add_submit, #edit_submit, #delete_submit {
+#add_submit, #edit_submit, #delete_submit, #sel_submit {
     width: 30%;
     border: none;
     height: 20%;

@@ -609,7 +609,7 @@ router.post('/message', function(req, res) {
       if (err) {console.log(err);}
       else {
         console.log('삽입 성공!');
-        res.send ('<script>alert("쪽지를 보냈습니다!"); history.back(-1);</script>');
+        res.send ('<script>alert("쪽지를 보냈습니다!"); location.href = "profile";</script>');
       } // msg_info 내용을 message table에 삽입
     });
   } // 쪽지 보내기일 경우
@@ -731,6 +731,7 @@ router.post('/remodify', function(req, res){
       }
      else {
         console.log('회원 정보 수정 완료');
+        req.session.user.nick = remodif.nick;
         res.send ('<script>alert("회원 정보가 수정 되었습니다!"); location.href = "/profile";</script>');
       }
     });
