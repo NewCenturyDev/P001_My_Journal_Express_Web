@@ -1,6 +1,5 @@
 html, body{
     margin: 0;
-    overflow: scroll-y;
     background-color: white;
 }
 
@@ -57,14 +56,25 @@ main > div {
 }
 
 #logo {
-    text-align: center;
-    float: left;
+    margin-top: 40px;
+    display: flex;
     width: 100%;
 }
 
-#logo > a {
-    font-size: 140px;
+#logo > #subject {
+    text-align: center;
+    font-size: 150px;
     font-family: 'impact';
+    padding-right: 2%;
+}
+
+#short_intro {
+    color: #002266;
+    padding-left: 2%;
+    width: 10%;
+    font-size: 30px;
+    font-family: 'impact';
+    border-left: solid #002266 4px;
 }
 
 form {
@@ -89,7 +99,7 @@ main > form > input {
 
 #main_img > img {
     width: 100%;
-    height: 450px;
+    height: 480px;
 }
 
 input ::placeholder {
@@ -104,19 +114,21 @@ input ::-moz-placeholder{
     color: rgb(43, 83, 193);
 }
 
-/* 서비스 소개 부분 */
-#introduce {
+/* 인기 항목들 소개 부분 */
+#popular, #people, #new {
     width: 100%;
-    height: 450px;
+    height: 460px;
+    padding-top: 1%;
 }
 
-#introduce > div {
+#popular > div, #people > div, #new > div {
     margin: 0 auto;
     width: 80%;
 }
 
 #title {
-    height: 13%;
+    padding-left: 5%;
+    height: 15%;
 }
 
 .title_font {
@@ -125,10 +137,159 @@ input ::-moz-placeholder{
     color: rgb(43, 83, 193);
 }
 
-#contetns {
-    height: 87%;
+#contents {
+    height: 75%;
+    display: flex;
+    flex-direction: row;
 }
 
+.block {
+    width: 33.5%;
+    height: 100%;
+}
+
+.block > .mini_img, .mini_title {
+    text-align: center;
+}
+.mini_img, .mini_title {
+    cursor: pointer;
+}
+
+.mini_title {
+    width: 80%;
+    height: 14%;
+    font-size: 17px;
+    margin: 0 auto;
+    color: #323232;
+}
+
+.mini_img {
+    height: 65%;
+}
+
+.mini_img > p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.mini_img > img {
+    width: 80%;
+    height: 100%;
+}
+
+.cnt_and_go {
+    border-top: solid #BDBDBD 1px;
+    height: 12%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#people > #contents > .block > .cnt_and_go > img {
+    width: 22px;
+    margin-top: 20px;
+    height: 16px;
+    float: left;
+}
+
+#people > #contents > .block > .mini_img > img {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#people {
+    background-color: #F6F6F6;
+}
+
+.cnt_and_go > img {
+    width: 22px;
+    margin-top: 22px;
+    height: 12px;
+    float: left;
+}
+
+.cnt, .nick {
+    font-size: 13px;
+    margin-top: 19px;
+    color: #323232;
+}
+
+.cnt {
+    float: left;
+    width: 40%;
+    text-align: left;
+    padding-left: 3%;
+}
+
+.nick {
+    width: 40%;
+    float: right;
+    text-align: right;
+}
+
+footer {
+    width: 100%;
+    padding-top: 70px;
+    background-color: #002266;
+    height: 400px;
+}
+
+#menu {
+    display: flex;
+    margin: 0 auto;
+    width: 60%;
+    height: 80%;
+    color: white;
+}
+
+#menu_left {
+    width: 70%;
+}
+
+#menu_left > p > a > b {
+    color: white;
+    font-size: 17px;
+}
+
+#menu_right {
+    text-align: center;
+    color: white;
+    width: 30%;
+}
+
+#menu_right > p {
+    margin-top: 35px;
+}
+
+#menu > #menu_right > p > b > a {
+    font-size: 20px;
+    color: white;
+}
+
+#repository {
+    margin-top: 35px;
+    padding-top: 3%;
+    background-color: white;
+    height: 40px;
+    width: 58%;
+    color: #002266;
+    text-align: center;
+    
+}
+
+#menu_intro {
+    font-size: 27px;
+}
+
+#error, #contribute{
+    font-size: 17px;
+    color: white;
+}
+
+#contributor {
+    text-align: center;
+    color: white;
+    font-size: 13px;
+}
 
 input::placeholder {
     text-align: center;
@@ -145,6 +306,7 @@ img {
 }
 
 a {
+    cursor: pointer;
     text-decoration: none;
     color: #002266;
 }
