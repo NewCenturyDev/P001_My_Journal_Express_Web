@@ -104,7 +104,7 @@ router.post('/contents', function(req, res) {
     login.nick = req.session.user.nick;
   }
 
-  var sql_sel = "SELECT *, date_format(date, '%Y-%m-%d') p_date FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
+  var sql_sel = "SELECT *, substring_index(photo_name, '-', 1) p_name, date_format(date, '%Y-%m-%d') p_date FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
   var params = [req.session.visit_to, room_num];
   console.log(params);
   connection.query(sql_sel, params, function(err1, rows) {

@@ -35,6 +35,30 @@ router.get('/upload', function(req, res) {
 
 // 파일 업로드 처리
 /* 파일 업로드 알고리즘 */
+
+router.post('/text_upload', function(req, res) {
+  var text = {
+    "title": req.body.text_name,
+    "contents": req.body.msg_cont
+  };
+  text.title=text.title+"-"+Date.now();
+  var params_ins=[text.title, text.contents, req.session.user.id, req.body.add_num, req.body.type];
+  var sql_ins = "INSERT INTO photo(photo_name, contents, member_id, room_num, type, width, height) values(?, ?, ?, ?, ?, 'auto', 'auto')";
+  connection.query(sql_ins, params_ins, function (err, rows) {
+    if (err) {
+      console.log('삽입 실패\n'+err);
+    }
+    else {
+      console.log('텍스트 삽입 성공');
+      res.send ('<form id="sample" action="/contents" method="post">'
+      +'<input style="display: none;" name="visit_to" type="text" value="'+req.session.user.id+'">'
+      +'<input style="display: none;" name="room_num" type="text" value="'+req.body.add_num+'">'
+      +'<input style="display: none;" type="submit" value="submit">'
+      +'<script>alert("업로드 되었습니다!"); document.getElementById("sample").submit();</script>');
+    }
+  });
+}); // 텍스트 업로드
+
 router.post('/upload', function(req, res, next) {
   if (!req.session.user) {
     res.send('<script>alert("로그인 해주세요!"); location.href = "/login";</script>');
@@ -55,8 +79,8 @@ router.post('/upload', function(req, res, next) {
 
       // 등록 회원 및 사진 정보를 DB의 photo table에도 저장
       console.log(req.body.add_num);
-      var params_ins = [file_name, login_id, req.body.add_num];
-      var sql_ins = "INSERT INTO photo(photo_name, member_id, room_num) values(?, ?, ?)";
+      var params_ins = [file_name, login_id, req.body.add_num, req.body.type];
+      var sql_ins = "INSERT INTO photo(photo_name, member_id, room_num, type, width, height) values(?, ?, ?, ?, 250, 250)";
       connection.query(sql_ins, params_ins, function(err, rows, field) {
         if (err) {
           console.log(err);

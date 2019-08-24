@@ -75,13 +75,22 @@
         <% for (var i = 0; i < rows.length; i++) { %>
             <div class="user_photo" style="width: <%= rows[i].width %>px; height: <%= rows[i].height %>px;
             left: <%= rows[i].x_pos %>px; top: <%= rows[i].y_pos %>px;">
+            <% if (rows[i].type==='photo') { %>
                 <img src="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>">
-                <input type="text" class="photo_src" value="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>" style="display: none;">
+            <% } else if (rows[i].type==='video') { %>
+                <video id="m_video" src="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>" preload="metadata"></video>
+            <% } else if (rows[i].type==='text') { %>
+                <h4><%= rows[i].p_name %></h4>
+                <p><%= rows[i].contents %></p>
+            <% } %>
+                <input type="text" class="cnt_type" value="<%= rows[i].type %>" style="display: none;">
                 <input type="text" class="photo_name" style="display: none;" value="<%= rows[i].photo_name %>">
                 <input type="text" class="photo_w" style="display: none;" value="<%= rows[i].width %>">
                 <input type="text" class="photo_h" style="display: none;" value="<%= rows[i].height %>">
                 <input type="text" class="photo_d" style="display: none;" value="<%= rows[i].degree %>">
                 <input type="text" class="photo_date" style="display: none;" value="<%= rows[i].p_date %>">
+                <input type="text" class="photo_cnt" style="display: none;" value="<%= rows[i].cnt %>">
+                <input type="text" class="photo_src" value="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>" style="display: none;">
             </div>
         <% } %>
         <!-- profile에 커서 올릴 때 미니 프로필 -->
@@ -112,25 +121,27 @@
                 <form id="add_photo" action="/file/upload" method="post" enctype="multipart/form-data">
                     <input type="text" name="add_num" id="add_num" style="display: none;">
                     <input type="text" name="photo_name" id="photo_name" placeholder="사진 이름">
+                    <input type="text" name="type" id="type" style="display: none;">
                     <input type="text" name="upload_num" value="<%= room_num %>" style="display: none;">
                     <input type="file" name="file">
                     <input type="submit" id="add_submit" value="추가 하기">
                 </form>
                 <!-- 텍스트 추가하기 -->
-                <form id="add_text" action="/file/upload" method="post">
-                    <input type="text" name="add_num" id="add_num" style="display: none;">
-                    <input type="text" name="text_name" id="photo_name" placeholder="글 제목">
+                <form id="add_text" action="/file/text_upload" method="post">
+                    <input type="text" name="type" id="type2" style="display: none;">
+                    <input type="text" name="add_num" id="add_text_num" style="display: none;">
+                    <input type="text" name="text_name" id="text_name" placeholder="글 제목">
                     <textarea id="msg_cont" name="msg_cont"></textarea>
                     <input type="text" name="upload_num" value="<%= room_num %>" style="display: none;">
-                    <input type="submit" id="add_submit" value="추가 하기">
+                    <input type="submit" id="text_submit" value="추가 하기">
                 </form>
             </div>
         </div>
-        <!-- 사진 크기, 각도 변경 및 삭제 모달창 -->
+        <!-- 사진 크기 변경 및 삭제 모달창 -->
         <div id="edit_modal_bg" style="display: none;">
             <div id="modal2">
                 <button class="modalcomeout" type="button">X</button>
-                <h1>사진 변경</h1>
+                <h1>콘텐츠 변경</h1>
                 <form action="/edit_detail_photo" method="post">
                     <input type="text" name="edit_photo_user" class="edit_input" style="display: none;">
                     <input type="text" id="e_p_n" name="edit_photo_name" class="edit_input" style="display: none;">
@@ -150,6 +161,7 @@
                 <div id="photo_zoom">
                     <button class="modalcomeout" type="button">X</button>
                     <img id="zoom_img" src="">
+                    <video id="zoom_video" controls autoplay></video>
                 </div>
                 <div id="photo_info">
                     <p id="cnt">조회수 n회</p>

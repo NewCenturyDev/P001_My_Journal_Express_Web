@@ -31,7 +31,11 @@ var delete_submit = document.getElementById("delete_submit");
 
 var e_p_n = document.getElementById('e_p_n');
 
+
+var video = document.getElementById('m_video');
+
 $('#add_num').val($('#room_num').val());
+$('#add_text_num').val($('#room_num').val());
 
 /* 사진에 커서 올릴 시 커지도록 초기화 */
 $('.user_photo').addClass("photohover");
@@ -52,7 +56,11 @@ function goPeople() {
 /* 사진 관련 모달 띄우기 및 닫기 */
 function selectContents() {
   var selected = $('input:radio[name=sel]:checked').val();
+
   $('#sel_contents').css('display', 'none');
+  $('#type').val(selected);
+  $('#type2').val(selected);
+
   if (selected==='photo') {
     $('#add_title').html('사진 등록');
     $('#add_photo').css('display', 'flex');
@@ -64,7 +72,8 @@ function selectContents() {
     $('#add_text').css('display', 'none');
   }
   else if (selected==='text') {
-    $('h1').css('height', '5%');
+    $('h1').css('margin-bottom', '5%');
+    $('#text_submit').css('height', '15%');
     $('#add_title').html('텍스트 등록');
     $('#add_text').css('display', 'flex');
     $('#add_photo').css('display', 'none');
@@ -73,10 +82,12 @@ function selectContents() {
 function addPhoto() {
   add_modal.style.display = 'flex';
   $('#add_photo').css('display', 'none');
+  $('#add_text').css('display', 'none');
   $('#add_title').html('컨텐츠 등록하기');
 }
 function closeMsg() {
   if (add_modal.style.display === 'flex') {
+    $('h1').css('margin-bottom', '15%');
     add_modal.style.display = 'none';
     $('#sel_contents').css('display', 'block');
   }
@@ -92,6 +103,7 @@ function closeMsg() {
 function change_room_num() {
   $('#room_num').val(this.value);
   $('#add_num').val(this.value);
+  $('#add_text_num').val(this.value);
 }
 
 /* 사진 이름 및 좌표를 저장할 배열 */
@@ -104,6 +116,8 @@ function move_and_stop() {
   if (this.value === 'stop') {
     $('.user_photo').css('transition', 'none');
     $('.user_photo').removeClass("photohover");
+    $('.user_photo').css('border', 'solid 1px');
+    
     // 편집 모드이므로 커서 올릴 시 사진 회전 기능 제한
     $(".user_photo").on("click", move_photo());
     alert("편집 모드입니다. 마우스를 이용해 사진의 위치를 수정해주세요!")
@@ -111,6 +125,7 @@ function move_and_stop() {
     this.value = 'move';
   }
   else if (this.value === 'move') {
+    $('.user_photo').css('border', 'none');
     for (var i = 0; i < user_photo.length; i++) {
       var x_pos = ($(".user_photo").eq(i)).offset().left;
       var y_pos = ($(".user_photo").eq(i)).offset().top;
@@ -178,13 +193,34 @@ function zoomPhoto() {
   var src_zoom = ($('.photo_src').eq(index_zoom)).val();
   var name_zoom = new Array();
   var date = ($('.photo_date').eq(index_zoom)).val();
+  var type = ($('.cnt_type').eq(index_zoom)).val();
+  var cnt = ($('.photo_cnt').eq(index_zoom)).val();
+
+  if (type==='text') {
+    return false;
+  }
   // 클릭한 사진 정보 받아옴
   name_zoom = photo_name[index_zoom].value.split('-');
-  $("#zoom_img").attr("src", src_zoom);
+
+  if (type=='photo') {
+    $('#zoom_video').css('display', 'none');
+    $("#zoom_img").attr('src', src_zoom);
+    $("#zoom_img").css('display', 'block');
+  }
+  else if (type=='video') {
+    $('#zoom_img').css('display', 'none');
+    $("#zoom_video").attr('src', src_zoom);
+    $("#zoom_video").css('display', 'block');  
+  }
   $("#zoom_name").html(name_zoom[0]);
   $('#zoom_date').html(date);
+  $('#cnt').html('조회수 '+cnt+'회');
   // 정보 옮긴 후 확대 모달 띄움
   zoom_modal.style.display = 'flex';
+
+  cnt = Number(cnt)+1;
+  ($('.photo_cnt').eq(index_zoom)).val(cnt);
+
 }
 
 /* 클릭 버튼에 따라 모드 변경 */
