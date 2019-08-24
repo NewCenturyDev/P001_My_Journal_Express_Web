@@ -1,0 +1,254 @@
+/*------------------------------ CSS 초기화 ------------------------------*/
+html,body{
+    width : 100%;
+    height : 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    margin: 0;
+}
+body{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+/*---------------------------- CSS 초기화 끝 ----------------------------*/
+
+/*------------------------------- 헤더 부분 -------------------------------*/
+/* header 기본 */
+header{
+    width: 100%;
+    height: 10%;
+    background-color: rgb(43, 83, 193);
+}
+
+/* header 검색창 */
+header > form{
+    display: inline-block;
+    color: white;
+    font-size: 90px;
+    font-weight: bold;
+    line-height: 110px;
+    text-align: left;
+    padding-left: 5%;
+    margin: 0;
+    width: 80%;
+    height: 65%;
+}
+header > form > #m_search{
+    width: 90%;
+    height: 89.5%;
+    margin: 5% 5%;
+    border: 0;
+    border-bottom: 5px solid white;
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    font-size: 60px;
+    line-height: 80px;
+}
+#m_search::placeholder{
+    color: white;
+    font-size: 60px;
+    line-height: 80px;
+}
+
+/* header 버튼 */
+header > button {
+    width: 15%;
+    height: 100%;
+    float: left;
+    top: 0;
+    background-color: rgb(43, 83, 193);
+    border: 0;
+    padding: 0;
+    /*폰트 관련은 임시 설정 - 추후 아이콘으로 변경*/
+    color: white;
+    font-size: 30px;
+}
+/*----------------------------- 헤더 부분 끝 -----------------------------*/
+
+main {
+    margin: 0;
+    width: 100%;
+    height: 90%;
+}
+
+/* 사용자 목록 블록 */
+#user {
+    width: 95%;
+    height: 150px;
+    padding: 30px;
+    border-bottom: 2px solid black;
+    background-color: inherit;
+}
+
+/* 사용자 정보 블록 */
+#user_info {
+    height: 100%;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    float: left;
+}
+#user_id {
+    font-family: 'impact';
+    font-size: 65px;
+    margin: 0;
+}
+
+/* 상호작용 버튼 블록 */
+#user_but {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
+#user_but > div {
+    width: 33%;
+    height: 100%;
+}
+.sub {
+    width: 100%;
+    height: 100%;
+}
+.sub > input {
+    display: none;
+}
+#user_but > div > button, #user_but > div > form > button {
+    cursor: pointer;
+    background-color: rgb(43, 83, 193);
+    color: white;
+    border: none;
+    font-size: 30px;
+    font-weight: bold;
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+}
+#user_status {
+    height: 55%;
+}
+
+/*------------------------------- 쪽지 모달창 -------------------------------*/
+/* 모달창 배경 */
+.plettle{
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1,1,1,0.7);
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+
+/* 모달창 내용 기본 */
+.modal{
+    margin: auto;
+    z-index: 1;
+    width: 100%;
+    height: 800px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+}
+.modalcomeout {
+    z-index: 1;
+    background: none;
+    margin-right: 2%;
+    height: 8%;
+    font-size: 100px;
+    font-weight: bold;
+    float: right;
+    border: none;
+}
+
+/* 모달창 내용 상단정보 */
+.upss{
+    margin: 0 5%;
+    margin-top: 2%;
+    width: 90%;
+    height: 20%;
+    display: flex;
+    
+}
+.msg_info{
+    font-size: 30px;
+    width: 90%;
+    margin-left: 10%;
+}
+#msg_nick{
+    font-size: 60px;
+}
+#msg_nick > h1{
+    margin: 0;
+}
+#date {
+    font-size: 30px;
+}
+#date > h2{
+    margin: 0;
+}
+
+/* 모달창 메시지*/
+.middle{
+    margin: 0 5%;
+    padding-top: 8%;
+    width: 90%;
+    height: 60%;
+    text-align: center;
+}
+#msg {
+    width: 100%;
+    height: 100%;
+}
+#msg_cont {
+    width: 97.5%;
+    height: 70%;
+    outline: 0;
+    resize: none;
+    border: 2px solid black;
+    background-color: white;
+    font-size: 50px;
+}
+.msgbutton{
+    margin: 5px 2.5%;
+    width: 40%;
+    height: 150px;
+    background-color: rgb(43, 83, 193);
+    font-size: 80px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+#msg_send {
+    margin: 5px 0;
+    width: 40%;
+    height: 150px;
+    background-color: rgb(43, 83, 193);
+    font-size: 80px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+/*----------------------------- 쪽지 모달창 끝 -----------------------------*/
+
+/* 정의 및 기본 선택자 */
+input::placeholder {
+    color: white;
+    font-size: 15px;
+}
+
+input, button {
+    outline: 0;
+    cursor: pointer;
+}
+
+.but {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    font-size: 15px;
+    border-radius: 20px;
+}
