@@ -43,14 +43,23 @@ $('.user_photo').css('transition', 'all ease 1s');
 
 /* 메뉴에 맞는 페이지로 이동 및 기능 */
 function goProfile() {
-    location.href = "/profile";
+  $('#page_type').val('profile');
+  updateCnt();
+    // location.href = "/profile";
 }
 function logOut() {
-    alert('로그아웃 되었습니다!');
-    location.href = "/logout";
+  $('#page_type').val('logout');
+  updateCnt();
+  // location.href = "/logout";
 }
 function goPeople() {
-    location.href = "/search";
+  $('#page_type').val('search');
+  updateCnt();
+    // location.href = "/search";
+}
+function goMain() {
+  $('#page_type').val('main');
+  updateCnt();
 }
 
 /* 사진 관련 모달 띄우기 및 닫기 */
@@ -142,7 +151,7 @@ function move_and_stop() {
     // 저장한 정보를 POST editPhoto로 넘김
     edit.submit();
   }
-}
+} // 클래스의 값을 배열에 담아 form의 input에 전달
 
 /* 로그인 했을 시 미니 프로필 띄우기 */
 if (add.value != "") {
@@ -220,7 +229,6 @@ function zoomPhoto() {
 
   cnt = Number(cnt)+1;
   ($('.photo_cnt').eq(index_zoom)).val(cnt);
-
 }
 
 /* 클릭 버튼에 따라 모드 변경 */
@@ -231,6 +239,20 @@ function editMode() {
 function deleteMode() {
   mode.value = "delete";
   stay_value();
+}
+
+/* contents 페이지 벗어나면 누적됐던 조회수 업데이트 */
+function updateCnt() {
+  var photo_name = new Array();
+  var photo_cnt = new Array();
+  
+  for (var i = 0; i < user_photo.length; i ++) {
+    photo_name[i] = $('.photo_name').eq(i).val();
+    photo_cnt[i] = $('.photo_cnt').eq(i).val();
+  }
+  $('#photos_cnt_name').val(photo_name);
+  $('#photos_cnt').val(photo_cnt);
+  $('#update').submit();
 }
 
 profile.addEventListener("click", goProfile);

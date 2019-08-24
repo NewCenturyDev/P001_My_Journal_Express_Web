@@ -81,6 +81,46 @@ router.get('/finder', function(req, res) {
   }
 });
 
+router.post('/update_cnt', function(req, res) {
+  var type = req.body.page_type; // 이동할 페이지 이름 받음
+  var photo_name = new Array();
+  var photo_cnt = new Array();
+
+  photo_name = req.body.photos_cnt_name.split(',');
+  photo_cnt = req.body.photos_cnt.split(',');
+
+  console.log(req.body.photos_cnt_name+'\n'+req.body.photos_cnt);
+
+  var sql_udt = "UPDATE photo SET cnt = ? WHERE photo_name = ?";
+  for (var i = 0; i < photo_name.length; i++) {
+    var params_udt = [photo_cnt[i], photo_name[i]];
+    connection.query(sql_udt, params_udt, function(err, req, res) {
+      if (err) {
+        console.log('갱신 실패\n'+err);
+      }
+    });
+  } // 컨텐츠의 조회수 갱신
+
+  if (type==='profile') {
+    res.send('<script>location.href = "/profile";</script>');
+  }
+  else if (type==='logout') {
+    req.session.destroy();
+    res.send('<script>alert("로그아웃 되었습니다!"); location.href = "/";</script>');
+  }
+  else if (type==='search') {
+    res.send('<script>location.href = "/search";</script>');
+  }
+  else if (type==='main') {
+    if (req.session.user.id) {
+      res.send(go_contents(req.session.user.id), 1);  
+    }
+    else {
+      res.send('<script>location.href = "/";</script>');
+    }
+  } // 유형에 맞는 페이지로 이동
+});
+
 /* GET contents pages */
 router.get('/contents', function(req, res) {
   if(!req.session.user){
@@ -326,11 +366,11 @@ router.post('/login', function(req, res){
 });
 
 //로그아웃 처리 알고리즘
-router.get('/logout', function(req, res){
-  req.session.destroy();
-  console.log('로그아웃 처리 - 세션 삭제');
-  res.redirect('/');
-});
+// router.get('/logout', function(req, res){
+//   req.session.destroy();
+//   console.log('로그아웃 처리 - 세션 삭제');
+//   res.redirect('/');
+// });
 
 //회원가입 처리 알고리즘
 router.post('/register', function(req, res){

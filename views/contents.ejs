@@ -93,6 +93,12 @@
                 <input type="text" class="photo_src" value="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>" style="display: none;">
             </div>
         <% } %>
+        <!-- 조회수 갱신 기능 위한 숨김 form -->
+        <form id="update" action="/update_cnt" method="POST" style="display: none;">
+            <input type="text" id="photos_cnt_name" name="photos_cnt_name">
+            <input type="text" id="page_type" name="page_type">
+            <input type="text" id="photos_cnt" name="photos_cnt">
+        </form>
         <!-- profile에 커서 올릴 때 미니 프로필 -->
         <div id="mini_profile">
             <div>
