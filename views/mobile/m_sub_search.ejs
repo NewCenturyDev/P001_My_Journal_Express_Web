@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <title>사진 전시회 서비스 - 검색 페이지</title>
+    <link rel="stylesheet" href="/stylesheets/mobile/m_sub_search.css"></link>
+</head>
+<body>
+    <header>
+        <button id="back" onclick="location.href='/mobile/contents'"> Back </button>
+        <form action="/mobile/search" method="POST">
+            <input type="text" id="m_search" name="search" placeholder="search">
+        </form>
+    </header>
+    <main>
+        <!--사용자 목록-->
+        <% for (var i=0; i< rows.length; i++) { %>
+            <div id="user" value="<%= rows[i].member_id %>">
+                <div id="user_info">
+                    <div>
+                        <p id="user_id"><%= rows[i].member_id %></p>
+                    </div>
+                    <div id="user_status">
+                        <p><b style="font-size:40px; margin:0;"><%= rows[i].member_nick %></b></p>
+                    </div>
+                </div>
+                <div id="user_but">
+                    <div>
+                        <form class="sub" action="/mobile/contents" method="POST">
+                            <input type="text" name="visit_to" value="<%= rows[i].member_id%>">
+                            <input type="text" name="room_num" value="1">
+                            <button name="move" value="move">이동</button>
+                        </form>
+                    </div>
+                    <div>
+                        <form class="sub" action="/mobile/subscribe" method="POST">
+                            <input type="text" name="sub_r_id" value="<%= rows[i].member_id%>">
+                            <input type="text" name="sub_r_nick" value="<%= rows[i].member_nick%>">
+                            <button>구독</button>
+                        </form>
+                    </div>
+                    <div>
+                        <button type="button" class="send" value="<%= rows[i].member_nick%>">쪽지<br/> 보내기</button>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        <!--편지 모달 창-->
+        <div class="plettle" style="display: none;">
+            <div class="modal">
+                <button class="modalcomeout" type="button">X</button>
+                <div class="upss">
+                    <div class="subbox">
+                        <div id="nicname"><h1>받는 사람</h1></div>
+                        <div id="date"><h2>보내는 날짜 발신</h2></div>
+                    </div>
+                </div>
+                <div class="middle">
+                    <form id="msg" action="/mobile/message" method="post">
+                        <textarea id="msg_cont" name="msg_cont" placeholder="보낼 내용을 입력하세요!"></textarea>
+                        <input type="text" id="r_nick" name="r_nick" style="display: none;">
+                        <input id="msg_send" type="submit" value="보내기">
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </main>
+</body>
+    <script src="/javascripts/mobile/m_subsearch.js"></script>
+</html>

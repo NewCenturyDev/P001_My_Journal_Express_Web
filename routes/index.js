@@ -13,7 +13,7 @@ var fs = require("fs-extra");
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
@@ -178,13 +178,15 @@ router.get('/profile', function(req, res) {
 
 /* GET search pages */
 router.get('/search', function(req, res) {
-  var sql = "SELECT member_id, member_nick, member_msg FROM member";
-  // 회원 추천 및 검색 위해 현재 가입된 회원들의 정보 전달
+  var sql = "SELECT member_id, member_nick, member_msg FROM member ORDER BY RAND() LIMIT 5";
+  // 회원 추천 및 검색 위해 현재 가입된 회원들 중 5명을 임의추출하여 정보 전달 (검색어를 입력하지 않고 아이콘을 클릭하여 들어왔을 경우)
   connection.query(sql, function(err, rows, fields) {
     if (err) {
       console.log(err);
     } else {
       res.render('sub_search', {
+        option: 1,
+        keyword: "",
         rows: rows
       });
     }
@@ -240,7 +242,9 @@ router.post('/editPhoto', function(req, res) {
   
   res.send ('<script>alert("변경 사항이 저장되었습니다!");</script>'+go_contents(visit_to, room_num));
 }); // 사진 정보로 변경
+/* -------------------------- 컨텐츠 박스 이동 기능 끝 -------------------------- */
 
+/* --------------------------- 사진 세부 정보 수정 기능 --------------------------- */
 router.post('/edit_detail_photo', function (req, res) {
   var visit_to = req.session.visit_to;
   var room_num = req.body.edit_room_num;
@@ -277,12 +281,36 @@ router.post('/edit_detail_photo', function (req, res) {
     });
   } // 삭제 눌렀을 때 사진 크기 삭제
 }); // 사진 크기 변경 및 삭제
+/* ------------------------- 사진 세부 정보 수정 기능 끝 ------------------------- */
 
+/* ------------------------------- 회원 검색 기능 ------------------------------- */
 router.post('/search', function(req, res) {
-  res.send('<script> location.href = "/search"; </script>');
+  var keyword = "%" + req.body.search + "%";
+  var sql = 'SELECT member_id, member_nick, member_msg FROM member WHERE member_id LIKE ? OR member_nick LIKE ? OR member_email LIKE ? OR member_name LIKE ? OR member_msg LIKE ?';
+  var params = [keyword, keyword, keyword, keyword, keyword];
+  if(req.body.search == ""){
+    //검색창에 아무것도 입력하지 않았을 경우 아이콘을 눌러 들어갔을 때와 동일하게 추천 모드로 작동 (회원 5명 임의추출)
+    res.redirect('/search');
+  }
+  else{
+    //검색창에 키워드를 입력한 경우 해당 키워드를 id나 닉네임에 포함하는 회원 검색
+    connection.query(sql, params, function(err, rows, fields){
+      if(err){
+        console.log('검색 실패');
+        res.send ('<script>alert("검색 도중 오류가 발생하여 검색을 취소합니다. 잠시후 이전 화면으로 이동합니다."); history.back();</script>');
+      }
+      else{
+        console.log(keyword + '검색 성공');
+        res.render('sub_search', {
+          option: 2,
+          keyword: req.body.search,
+          rows: rows
+        });
+      }
+    });
+  }
 });
-/* ------------------------- 컨텐츠 박스 이동 기능 끝 ------------------------- */
-
+/* ----------------------------- 회원 검색 기능 끝 ----------------------------- */
 
 /* --------- 계정 관련 기능 (로그인, 로그아웃, 회원가입, 회원탈퇴 기능) --------- */
 //참고 : 계정 관련 기능은 프로젝트 막바지에 Route 분리할 예정입니다. 소스 전체를 건드려야 하므로 1차 완성 이후에 하는 것으로 합시다. (/users 라우트 | 소스파일 -> users.js)
@@ -372,7 +400,7 @@ router.post('/register', function(req, res){
     connection.query(sql, params, function(err, rows, fields){
        if(err){
         console.log(err);
-        res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
+        res.send ('<script>alert("아이디나 닉네임이 중복되어 가입이 불가능합니다. 다른 아이디나 닉네임으로 시도해 주십시오. 중복일 경우 닉네임이나 아이디 뒤에 특수 문자나 임의의 숫자를 덧붙이면 통과될 가능성이 매우 높습니다. 그러한 방법으로 반복 재시도하여도 오류가 발생할 경우 서버측의 사정으로 인한 DB 오류일 수 있으니 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
         return;
       }
       else {
