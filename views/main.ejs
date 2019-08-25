@@ -37,52 +37,28 @@
             <input type="text" name="" id="" placeholder="사진 또는 아이디를 검색하세요!">
         </form>
         <div id="main_img">
-            <img src="images/main_img.png" alt="">
+            <img src="images/main1.jpg" alt="">
         </div>
         <div id="popular">
             <div id="title">
                 <p class="title_font">Popular</p>
             </div>
             <div id="contents">
+                <% for (var i = 0; i < popular.length; i++) { %>
                 <div class="block">
                     <div class="mini_img">
-                        <img src="images/cat.jpg" alt="">
+                        <img src="/img/<%= popular[i].member_id %>/<%= popular[i].room_num %>/<%= popular[i].photo_name %>">
                     </div>
                     <div class="mini_title">
-                        <p><b>사진 이름</b></p>
+                        <p><b><%= popular[i].p_name %></b></p>
                     </div>
                     <div class="cnt_and_go">
                         <img src="images/cnt.png" alt="조회수">
-                        <p class="cnt">조회수</p>
-                        <p class="nick">닉네임</p>
+                        <p class="cnt"><%= popular[i].cnt %></p>
+                        <p class="nick"><%= popular[i].member_nick %></p>
                     </div>
                 </div>
-                <div class="block">
-                    <div class="mini_title">
-                        <p><b>게시글 제목</b></p>
-                    </div>
-                    <div class="mini_img">
-                        <p>어쩌구 저쩌구.. 어쩍저쩍 게시글 내용</p>
-                    </div>
-                    <div class="cnt_and_go">
-                        <img src="images/cnt.png" alt="조회수">
-                        <p class="cnt">조회수</p>
-                        <p class="nick">닉네임</p>
-                    </div>
-                </div>
-                <div class="block">
-                    <div class="mini_img">
-                        <img src="images/cat.jpg" alt="조회수">
-                    </div>
-                    <div class="mini_title">
-                        <p><b>동영상 이름</b></p>
-                    </div>
-                    <div class="cnt_and_go">
-                        <img src="images/cnt.png" alt="조회수">
-                        <p class="cnt">조회수</p>
-                        <p class="nick">닉네임</p>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
 
@@ -91,42 +67,24 @@
                 <p class="title_font">People</p>
             </div>
             <div id="contents">
+                <% for (var i = 0; i < people.length; i++) { %>
                 <div class="block">
                     <div class="mini_img">
                         <img src="images/cat.jpg" alt="">
                     </div>
                     <div class="mini_title">
-                        <p><b>회원 닉네임</b></p>
+                        <p><b><%= people[i].member_nick %></b></p>
                     </div>
                     <div class="cnt_and_go">
                         <img src="images/msg.png" alt="상태 메시지">
-                        <p class="cnt">상태 메시지</p>
+                        <% if (people[i].member_msg==null) { %>
+                        <p class="cnt">설정한 상태 메시지가 없습니다.</p>
+                        <% } else { %>
+                        <p class="cnt"><%= people[i].member_msg %></p>
+                        <% } %>
                     </div>
                 </div>
-                <div class="block">
-                        <div class="mini_img">
-                            <img src="images/cat.jpg" alt="조회수">
-                        </div>
-                        <div class="mini_title">
-                            <p><b>회원 닉네임</b></p>
-                        </div>
-                        <div class="cnt_and_go">
-                            <img src="images/msg.png" alt="상태 메시지">
-                            <p class="cnt">상태 메시지</p>
-                        </div>
-                    </div>
-                <div class="block">
-                    <div class="mini_img">
-                        <img src="images/cat.jpg" alt="조회수">
-                    </div>
-                    <div class="mini_title">
-                        <p><b>회원 닉네임</b></p>
-                    </div>
-                    <div class="cnt_and_go">
-                        <img src="images/msg.png" alt="상태 메시지">
-                        <p class="cnt">상태 메시지</p>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
 
@@ -135,45 +93,35 @@
                 <p class="title_font">New</p>
             </div>
             <div id="contents">
-                <div class="block">
-                    <div class="mini_img">
-                        <img src="images/cat.jpg" alt="">
+                <% for (var i = 0; i < news.length; i++) { %>
+                <% if (news[i].type=='text') { %>
+                    <div class="block">
+                        <div class="mini_title">
+                            <p><b><%= news[i].p_name %></b></p>
+                        </div>
+                        <div class="mini_img">
+                            <p><%= news[i].contents %></p>
+                        </div>
+                        <div class="cnt_and_go">
+                            <p class="nick"><%= news[i].member_nick %></p>
+                        </div>
                     </div>
-                    <div class="mini_title">
-                        <p><b>사진 이름</b></p>
+                <% } else if (news[i].type=='photo') { %>
+                    <div class="block">
+                        <div class="mini_img">
+                            <img src="/img/<%= news[i].member_id %>/<%= news[i].room_num %>/<%= news[i].photo_name %>">
+                        </div>
+                        <div class="mini_title">
+                            <p><b><%= news[i].p_name %></b></p>
+                        </div>
+                        <div class="cnt_and_go">
+                            <img src="images/cnt.png" alt="조회수">
+                            <p class="cnt"><%= news[i].cnt %></p>
+                            <p class="nick"><%= news[i].member_nick %></p>
+                        </div>
                     </div>
-                    <div class="cnt_and_go">
-                        <img src="images/cnt.png" alt="조회수">
-                        <p class="cnt">조회수</p>
-                        <p class="nick">닉네임</p>
-                    </div>
-                </div>
-                <div class="block">
-                    <div class="mini_title">
-                        <p><b>게시글 제목</b></p>
-                    </div>
-                    <div class="mini_img">
-                        <p>어쩌구 저쩌구.. 어쩍저쩍 게시글 내용</p>
-                    </div>
-                    <div class="cnt_and_go">
-                        <img src="images/cnt.png" alt="조회수">
-                        <p class="cnt">조회수</p>
-                        <p class="nick">닉네임</p>
-                    </div>
-                </div>
-                <div class="block">
-                    <div class="mini_img">
-                        <img src="images/cat.jpg" alt="조회수">
-                    </div>
-                    <div class="mini_title">
-                        <p><b>동영상 이름</b></p>
-                    </div>
-                    <div class="cnt_and_go">
-                        <img src="images/cnt.png" alt="조회수">
-                        <p class="cnt">조회수</p>
-                        <p class="nick">닉네임</p>
-                    </div>
-                </div>
+                    <% } %>
+                <% } %>
             </div>
         </div>
     </main>
@@ -203,10 +151,11 @@
                 <p><b><a href="">Home</a></b></p>
                 <p><b><a href="">About</a></b></p>
                 <p><b><a href="">Contact</a></b></p>
+                <p><b><a href="">Help</a></b></p>
             </div>
         </div>
         <div id="contributor">
-            <p>@ 2019 by MY Journals. Created with 1000.peach, HyperTech99, IMNOOK</p>
+            <p>@ 2019 by MY Journals. Created with 1000peach, HyperTech99, IMNOOK</p>
         </div>
     </footer>
 </body>

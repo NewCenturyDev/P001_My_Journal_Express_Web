@@ -16,5 +16,6 @@ function signUp() {
     location.href = "/register";
 }
 
+
 login.addEventListener("click", logIn);
 register.addEventListener("click", signUp);

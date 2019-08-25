@@ -43,14 +43,38 @@ connection.query('USE project', function(err,rows,fields){
 
 /* GET home page */
 router.get('/', function(req, res) {
-  if(req.session.user){
+  if (req.session.user) {
     //이미 로그인되어 있을 경우
-    res.send (go_contents(req.session.user.id, 1));
+    res.send(go_contents(req.session.user.id, 1));
   }
-  else{
-    res.render('main', { title: 'Express' });
+  else {
+    var sql_sel_photo = "SELECT substring_index(p.photo_name, '-', 1) p_name, p.photo_name, p.room_num, p.member_id, m.member_nick, p.cnt FROM photo p INNER JOIN member m on m.member_id = p.member_id WHERE p.type='photo' ORDER BY p.cnt DESC LIMIT 3";
+    connection.query(sql_sel_photo, function(err1, rows1) {
+      if (err1) {console.log(err1);}
+      else {
+        // 조회수가 높은 사진 검색
+        var sql_sel_people = "SELECT m.member_id, m.member_nick, m.member_msg FROM photo p INNER JOIN member m on m.member_id = p.member_id ORDER BY p.cnt DESC LIMIT 3";
+        connection.query(sql_sel_people, function(err2, rows2) {
+          if (err2) {console.log(err2);}
+          else {
+            // 인기있는 사진을 등록한 회원 검색 (테스트 데이터 넣은 후 구독자 많은 순으로 변경 예정)
+            var sql_sel_new = "SELECT substring_index(p.photo_name, '-', 1) p_name, p.contents, p.photo_name, p.room_num, p.member_id, m.member_nick, p.cnt, p.type FROM photo p INNER JOIN member m on m.member_id = p.member_id WHERE p.type<>'video' ORDER BY p.date DESC LIMIT 3";
+            connection.query(sql_sel_new, function(err3, rows3) {
+              if (err3) {console.log(err3);}
+              else {
+                res.render('main', {
+                  popular: rows1,
+                  people: rows2,
+                  news: rows3
+                });
+              }
+            }); // 최근에 올라온 게시물 검색
+          }
+        });
+      }
+    });
   }
-});
+}); // 홈페이지 소개 및 주요 게시물, 회원을 보여주는 메인 페이지
 
 /* GET auth pages */
 router.get('/login', function(req, res) {
