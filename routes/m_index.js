@@ -13,7 +13,7 @@ var fs = require("fs-extra");
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
@@ -73,6 +73,7 @@ router.get('/contentsframe', function(req, res) {
   }
 });
 
+/* GET profile page */
 router.get('/profile', function(req, res) {
   if(!req.session.user){
     //로그인하지 않은 경우
@@ -116,13 +117,24 @@ router.get('/profile', function(req, res) {
   }
 });
 
-router.get('/profileframe', function(req, res) {
+/* GET search page */
+router.get('/search', function(req, res) {
   if(!req.session.user){
     //로그인하지 않은 경우
     res.redirect('/mobile/auth/');
   }
   else{
-    res.render('mobile/m_profileframe', { title: 'Express' });
+    var sql = "SELECT member_id, member_nick, member_msg FROM member ORDER BY RAND() LIMIT 5";
+    // 회원 추천 및 검색 위해 현재 가입된 회원들 중 5명을 임의추출하여 정보 전달 (검색어를 입력하지 않고 아이콘을 클릭하여 들어왔을 경우)
+    connection.query(sql, function(err, rows, fields) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('mobile/m_sub_search', {
+          rows: rows
+        });
+      }
+    });
   }
 });
 
@@ -158,7 +170,7 @@ router.post('/subscribe', function(req, res) {
       console.log(err);
     }
     else if (rows[0]!=undefined) {
-      res.send('<script>alert("이미 구독했습니다!"); location.href = "/search";</script>');
+      res.send('<script>alert("이미 구독했습니다!"); location.href = "/mobile/search";</script>');
       return;
     }
     else {
@@ -170,7 +182,7 @@ router.post('/subscribe', function(req, res) {
         }
         else {
           console.log(subInfo+'\n'+'구독 성공');
-          res.send('<script>alert("구독했습니다!"); location.href = "/search";</script>');
+          res.send('<script>alert("구독했습니다!"); location.href = "/mobile/search";</script>');
         }
       });
     }
@@ -286,6 +298,33 @@ function edit_msg_num() {
 }
 
 /* ------------------------- 쪽지 수발신 기능 끝 ------------------------- */
+
+/* --------------------------- 회원 검색 기능 --------------------------- */
+router.post('/search', function(req, res) {
+  var keyword = "%" + req.body.search + "%";
+  var sql = 'SELECT member_id, member_nick, member_msg FROM member WHERE member_id LIKE ? OR member_nick LIKE ? OR member_email LIKE ? OR member_name LIKE ? OR member_msg LIKE ?';
+  var params = [keyword, keyword, keyword, keyword, keyword];
+  if(req.body.search == ""){
+    //검색창에 아무것도 입력하지 않았을 경우 아이콘을 눌러 들어갔을 때와 동일하게 추천 모드로 작동 (회원 5명 임의추출)
+    res.redirect('/mobile/search');
+  }
+  else{
+    //검색창에 키워드를 입력한 경우 해당 키워드를 id나 닉네임에 포함하는 회원 검색
+    connection.query(sql, params, function(err, rows, fields){
+      if(err){
+        console.log('검색 실패' + err);
+        res.send ('<script>alert("검색 도중 오류가 발생하여 검색을 취소합니다. 잠시후 이전 화면으로 이동합니다."); history.back();</script>');
+      }
+      else{
+        console.log(keyword + '검색 성공' + rows);
+        res.render('mobile/m_sub_search', {
+          rows: rows
+        });
+      }
+    });
+  }
+});
+/* ------------------------- 회원 검색 기능 끝 ------------------------- */
 
 /* --------------------------------------------------------------------------- */
 /* ------------------------------- 기능 구현 끝 -------------------------------- */

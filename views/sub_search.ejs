@@ -34,9 +34,16 @@
     </header>
     
     <main>
-        <div id="message">
-            <p><b>>> 추천 회원 목록입니다!</b></p>
-        </div>
+        <% if(option == 1) { %>
+            <div id="message">
+                <p><b>>> 추천 회원 목록입니다!</b></p>
+            </div>
+        <% } %>
+        <% if(option == 2) { %>
+            <div id="message">
+                <p><b>>> "<%= keyword %>"로 검색한 검색 결과입니다.</b></p>
+            </div>
+        <% } %>
         <!--사용자 목록-->
         <% for (var i=0; i< rows.length; i++) { %>
             <div id="user" value="<%= rows[i].member_id %>">
