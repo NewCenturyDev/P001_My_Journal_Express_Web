@@ -20,21 +20,50 @@ connection.query('USE project', function(err,rows,fields){
     console.log('DB ERR_', err);
 });
 
-
-/* 스토리지 정보 */
-
-// 뷰 페이지 경로
-router.get('/upload', function(req, res) {
-  if(req.session.user){
-    res.render("upload");
-  }
-  else{
-    res.send('<script>alert("로그인 해주세요!"); location.href = "/login";</script>');
-  }
-});
-
 // 파일 업로드 처리
 /* 파일 업로드 알고리즘 */
+
+router.post('/profile_upload', function(req, res) {
+  var login_id = req.session.user.id;
+  var sql_sel = 'SELECT member_img FROM member WHERE member_id = ?';
+
+  connection.query(sql_sel, login_id, function(err, row) {
+    if (err) {console.log(err);}
+    else {
+      if (row[0].member_img!=null) {
+        fs.unlink('./uploads/'+login_id+'/'+row[0].member_img);
+      } // 프로필 사진이 존재할 경우 작업 전 먼저 삭제
+      var storage = multer.diskStorage({
+        destination: function (req, file, cb){
+          cb(null, 'uploads/'+login_id);
+        }, // 회원 폴더에 프로필 사진 저장
+        filename: function (req, file, cb){
+          var extension = path.extname(file.originalname); //파일 확장자
+          var filename = login_id + '_profile' + extension;
+          cb(null, filename);
+    
+          var params_udt = [filename, login_id];
+          var sql_udt = "UPDATE member SET member_img = ? WHERE member_id = ?";
+          connection.query(sql_udt, params_udt, function(err, rows, field) {
+            if (err) {console.log(err);}
+            else {
+              console.log('db에 프로필 사진 업데이트 성공');
+            }
+          }); // db에도 변경된 사진 저장 (이름은 동일, 확장자는 다를 수도)
+        }
+      });
+
+        var upload = multer({storage: storage}).single("file");
+        upload(req, res, function(err) {
+          if (err) {console.log(err);}
+          else {
+            console.log('업데이트 완료');
+            res.send('<script>alert("프로필 사진이 변경되었습니다!");</script>');
+          }
+        });
+    }
+  });
+});
 
 router.post('/text_upload', function(req, res) {
   var text = {
@@ -92,23 +121,12 @@ router.post('/upload', function(req, res, next) {
 
     }
   });
-
   var upload = multer({storage: storage}).single("file");
-
   upload(req, res, function(err) {
     if (err) {
       console.log(err);
     }
     else {
-      // 3. 파일 객체
-      var file = req.file
-
-      // // 4. 파일 정보
-      var result = {
-          originalName : file.originalname,
-          size : file.size,
-      }
-      // console.log(result);
        res.send ('<form id="sample" action="/contents" method="post">'
           +'<input style="display: none;" name="visit_to" type="text" value="'+req.session.user.id+'">'
           +'<input style="display: none;" name="room_num" type="text" value="'+req.body.upload_num+'">'

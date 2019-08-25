@@ -52,8 +52,16 @@
                 <!--정보 수정-->
                 <div class="myinfo" style="display: flex">
                     <div class="Mypicture">
-                        <div class="picture"></div>
-                        <div class="picture_modify"><a class="profile_simple_modify">사진 변경</a></div>
+                        <div class="picture">
+                        <% if (rows0[0].member_img==null) { %> 
+                            <img src="/images/profile_list.jpg" alt="">
+                        <% } else { %>
+                            <img src="/img/<%= rows0[0].member_id %>/<%= rows0[0].member_img %>" alt="">
+                        <% } %>        
+                        </div>
+                        <div class="picture_modify">
+                            <button type="button" id="edit_pro" class="profile_simple_modify">사진 변경</button>
+                        </div>
                     </div>
                     <div class="info">
                         <table id="infotable">
@@ -179,6 +187,18 @@
                         <input id="msg_send" type="submit" value="보내기" style="display:none;">
                     </form>
                 </div>
+            </div>
+        </div>
+        <!-- 프로필 사진 등록 모달창 -->
+        <div id="add_modal_bg" style="display: none;">
+            <div id="modal">
+                <button class="modalcomeout" type="button">X</button>
+                <h1 id="add_title">프로필 사진 변경</h1>
+                <form id="add_photo" action="/file/profile_upload" method="post" enctype="multipart/form-data">
+                    <input type="text" name="photo_name" id="photo_name" style="display: none;">
+                    <input type="file" name="file">
+                    <input type="submit" id="add_submit" value="추가 하기">
+                </form>
             </div>
         </div>
     </body>

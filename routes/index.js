@@ -113,8 +113,6 @@ router.post('/update_cnt', function(req, res) {
   photo_name = req.body.photos_cnt_name.split(',');
   photo_cnt = req.body.photos_cnt.split(',');
 
-  console.log(req.body.photos_cnt_name+'\n'+req.body.photos_cnt);
-
   var sql_udt = "UPDATE photo SET cnt = ? WHERE photo_name = ?";
   for (var i = 0; i < photo_name.length; i++) {
     var params_udt = [photo_cnt[i], photo_name[i]];
@@ -186,6 +184,16 @@ router.post('/contents', function(req, res) {
 
 });
 
+router.get('/img/:id/:name', function(req, res) {
+  var id = req.params.id;
+  var name = req.params.name;
+
+  fs.readFile('./uploads/'+id+'/'+name, function (err, data) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.end(data);
+  });
+}); // 프로필 사진을 서버 폴더에서 불러와 페이지에 넘겨줌
+
 router.get('/img/:id/:num/:name', function(req, res) {
   var id = req.params.id;
   var num = req.params.num;
@@ -195,7 +203,7 @@ router.get('/img/:id/:num/:name', function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.end(data);
   });
-}); // 사진을 서버 폴더에서 불러와 페이지에 넘겨줌
+}); // 등록한 사진을 서버 폴더에서 불러와 페이지에 넘겨줌
 
 router.get('/profile', function(req, res) {
   if(req.session.user) {
@@ -417,12 +425,12 @@ router.post('/login', function(req, res){
   console.log(auth);
 });
 
-//로그아웃 처리 알고리즘
-// router.get('/logout', function(req, res){
-//   req.session.destroy();
-//   console.log('로그아웃 처리 - 세션 삭제');
-//   res.redirect('/');
-// });
+// 로그아웃 처리 알고리즘
+router.get('/logout', function(req, res){
+  req.session.destroy();
+  console.log('로그아웃 처리 - 세션 삭제');
+  res.redirect('/');
+});
 
 //회원가입 처리 알고리즘
 router.post('/register', function(req, res){

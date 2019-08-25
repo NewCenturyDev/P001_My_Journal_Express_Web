@@ -19,6 +19,9 @@ var personal_msg = document.getElementById("modify_personal_msg");
 var remodifys = document.getElementsByClassName("remodify")[0];
 var modify_auth = document.getElementsByClassName("modify_auth")[0];
 
+// 회원 이미지 변경 버튼
+var edit_pro_img = document.getElementById('edit_pro');
+
 // 구독 탭 타일 버튼
 var move = document.getElementsByClassName("move");
 var remove = document.getElementsByClassName("remove");
@@ -29,9 +32,12 @@ var pre_cont = document.getElementsByClassName('pre_cont');
 var pre_date = document.getElementsByClassName('pre_date');
 var pre_num = document.getElementsByClassName('pre_num');
 
+// 회원 이미지 변경 모달창
+var add_modal_bg = document.getElementById('add_modal_bg');
+
 // 쪽지 모달창
 var modalcomeon = document.getElementsByClassName("modalcomeon");
-var modalcomeout = document.getElementsByClassName("modalcomeout")[0];
+var modalcomeout = document.getElementsByClassName("modalcomeout");
 var plettle = document.getElementsByClassName("plettle")[0];
 var msg_nick = document.getElementById('msg_nick');
 var date = document.getElementById('date');
@@ -184,6 +190,9 @@ function modalnoneDisplay(){
     if(plettle.style.display =="block"){
         plettle.style.display = 'none';
     }
+    if(add_modal_bg.style.display == 'flex') {
+        add_modal_bg.style.display = 'none';
+    }
 }
 
 //모달창 전환 함수
@@ -194,6 +203,11 @@ function change_modal() {
     msg_send.style.display = 'inline';
     this.style.display = 'none';
 }
+
+function openProfileImg() {
+    add_modal_bg.style.display = 'flex';
+}
+
 /* ------------------------- 쪽지 수발신 기능 끝 ------------------------- */
 
 /* --------------------------- 상단 메뉴 버튼 기능 --------------------------- */
@@ -218,11 +232,17 @@ function logOut() {
 profile.addEventListener("click", goProfile);
 logout.addEventListener("click", logOut);
 
+//프로필 이미지 변경 모달창
+edit_pro_img.addEventListener("click", openProfileImg);
+
 //쪽지 모달창
 for (var i = 0; i < modalcomeon.length; i++) {
     modalcomeon[i].addEventListener("click", megModalDisplay);
 }
-modalcomeout.addEventListener("click", modalnoneDisplay);
+//모달창 닫기
+for (var i = 0; i < modalcomeout.length; i++) {
+    modalcomeout[i].addEventListener("click", modalnoneDisplay);
+}
 msg_reply.addEventListener("click", change_modal);
 
 //구독 탭

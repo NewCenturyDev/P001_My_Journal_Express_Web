@@ -12,6 +12,7 @@ a{
 }
 button {
     outline: 0;
+    cursor: pointer;
 }
 /*---------------------------- CSS 초기화 끝 ----------------------------*/
 
@@ -153,8 +154,11 @@ h3, h4{
     width: 180px;
     height: 180px;
     object-fit: cover;
-    background-image: url("http://placehold.it/180x180");
-    border: 2px solid black;
+    border: solid black;
+}
+.picture > img {
+    width: 100%;
+    height: 100%;
 }
 .picture_modify{
     margin-top: 10px;
@@ -166,6 +170,8 @@ h3, h4{
     font-weight: bold;
     color: rgb(43, 83, 193);
     cursor: pointer;
+    background: none;
+    border: none;
 }
 #p_msg_input{
     display: inline-block;
@@ -427,6 +433,78 @@ h3, h4{
     cursor: pointer;
 }
 /*------------------------------ 본문 부분 끝 -------------------------------*/
+
+/*------------------------------- 프로필 사진 등록 모달창 -------------------------------*/
+/* 모달창 배경 */
+#add_modal_bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1,1,1,0.7);
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    display: flex;
+}
+
+#modal {
+    margin: auto;
+    width: 25%;
+    height: 50%;
+    background-color: white;
+    border-radius: 5%;
+}
+
+/* 모달창 닫기 */
+.modalcomeout {
+    background: none;
+    width: 10%;
+    height: 30px;
+    float: right;
+    border: none;
+}
+
+#modal > h1 {
+    margin-top: 9%;
+    margin-bottom: 15%;
+    text-align: center;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+#modal > form {
+    flex-direction: column;
+}
+
+#add_photo {
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#add_photo > input {
+    margin: 0 auto;
+}
+
+#photo_name, #text_name {
+    border: solid 3px;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+#photo_name {
+    height: 20%;
+}
+
+#add_submit {
+    width: 30%;
+    border: none;
+    height: 20%;
+    background-color: rgba(0,0,0,0.8);
+    font-size: 14px;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+}
 
 /*------------------------------- 쪽지 모달창 -------------------------------*/
 /* 모달창 배경 */
