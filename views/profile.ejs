@@ -140,10 +140,10 @@
                     <div class="remodify" style="display: none; text-align: center;">
                         <form action="remodify" method="POST">
                             <p>변경할 비밀번호 및 이메일과 닉네임, 전화번호를 입력해 주십시오. 변경하지 않은 정보는 그대로 유지됩니다.</p>
-                            <input class="modi_input" id="remodi_pw" type="text" name="remodi_pw" placeholder="PW" ></input>
-                            <input class="modi_input" id="remodi_nick" type="text" name="remodi_nick" placeholder="Nickname" ></input>
-                            <input class="modi_input" id="remodi_email" type="text" name="remodi_email" placeholder="E-Mail" ></input>
-                            <input class="modi_input" id="remodi_phone" type="text" name="remodi_phone" placeholder="Phone_No" ></input>
+                            <input class="modi_input" id="remodi_pw" type="text" name="remodi_pw" value="<%= rows0[0].member_pw %>"></input>
+                            <input class="modi_input" id="remodi_nick" type="text" name="remodi_nick" value="<%= rows0[0].member_nick %>" ></input>
+                            <input class="modi_input" id="remodi_email" type="text" name="remodi_email" value="<%= rows0[0].member_emial %>" ></input>
+                            <input class="modi_input" id="remodi_phone" type="text" name="remodi_phone" value="<%= rows0[0].member_phone %>" ></input>
                             <button class="modi_confirm">변경 확인</button>
                         </form>
                     </div>

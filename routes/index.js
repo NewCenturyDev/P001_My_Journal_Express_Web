@@ -53,7 +53,7 @@ router.get('/', function(req, res) {
       if (err1) {console.log(err1);}
       else {
         // 조회수가 높은 사진 검색
-        var sql_sel_people = "SELECT m.member_id, m.member_nick, m.member_msg FROM photo p INNER JOIN member m on m.member_id = p.member_id ORDER BY p.cnt DESC LIMIT 3";
+        var sql_sel_people = "SELECT m.member_id, m.member_nick, m.member_msg, m.* FROM photo p INNER JOIN member m on m.member_id = p.member_id ORDER BY p.cnt DESC LIMIT 3";
         connection.query(sql_sel_people, function(err2, rows2) {
           if (err2) {console.log(err2);}
           else {
@@ -451,6 +451,7 @@ router.post('/register', function(req, res){
   //Mysql 쿼리 양식
   var sql = 'INSERT INTO member (member_id, member_pw, member_name, member_nick, member_email, member_phone) VALUES(?, ?, ?, ?, ?, ?)';
   var params = [info.id,info.pw,info.name,info.nick,info.mail,info.phone];
+  var sqls = 'SELECT * from member';
 
   /* 알고리즘 */
   //사용자가 입력한 회원가입 양식 검증
@@ -468,26 +469,41 @@ router.post('/register', function(req, res){
   }
 
   //양식에 문제 없으면 DB에 저장
-  else{
-    connection.query(sql, params, function(err, rows, fields){
-       if(err){
-        console.log(err);
-        res.send ('<script>alert("아이디나 닉네임이 중복되어 가입이 불가능합니다. 다른 아이디나 닉네임으로 시도해 주십시오. 중복일 경우 닉네임이나 아이디 뒤에 특수 문자나 임의의 숫자를 덧붙이면 통과될 가능성이 매우 높습니다. 그러한 방법으로 반복 재시도하여도 오류가 발생할 경우 서버측의 사정으로 인한 DB 오류일 수 있으니 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
-        return;
+  connection.query(sqls, function(err, rowss, fields){
+    if(err){
+     console.log(err);
+   }
+   else {
+     for(var i=0; i<rowss.length; i++){
+       if(rowss[i].member_id == info.id){
+         console.log('아이디 중복');
+         res.send ('<script>alert("아이디가 중복 됩니다!"); location.href = "/register";</script>');
+       }
+       if(rowss[i].member_nick == info.nick){
+        console.log('닉네임 중복');
+        res.send ('<script>alert("닉네임이 중복 됩니다!"); location.href = "/register";</script>');
+       }
       }
-      else {
-        console.log(rows.insertId);
-        fs.mkdirSync('uploads/'+info.id);
-        fs.mkdirSync('uploads/'+info.id+'/1');
-        fs.mkdirSync('uploads/'+info.id+'/2');
-        fs.mkdirSync('uploads/'+info.id+'/3');
-        console.log(info.id+' 폴더 생성');
-        res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
-       } // 첫 사진 등록 시 회원의 사진 폴더 생성
-    });
-  }
-  //디버깅용 로그
-  console.log(info);
+        connection.query(sql, params, function(err, rows, fields){
+           if(err){
+            console.log(err);
+            res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
+            return;
+          }
+          else {
+            console.log(rows.insertId);
+            fs.mkdirSync('uploads/'+info.id);
+            fs.mkdirSync('uploads/'+info.id+'/1');
+            fs.mkdirSync('uploads/'+info.id+'/2');
+            fs.mkdirSync('uploads/'+info.id+'/3');
+            console.log(info.id+' 폴더 생성');
+            res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
+           } // 첫 사진 등록 시 회원의 사진 폴더 생성
+        });
+      }
+      //디버깅용 로그
+      console.log(info);
+  });
 });
 
 //회원탈퇴 처리 알고리즘
