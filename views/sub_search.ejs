@@ -48,7 +48,11 @@
         <% for (var i=0; i< rows.length; i++) { %>
             <div id="user" value="<%= rows[i].member_id %>">
                 <div id="user_img">
-                    <img src="/images/profile_list.jpg">
+                    <% if (rows[i].member_img) { %>
+                        <img src="/img/<%= rows[i].member_id %>/<%= rows[i].member_img %>" alt="">
+                    <% } else { %>
+                        <img src="/images/profile_list.jpg" alt="">
+                    <% } %>
                 </div>
                 <div id="user_info">
                     <div>
@@ -56,7 +60,11 @@
                     </div>
                     <div id="user_status">
                         <p><b style="font-size:18px;"><%= rows[i].member_nick %></b></p>
-                        <p id="pro_msg"><%= rows[i].member_msg %></p>
+                        <% if (rows[i].member_msg) { %>
+                            <p id="pro_msg"><%= rows[i].member_msg %></p>
+                        <% } else { %>
+                            <p id="pro_msg">등록된 상태 메시지가 없습니다.</p>
+                        <% } %> 
                     </div>
                     <div id="user_but">
                         <div>

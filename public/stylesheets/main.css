@@ -194,6 +194,8 @@ input ::-moz-placeholder{
 #people > #contents > .block > .mini_img > img {
     object-fit: cover;
     border-radius: 50%;
+    width: 60%;
+    height: 90%;
 }
 
 #people {

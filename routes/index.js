@@ -48,7 +48,7 @@ router.get('/', function(req, res) {
     res.send(go_contents(req.session.user.id, 1));
   }
   else {
-    var sql_sel_photo = "SELECT substring_index(p.photo_name, '-', 1) p_name, p.photo_name, p.room_num, p.member_id, m.member_nick, p.cnt FROM photo p INNER JOIN member m on m.member_id = p.member_id WHERE p.type='photo' ORDER BY p.cnt DESC LIMIT 3";
+    var sql_sel_photo = "SELECT substring_index(p.photo_name, '-', 1) p_name, p.*, m.member_nick FROM photo p INNER JOIN member m on m.member_id = p.member_id WHERE p.type='photo' ORDER BY p.cnt DESC LIMIT 3";
     connection.query(sql_sel_photo, function(err1, rows1) {
       if (err1) {console.log(err1);}
       else {
@@ -58,7 +58,7 @@ router.get('/', function(req, res) {
           if (err2) {console.log(err2);}
           else {
             // 인기있는 사진을 등록한 회원 검색 (테스트 데이터 넣은 후 구독자 많은 순으로 변경 예정)
-            var sql_sel_new = "SELECT substring_index(p.photo_name, '-', 1) p_name, p.contents, p.photo_name, p.room_num, p.member_id, m.member_nick, p.cnt, p.type FROM photo p INNER JOIN member m on m.member_id = p.member_id WHERE p.type<>'video' ORDER BY p.date DESC LIMIT 3";
+            var sql_sel_new = "SELECT substring_index(p.photo_name, '-', 1) p_name, p.*, m.member_nick FROM photo p INNER JOIN member m on m.member_id = p.member_id WHERE p.type<>'video' ORDER BY p.date DESC LIMIT 3";
             connection.query(sql_sel_new, function(err3, rows3) {
               if (err3) {console.log(err3);}
               else {
@@ -250,7 +250,7 @@ router.get('/profile', function(req, res) {
 
 /* GET search pages */
 router.get('/search', function(req, res) {
-  var sql = "SELECT member_id, member_nick, member_msg FROM member ORDER BY RAND() LIMIT 5";
+  var sql = "SELECT member_id, member_nick, member_msg, member_img FROM member ORDER BY RAND() LIMIT 5";
   // 회원 추천 및 검색 위해 현재 가입된 회원들 중 5명을 임의추출하여 정보 전달 (검색어를 입력하지 않고 아이콘을 클릭하여 들어왔을 경우)
   connection.query(sql, function(err, rows, fields) {
     if (err) {
@@ -358,7 +358,7 @@ router.post('/edit_detail_photo', function (req, res) {
 /* ------------------------------- 회원 검색 기능 ------------------------------- */
 router.post('/search', function(req, res) {
   var keyword = "%" + req.body.search + "%";
-  var sql = 'SELECT member_id, member_nick, member_msg FROM member WHERE member_id LIKE ? OR member_nick LIKE ? OR member_email LIKE ? OR member_name LIKE ? OR member_msg LIKE ?';
+  var sql = 'SELECT member_id, member_nick, member_msg, member_img FROM member WHERE member_id LIKE ? OR member_nick LIKE ? OR member_email LIKE ? OR member_name LIKE ? OR member_msg LIKE ?';
   var params = [keyword, keyword, keyword, keyword, keyword];
   if(req.body.search == ""){
     //검색창에 아무것도 입력하지 않았을 경우 아이콘을 눌러 들어갔을 때와 동일하게 추천 모드로 작동 (회원 5명 임의추출)

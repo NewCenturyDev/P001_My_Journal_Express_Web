@@ -70,17 +70,21 @@
                 <% for (var i = 0; i < people.length; i++) { %>
                 <div class="block">
                     <div class="mini_img">
-                        <img src="images/cat.jpg" alt="">
+                        <% if (people[i].member_img) { %>
+                            <img src="/img/<%= people[i].member_id %>/<%= people[i].member_img %>" alt="">
+                        <% } else { %>
+                            <img src="/images/profile_list.jpg" alt="">
+                        <% } %>
                     </div>
                     <div class="mini_title">
                         <p><b><%= people[i].member_nick %></b></p>
                     </div>
                     <div class="cnt_and_go">
                         <img src="images/msg.png" alt="상태 메시지">
-                        <% if (people[i].member_msg==null) { %>
-                        <p class="cnt">설정한 상태 메시지가 없습니다.</p>
+                        <% if (people[i].member_msg) { %>
+                            <p class="cnt"><%= people[i].member_msg %></p>    
                         <% } else { %>
-                        <p class="cnt"><%= people[i].member_msg %></p>
+                            <p class="cnt">설정한 상태 메시지가 없습니다.</p>
                         <% } %>
                     </div>
                 </div>

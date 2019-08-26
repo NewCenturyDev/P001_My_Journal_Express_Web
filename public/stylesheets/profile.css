@@ -547,6 +547,12 @@ h3, h4{
     display: flex;
     
 }
+.upss > div > img {
+    margin-left: 10px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+}
 .msg_info{
     font-size: 10px;
     width: 90%;

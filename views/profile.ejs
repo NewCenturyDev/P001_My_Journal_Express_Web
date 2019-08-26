@@ -53,10 +53,10 @@
                 <div class="myinfo" style="display: flex">
                     <div class="Mypicture">
                         <div class="picture">
-                        <% if (rows0[0].member_img==null) { %> 
-                            <img src="/images/profile_list.jpg" alt="">
-                        <% } else { %>
+                        <% if (rows0[0].member_img) { %>
                             <img src="/img/<%= rows0[0].member_id %>/<%= rows0[0].member_img %>" alt="">
+                        <% } else { %>
+                            <img src="/images/profile_list.jpg" alt="">
                         <% } %>        
                         </div>
                         <div class="picture_modify">
@@ -173,6 +173,13 @@
             <div class="modal">
                 <button class="modalcomeout" type="button">X</button>
                 <div class="upss">
+                    <div>
+                        <% if (rows0[0].member_img) { %>
+                            <img src="/img/<%= rows0[0].member_id %>/<%= rows0[0].member_img %>" alt="">
+                        <% } else { %>
+                            <img src="/images/profile_list.jpg" alt="">
+                        <% } %>
+                    </div>
                     <div class="msg_info">
                         <div id="msg_nick"><h1>보내는 사람</h1></div>
                         <div id="date"><h2>받은 날짜 수신</h2></div>

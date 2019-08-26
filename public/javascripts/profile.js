@@ -180,14 +180,14 @@ function megModalDisplay() {
     r_nick.value = pre_nick[index].value;
 
     if (plettle.style.display == 'none') {
-        plettle.style.display = 'block';
+        plettle.style.display = 'flex';
     }
 }
 
 //쪽지 모달창 닫기 함수
 function modalnoneDisplay(){
     console.log(plettle.style.display);
-    if(plettle.style.display =="block"){
+    if(plettle.style.display =="flex"){
         plettle.style.display = 'none';
     }
     if(add_modal_bg.style.display == 'flex') {
