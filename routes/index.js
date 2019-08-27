@@ -58,7 +58,7 @@ router.get('/', function(req, res) {
           if (err2) {console.log(err2);}
           else {
             // 인기있는 사진을 등록한 회원 검색 (테스트 데이터 넣은 후 구독자 많은 순으로 변경 예정)
-            var sql_sel_new = "SELECT substring_index(p.photo_name, '-', 1) p_name, p.*, m.member_nick FROM photo p INNER JOIN member m on m.member_id = p.member_id WHERE p.type<>'video' ORDER BY p.date DESC LIMIT 3";
+            var sql_sel_new = "SELECT substring_index(p.photo_name, '-', 1) p_name, replace(contents, '<br>', ' ') p_contents, p.*, m.member_nick FROM photo p INNER JOIN member m on m.member_id = p.member_id WHERE p.type<>'video' ORDER BY p.date DESC LIMIT 3";
             connection.query(sql_sel_new, function(err3, rows3) {
               if (err3) {console.log(err3);}
               else {

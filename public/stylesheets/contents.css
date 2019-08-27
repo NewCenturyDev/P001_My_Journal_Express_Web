@@ -153,6 +153,10 @@ hr {
     z-index: 0;
 }
 
+.user_photo > input {
+    display: none;
+}
+
 .user_photo > img, .user_photo > video {
     width: 100%;
     height: 100%;

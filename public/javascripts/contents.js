@@ -31,6 +31,9 @@ var delete_submit = document.getElementById("delete_submit");
 
 var e_p_n = document.getElementById('e_p_n');
 
+var text_submit = document.getElementById('text_submit');
+var msg_cont_br = document.getElementsByClassName("msg_cont_br");
+
 
 var video = document.getElementById('m_video');
 
@@ -255,6 +258,19 @@ function updateCnt() {
   $('#update').submit();
 }
 
+for (var i = 0; i < msg_cont_br.length; i++) {
+    str = ($(".msg_cont_br").eq(i)).val();
+    ($(".show_contents").eq(i)).html(str);
+}
+
+function text_enter() {
+  var str = $("#msg_cont").val();
+  str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
+  $("#msg_cont").val(str);
+  alert(str);
+  // 개행
+}
+
 profile.addEventListener("click", goProfile);
 logout.addEventListener("click", logOut);
 people.addEventListener("click", goPeople);
@@ -280,3 +296,5 @@ sel.addEventListener("click", selectContents);
 add.addEventListener("click", addPhoto);
 upload.addEventListener("click", move_and_stop); // 사진 편집 후 DB에 저장
 // 사진 등록 및 변경 이벤트
+
+text_submit.addEventListener("click", text_enter);
