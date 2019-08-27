@@ -169,7 +169,7 @@ if (add.value != "") {
 function move_photo() {
   $(".user_photo").draggable( {
     cursor: "pointer",
-    containment: "main"
+    containment: "#user_space"
   });
 };
 

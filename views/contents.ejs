@@ -71,6 +71,12 @@
     </header>
 
     <main>
+        <div id="journal_logo">
+                <b id="subject">알파벳's Journal</b>
+                <p id="short_intro">2019-08-27<br>Page 1</p>
+        </div>
+        <hr>
+        <div id="user_space">
         <!-- 회원이 등록한 사진 -->
         <% for (var i = 0; i < rows.length; i++) { %>
             <div class="user_photo" style="width: <%= rows[i].width %>px; height: <%= rows[i].height %>px;
@@ -93,6 +99,7 @@
                 <input type="text" class="photo_src" value="/img/<%= rows[i].member_id %>/<%= rows[i].room_num %>/<%= rows[i].photo_name %>" style="display: none;">
             </div>
         <% } %>
+    </div>
         <!-- 조회수 갱신 기능 위한 숨김 form -->
         <form id="update" action="/update_cnt" method="POST" style="display: none;">
             <input type="text" id="photos_cnt_name" name="photos_cnt_name">
