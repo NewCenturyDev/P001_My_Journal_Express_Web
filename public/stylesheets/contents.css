@@ -1,7 +1,6 @@
 html, body{
     margin: 0;
     height: 4000px;
-    
 }
 
 header {
@@ -127,6 +126,7 @@ main {
     font-size: 80px;
     padding-right: 2%;
     font-family: 'Do Hyeon', sans-serif;
+    cursor: pointer;
 }
 
 #short_intro {
@@ -139,7 +139,6 @@ main {
 
 hr {
     width: 80%;
-    color: #002266;
 }
 
 #user_space {
@@ -239,7 +238,7 @@ hr {
 }
 
 /* 사진 등록 모달창 */
-#modal, #modal2 {
+#modal, #modal2, #modal4 {
     margin: auto;
     width: 25%;
     height: 50%;
@@ -262,7 +261,7 @@ hr {
     height: 80%;
 }
 
-#add_modal_bg, #edit_modal_bg, #zoom_modal_bg {
+#add_modal_bg, #edit_modal_bg, #zoom_modal_bg, #edit_journal_title {
     width: 100%;
     height: 100%;
     background-color: rgba(1,1,1,0.7);
@@ -270,6 +269,17 @@ hr {
     z-index: 1;
     left: 0;
     top: 0;
+}
+
+#edit_journal_title {
+    display: flex;
+}
+
+#edit_title {
+    display: flex;
+    height: 50%;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 /* 사진 등록 모달창 닫기 */
@@ -293,7 +303,7 @@ hr {
     margin-left: 6%;
 }
 
-#modal > h1 {
+#modal > h1, #modal4 > h1 {
     margin-top: 9%;
     margin-bottom: 15%;
     text-align: center;
@@ -337,6 +347,7 @@ hr {
 }
 
 #modal2 > form {
+    margin-top: 15%;
     height: 50%;
     text-align: center;
 }
@@ -346,10 +357,19 @@ hr {
 }
 
 /* 등록 사진의 이름 */
-#photo_name, #text_name {
+#photo_name, #text_name, #e_p_t {
     border: solid 3px;
     border-radius: 5px;
     padding: 0 10px;
+}
+
+#edit_title > input, #edit_title > button {
+    margin: 0 auto;
+}
+
+#e_p_t {
+    width: 70%;
+    height: 15%;
 }
 
 #photo_name {
@@ -425,14 +445,14 @@ hr {
 
 /* 정의 및 기본 선택자 */
 
-input::placeholder {
+#search > input::placeholder {
     color: white;
-    font-size: 15px; 
+    font-size: 15px;
 }
 
-#modal > form > input::placeholder, #modal2 > form > input::placeholder {
+input::placeholder { 
     color: black;
-    font-size: 14px; 
+    font-size: 14px;
 }
 
 input, button, video {

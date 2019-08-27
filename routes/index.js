@@ -173,15 +173,25 @@ router.post('/contents', function(req, res) {
     if (err1) {
       console.log(err);
     }
-    else {    
-      res.render('contents', {
-        login: login,
-        rows: rows,
-        room_num: room_num
+    else {
+      
+      var sql_sel2 = "SELECT *, date_format(date, '%Y-%m-%d') p_date FROM page WHERE member_id = ? AND num = ?";
+      var params_sel = [req.session.visit_to, room_num];
+      connection.query(sql_sel2, params_sel, function(err2, visit) {
+        if (err2) {
+          console.log(err2);
+        }
+        else {    
+          res.render('contents', {
+            login: login,
+            rows: rows,
+            visit: visit,
+            room_num: room_num
+          });
+        }
       });
     }
   }); // 방문한 사람이 등록한 사진들 불러옴 (시간 순)
-
 });
 
 router.get('/img/:id/:name', function(req, res) {
@@ -317,6 +327,25 @@ router.post('/editPhoto', function(req, res) {
 /* -------------------------- 컨텐츠 박스 이동 기능 끝 -------------------------- */
 
 /* --------------------------- 사진 세부 정보 수정 기능 --------------------------- */
+router.post('/edit_journal_title', function (req, res) {
+  var visit_to = req.session.visit_to;
+  var room_num = req.body.room_num;
+  var title = req.body.edit_journal_title;
+  var sql_udt = "UPDATE page SET title = ? WHERE member_id = ? AND num = ?";
+  var params_udt = [title, visit_to, room_num];
+  
+  connection.query(sql_udt, params_udt, function(err) {
+    if (err) {
+      console.log(err);
+      console.log('제목 변경 실패');
+    }
+    else {
+      console.log('변경 완료');
+      res.send ('<script>alert("제목이 수정되었습니다!");</script>'+go_contents(visit_to, room_num));
+    }
+  });
+});
+
 router.post('/edit_detail_photo', function (req, res) {
   var visit_to = req.session.visit_to;
   var room_num = req.body.edit_room_num;
@@ -497,7 +526,17 @@ router.post('/register', function(req, res){
             fs.mkdirSync('uploads/'+info.id+'/2');
             fs.mkdirSync('uploads/'+info.id+'/3');
             console.log(info.id+' 폴더 생성');
-            res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
+
+            for (var i = 1; i < 4; i++) {
+              var sql_ins = 'INSERT INTO page(num, member_id, title) VALUES(?, ?, ?)';
+              var params_ins = [i, info.id, info.id+"'s Journal"];
+              connection.query(sql_ins, params_ins, function (err) {
+                if (err) {console.log(err+'실패');}
+                else {
+                  res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
+                }
+              });
+            }
            } // 첫 사진 등록 시 회원의 사진 폴더 생성
         });
       }

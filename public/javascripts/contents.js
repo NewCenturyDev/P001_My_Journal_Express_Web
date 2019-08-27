@@ -8,6 +8,7 @@ var people = document.getElementById('people');
 var add_modal = document.getElementById('add_modal_bg');
 var edit_modal = document.getElementById('edit_modal_bg');
 var zoom_modal = document.getElementById('zoom_modal_bg');
+var edit_j_modal = document.getElementById('edit_journal_title');
 var add = document.getElementById('add');
 var sel = document.getElementById('sel_submit');
 var upload = document.getElementById('upload');
@@ -34,6 +35,7 @@ var e_p_n = document.getElementById('e_p_n');
 var text_submit = document.getElementById('text_submit');
 var msg_cont_br = document.getElementsByClassName("msg_cont_br");
 
+var title = document.getElementById('journal_logo');
 
 var video = document.getElementById('m_video');
 
@@ -44,21 +46,24 @@ $('#add_text_num').val($('#room_num').val());
 $('.user_photo').addClass("photohover");
 $('.user_photo').css('transition', 'all ease 1s');
 
+/* 등록한 글에 개행이 있으면 처리해줌 */
+for (var i = 0; i < msg_cont_br.length; i++) {
+  str = ($(".msg_cont_br").eq(i)).val();
+  ($(".show_contents").eq(i)).html(str);
+}
+
 /* 메뉴에 맞는 페이지로 이동 및 기능 */
 function goProfile() {
   $('#page_type').val('profile');
   updateCnt();
-    // location.href = "/profile";
 }
 function logOut() {
   $('#page_type').val('logout');
   updateCnt();
-  // location.href = "/logout";
 }
 function goPeople() {
   $('#page_type').val('search');
   updateCnt();
-    // location.href = "/search";
 }
 function goMain() {
   $('#page_type').val('main');
@@ -109,7 +114,16 @@ function closeMsg() {
   if (zoom_modal.style.display === 'flex') {
     zoom_modal.style.display = 'none';
   }
+  if (edit_j_modal.style.display === 'flex') {
+    edit_j_modal.style.display = 'none';
+  }
 }
+
+$('#search').submit(
+  function(){
+    updateCnt();
+  }
+);
 
 /* room 번호 변경 */
 function change_room_num() {
@@ -181,8 +195,35 @@ $(".user_photo").bind("contextmenu", function(e) {
   index = $(this).index();
   e_p_n.value = photo_name[index].value; // 사진 이름
   if (upload.value=="move") {
+    if ( ($('.cnt_type').eq(index)).val()==='text') {
+      $('#edit_form').css('margin-top', '0');
+      $('#modal2').css('height', '40%');
+      $('#notice').css('display', 'block');
+      $('#e_p_w').css('display', 'none');
+      $('#e_p_h').css('display', 'none');
+      $('#edit_submit').css('display', 'none');
+    } // 편집 저장할 때
+    else {
+      $('#edit_form').css('margin-top', '15%');
+      $('#modal2').css('height', '50%');
+      $('#notice').css('display', 'none');
+      $('#e_p_w').css('display', 'inline-block');
+      $('#e_p_h').css('display', 'inline-block');
+      $('#edit_submit').css('display', 'inline-block');
+    } // 편집 모드로 바꿀 때
     $("#edit_modal_bg").css('display', 'flex');
   } // 편집 모드일 때만 변경 가능
+  return false;
+});
+
+/* 우클릭 시 저널 제목 변경 모달 띄우기 */
+$('#journal_logo').bind("contextmenu", function(e) {
+  if (upload.value=="move") {
+    edit_j_modal.style.display = 'flex';
+  } // 제목 저장 시
+  else {
+
+  } // 제목 수정 시
   return false;
 });
 
@@ -258,16 +299,10 @@ function updateCnt() {
   $('#update').submit();
 }
 
-for (var i = 0; i < msg_cont_br.length; i++) {
-    str = ($(".msg_cont_br").eq(i)).val();
-    ($(".show_contents").eq(i)).html(str);
-}
-
 function text_enter() {
   var str = $("#msg_cont").val();
   str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
   $("#msg_cont").val(str);
-  alert(str);
   // 개행
 }
 

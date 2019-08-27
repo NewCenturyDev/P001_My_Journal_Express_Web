@@ -92,6 +92,7 @@ main > div {
 #user > div > img {
     margin-top: 23%;
     width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 50%;
     border: solid;

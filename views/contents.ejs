@@ -21,9 +21,9 @@
             <div id="room">
                 <form action="/contents" method="post">
                     <input type="text" id="room_num" name="room_num" style="display: none;" value="<%= room_num %>">
-                    <button class="r_c" value="1">Room #1</button>
-                    <button class="r_c" value="2">Room #2</button>
-                    <button class="r_c" value="3">Room #3</button>
+                    <button class="r_c" value="1">page #1</button>
+                    <button class="r_c" value="2">page #2</button>
+                    <button class="r_c" value="3">page #3</button>
                 </form>
                 <div>
                     <form id="edit" action="/editPhoto" method="post" style="display: none;">
@@ -72,8 +72,8 @@
 
     <main>
         <div id="journal_logo">
-                <b id="subject">알파벳's Journal</b>
-                <p id="short_intro">2019-08-27<br>Page 1</p>
+            <b id="subject"><%= visit[0].title %></b>
+            <p id="short_intro"><%= visit[0].p_date %><br>Page <%= room_num %></p>
         </div>
         <hr>
         <div id="user_space">
@@ -91,7 +91,6 @@
                 <p class="show_contents"></p>
                 <input type="text" class="msg_cont_br" value="<%= rows[i].contents %>">
             <% } %>
-                
                 <input type="text" class="photo_name" value="<%= rows[i].photo_name %>">
                 <input type="text" class="photo_w" value="<%= rows[i].width %>">
                 <input type="text" class="photo_h" value="<%= rows[i].height %>">
@@ -157,14 +156,14 @@
             <div id="modal2">
                 <button class="modalcomeout" type="button">X</button>
                 <h1>콘텐츠 변경</h1>
-                <form action="/edit_detail_photo" method="post">
+                <form id="edit_form" action="/edit_detail_photo" method="post">
                     <input type="text" name="edit_photo_user" class="edit_input" style="display: none;">
                     <input type="text" id="e_p_n" name="edit_photo_name" class="edit_input" style="display: none;">
                     <input type="text" id="e_p_w" name="edit_photo_width" class="edit_input" placeholder="가로 크기 (px)"><br>
                     <input type="text" id="e_p_h" name="edit_photo_height" class="edit_input" placeholder="세로 크기 (px)"><br>
-                    <input type="text" id="e_p_d" name="edit_photo_degree" class="edit_input" placeholder="각도"><br>
                     <input type="text" name="edit_room_num" value="<%= room_num %>" style="display: none;">
                     <input type="text" id="mode" name="mode" style="display: none;">
+                    <p id="notice">텍스트는 크기 및 내용 변경을 할 수 없고<br>삭제만 가능합니다.<br>정말 삭제 하시겠습니까?</p>
                     <button name="edit_submit" id="edit_submit">변경 하기</button>
                     <button name="delete_submit" id="delete_submit">삭제 하기</button>
                 </form>
@@ -183,6 +182,18 @@
                     <p id="zoom_name">사진 이름</p>
                     <p id="zoom_date">날짜</p>
                 </div>
+            </div>
+        </div>
+        <!-- 신문 제목 수정할 때 모달 창 -->
+        <div id="edit_journal_title" style="display: none;">
+            <div id="modal4">
+                <button class="modalcomeout" type="button">X</button>
+                <h1>Page <%= room_num %> 제목 수정</h1>
+                <form id="edit_title" action="/edit_journal_title" method="post">
+                    <input type="text" id="e_p_t" name="edit_journal_title" placeholder="바꿀 제목 입력 (20자 이내)"><br>
+                    <input type="text" name="room_num" value="<%= room_num %>" style="display: none;">
+                    <button name="edit_submit" id="edit_submit">변경 하기</button>
+                </form>
             </div>
         </div>
     </main>
