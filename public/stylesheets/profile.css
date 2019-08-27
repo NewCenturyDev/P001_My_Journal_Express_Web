@@ -553,6 +553,7 @@ h3, h4{
     width: 65px;
     height: 65px;
     border-radius: 50%;
+    object-fit: cover;
 }
 .msg_info{
     font-size: 10px;

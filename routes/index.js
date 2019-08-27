@@ -172,15 +172,14 @@ router.post('/contents', function(req, res) {
   connection.query(sql_sel, params, function(err1, rows) {
     if (err1) {
       console.log(err);
-    }
-    else {
-      
+    } // 방문한 contents의 사진 정보 불러오기
+    else { 
       var sql_sel2 = "SELECT *, date_format(date, '%Y-%m-%d') p_date FROM page WHERE member_id = ? AND num = ?";
       var params_sel = [req.session.visit_to, room_num];
       connection.query(sql_sel2, params_sel, function(err2, visit) {
         if (err2) {
           console.log(err2);
-        }
+        } // 방문한 contents의 page 정보 불러오기
         else {    
           res.render('contents', {
             login: login,
@@ -344,7 +343,7 @@ router.post('/edit_journal_title', function (req, res) {
       res.send ('<script>alert("제목이 수정되었습니다!");</script>'+go_contents(visit_to, room_num));
     }
   });
-});
+}); // page 별로 타이틀 제목 수정
 
 router.post('/edit_detail_photo', function (req, res) {
   var visit_to = req.session.visit_to;

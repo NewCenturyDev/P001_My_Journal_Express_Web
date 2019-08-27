@@ -32,12 +32,9 @@ var delete_submit = document.getElementById("delete_submit");
 
 var e_p_n = document.getElementById('e_p_n');
 
+/* 텍스트 출력 시 개행 적용 위한 변수 */
 var text_submit = document.getElementById('text_submit');
 var msg_cont_br = document.getElementsByClassName("msg_cont_br");
-
-var title = document.getElementById('journal_logo');
-
-var video = document.getElementById('m_video');
 
 $('#add_num').val($('#room_num').val());
 $('#add_text_num').val($('#room_num').val());
@@ -50,6 +47,16 @@ $('.user_photo').css('transition', 'all ease 1s');
 for (var i = 0; i < msg_cont_br.length; i++) {
   str = ($(".msg_cont_br").eq(i)).val();
   ($(".show_contents").eq(i)).html(str);
+}
+
+/* 내 contents 에서만 등록 및 수정 버튼 보이도록 초기화 */
+if (add.value===$('#visit_id').val()) {
+  add.style.display = 'block';
+  upload.style.display = 'flex';
+}
+else {
+  add.style.display = 'none';
+  upload.style.display = 'none';
 }
 
 /* 메뉴에 맞는 페이지로 이동 및 기능 */
@@ -77,7 +84,7 @@ function selectContents() {
   $('#sel_contents').css('display', 'none');
   $('#type').val(selected);
   $('#type2').val(selected);
-
+  /* 변경 컨텐츠에 따라 모달창 디자인 수정 */
   if (selected==='photo') {
     $('#add_title').html('사진 등록');
     $('#add_photo').css('display', 'flex');
@@ -119,12 +126,6 @@ function closeMsg() {
   }
 }
 
-$('#search').submit(
-  function(){
-    updateCnt();
-  }
-);
-
 /* room 번호 변경 */
 function change_room_num() {
   $('#room_num').val(this.value);
@@ -143,7 +144,10 @@ function move_and_stop() {
     $('.user_photo').css('transition', 'none');
     $('.user_photo').removeClass("photohover");
     $('.user_photo').css('border', 'solid 1px');
-    
+
+    $('html').css('height', '4000px');
+    $('body').css('height', '4000px');
+
     // 편집 모드이므로 커서 올릴 시 사진 회전 기능 제한
     $(".user_photo").on("click", move_photo());
     alert("편집 모드입니다. 마우스를 이용해 사진의 위치를 수정해주세요!")
@@ -202,7 +206,7 @@ $(".user_photo").bind("contextmenu", function(e) {
       $('#e_p_w').css('display', 'none');
       $('#e_p_h').css('display', 'none');
       $('#edit_submit').css('display', 'none');
-    } // 편집 저장할 때
+    } // 컨텐츠가 텍스트면
     else {
       $('#edit_form').css('margin-top', '15%');
       $('#modal2').css('height', '50%');
@@ -210,7 +214,7 @@ $(".user_photo").bind("contextmenu", function(e) {
       $('#e_p_w').css('display', 'inline-block');
       $('#e_p_h').css('display', 'inline-block');
       $('#edit_submit').css('display', 'inline-block');
-    } // 편집 모드로 바꿀 때
+    } // 컨텐츠가 사진 및 영상이면
     $("#edit_modal_bg").css('display', 'flex');
   } // 편집 모드일 때만 변경 가능
   return false;
@@ -220,14 +224,11 @@ $(".user_photo").bind("contextmenu", function(e) {
 $('#journal_logo').bind("contextmenu", function(e) {
   if (upload.value=="move") {
     edit_j_modal.style.display = 'flex';
-  } // 제목 저장 시
-  else {
-
-  } // 제목 수정 시
+  }
   return false;
 });
 
-/* 사진 변경 시 값 입력 안 했을 때 원래 값 유지 */
+/* 사진 속성 변경 시 값 입력 안 했을 때 원래 값 유지 */
 function stay_value() {
   if ( $('#e_p_w').val()==="" ) {
     $('#e_p_w').val( $('.photo_w').eq(index).val() );
@@ -299,11 +300,11 @@ function updateCnt() {
   $('#update').submit();
 }
 
+/* 텍스트 등록 시 DB에 적용 위해 개행으로 치환 */
 function text_enter() {
   var str = $("#msg_cont").val();
   str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
   $("#msg_cont").val(str);
-  // 개행
 }
 
 profile.addEventListener("click", goProfile);
@@ -332,4 +333,4 @@ add.addEventListener("click", addPhoto);
 upload.addEventListener("click", move_and_stop); // 사진 편집 후 DB에 저장
 // 사진 등록 및 변경 이벤트
 
-text_submit.addEventListener("click", text_enter);
+text_submit.addEventListener("click", text_enter); // 개행 이벤트

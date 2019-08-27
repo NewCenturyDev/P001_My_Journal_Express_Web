@@ -74,6 +74,7 @@
         <div id="journal_logo">
             <b id="subject"><%= visit[0].title %></b>
             <p id="short_intro"><%= visit[0].p_date %><br>Page <%= room_num %></p>
+            <input id="visit_id" type="text" value="<%= visit[0].member_id %>" style="display: none;">
         </div>
         <hr>
         <div id="user_space">
@@ -117,7 +118,7 @@
                 <p id="mini_name"><%= login.nick %></p>
             </div>
         </div>
-            <button id="add" type="button" value="<%= login.id%>">
+            <button id="add" type="button" value="<%= login.id %>">
                 <img src="/images/add_icon.png" width="60px">
             </button>
         <!-- 사진 등록 시 모달창 -->

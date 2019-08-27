@@ -1,6 +1,5 @@
 html, body{
     margin: 0;
-    height: 4000px;
 }
 
 header {
@@ -108,8 +107,20 @@ header {
     margin-top: 9px;
 }
 
+/* 본문 main 부분 */
+
 main {
     height: 100%;
+}
+
+/* 저널 제목 관련 */
+#edit_title > input, #edit_title > button {
+    margin: 0 auto;
+}
+
+#e_p_t {
+    width: 70%;
+    height: 15%;
 }
 
 #journal_logo {
@@ -361,15 +372,6 @@ hr {
     border: solid 3px;
     border-radius: 5px;
     padding: 0 10px;
-}
-
-#edit_title > input, #edit_title > button {
-    margin: 0 auto;
-}
-
-#e_p_t {
-    width: 70%;
-    height: 15%;
 }
 
 #photo_name {
