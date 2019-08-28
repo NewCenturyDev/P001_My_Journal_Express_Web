@@ -146,7 +146,8 @@ router.post('/register', function(req, res){
     //Mysql 쿼리 양식
     var sql = 'INSERT INTO member (member_id, member_pw, member_name, member_nick, member_email, member_phone) VALUES(?, ?, ?, ?, ?, ?)';
     var params = [info.id,info.pw,info.name,info.nick,info.mail,info.phone];
-  
+    var sqls = 'SELECT * from member';
+
     /* 알고리즘 */
     //사용자가 입력한 회원가입 양식 검증
     if(info.id==""||info.pw==""||info.pwck==""||info.name==""||info.nick==""||info.mail==""||info.phone==""){
@@ -163,26 +164,50 @@ router.post('/register', function(req, res){
     }
   
     //양식에 문제 없으면 DB에 저장
-    else{
-        connection.query(sql, params, function(err, rows, fields){
-            if(err){
-                console.log(err);
-                res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/mobile/auth/register";</script>');
-                return;
-            }
-            else {
-                console.log(rows.insertId);
-                fs.mkdirSync('uploads/'+info.id);
-                fs.mkdirSync('uploads/'+info.id+'/1');
-                fs.mkdirSync('uploads/'+info.id+'/2');
-                fs.mkdirSync('uploads/'+info.id+'/3');
-                console.log(info.id+' 폴더 생성');
-                res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/mobile/auth";</script>');
-            } // 첫 사진 등록 시 회원의 사진 폴더 생성
-        });
+    connection.query(sqls, function(err, rowss, fields){
+    if(err){
+      console.log(err);
     }
-    //디버깅용 로그
-    console.log(info);
+    else {
+      for(var i=0; i<rowss.length; i++){
+        if(rowss[i].member_id == info.id){
+          console.log('아이디 중복');
+          res.send ('<script>alert("아이디가 중복 됩니다!"); location.href = "/mobile/auth/register";</script>');
+        }
+        if(rowss[i].member_nick == info.nick){
+          console.log('닉네임 중복');
+          res.send ('<script>alert("닉네임이 중복 됩니다!"); location.href = "/mobile/auth/register";</script>');
+        }
+      }
+      connection.query(sql, params, function(err, rows, fields){
+        if(err){
+          console.log(err);
+          res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/mobile/auth/register";</script>');
+          return;
+        }
+        else {
+          console.log(rows.insertId);
+          fs.mkdirSync('uploads/'+info.id);
+          fs.mkdirSync('uploads/'+info.id+'/1');
+          fs.mkdirSync('uploads/'+info.id+'/2');
+          fs.mkdirSync('uploads/'+info.id+'/3');
+          console.log(info.id+' 폴더 생성');
+          for (var i = 1; i < 4; i++) {
+            var sql_ins = 'INSERT INTO page(num, member_id, title) VALUES(?, ?, ?)';
+            var params_ins = [i, info.id, info.id+"'s Journal"];
+            connection.query(sql_ins, params_ins, function (err) {
+              if (err) {console.log(err+'실패');}
+                else {
+                  res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/mobile/auth";</script>');
+                }
+              });
+            }
+          } // 첫 사진 등록 시 회원의 사진 폴더 생성
+        });
+      }
+      //디버깅용 로그
+      console.log(info);
+  });
 });
   
 //회원탈퇴 처리 알고리즘
