@@ -13,7 +13,7 @@ var fs = require("fs-extra");
 var connection = mysql.createConnection({
   host : 'localhost',
   user : 'nodejs',
-  password : '00000000', // 각자 nodejs가 사용할 user, password로 변경 후 작업
+  password : 'nodejs', // 각자 nodejs가 사용할 user, password로 변경 후 작업
   // port : 3306,
   database : 'project',
   charset  : 'utf8'
@@ -135,6 +135,16 @@ router.get('/search', function(req, res) {
         });
       }
     });
+  }
+});
+
+/* GET contents page */
+router.get('/loadcontents', function(req, res) {
+  if(req.query.pagenum != undefined){
+    res.send(go_contents(req.session.user.id, req.query.pagenum));
+  }
+  else{
+    res.send(go_contents(req.session.user.id, 1));
   }
 });
 
@@ -263,15 +273,6 @@ router.post('/message', function(req, res) {
 
 /* 함수 정의 */
 
-function go_contents(login_go, r_num) {
-  var contents_st = '<form id="sample" action="/contents" method="post">'
-  +'<input style="display: none;" name="visit_to" type="text" value="'+login_go+'">'
-  +'<input style="display: none;" name="room_num" type="text" value="'+r_num+'">'
-  +'<input style="display: none;" type="submit" value="submit">'
-  +'<script>document.getElementById("sample").submit();</script>';
-  return contents_st;
-} // 내 갤러리 또는 방문할 회원의 갤러리 정보를 넘김
-
 function edit_msg_num() {
   var sql_udt1 = "ALTER TABLE message AUTO_INCREMENT = 1";
   connection.query(sql_udt1, function (err, rows, fields) {
@@ -325,6 +326,18 @@ router.post('/search', function(req, res) {
   }
 });
 /* ------------------------- 회원 검색 기능 끝 ------------------------- */
+
+/* -------------------------- 컨텐츠 접근 기능 -------------------------- */
+/* 함수 정의 */
+function go_contents(login_go, r_num) {
+  var contents_st = '<form id="sample" action="/contents" method="post">'
+  +'<input style="display: none;" name="visit_to" type="text" value="'+login_go+'">'
+  +'<input style="display: none;" name="room_num" type="text" value="'+r_num+'">'
+  +'<input style="display: none;" type="submit" value="submit">'
+  +'<script>document.getElementById("sample").submit();</script>';
+  return contents_st;
+} // 내 갤러리 또는 방문할 회원의 갤러리 정보를 넘김
+/* ------------------------ 컨텐츠 접근 기능 끝 ------------------------ */
 
 /* --------------------------------------------------------------------------- */
 /* ------------------------------- 기능 구현 끝 -------------------------------- */
