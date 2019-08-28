@@ -252,3 +252,8 @@ input, button {
     font-size: 15px;
     border-radius: 20px;
 }
+
+/* 이동 기능은 현재 비활성화 */
+#hide{
+    display: none;
+}
