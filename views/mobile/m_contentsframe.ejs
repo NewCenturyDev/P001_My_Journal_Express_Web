@@ -5,17 +5,56 @@
     <title>My Studio Express</title>
     <style>
         html, body{
-            /*
-            width: 578px;
-            height: 702px;
-            */
+            width: 100%;
+            height: 100%;
             margin: 0;
+            margin-top: -40px;
+        }
+        body{
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        #rooms {
+            width: 100%;
+            height: 10%;
+        }
+        #rooms > button {
+            width: 32.5%;
+            height: 80%;
+            background-color: inherit;
+            border: 0;
+            border-bottom: 8px solid rgb(43, 83, 193);
+            padding: 0;
+            margin: 0;
+            color: rgb(43, 83, 193);
+            font-size: 80px;
+            text-align: center;
+        }
+        #frame{
+            width: 100%;
+            height: 90%;
+            overflow-y: scroll;
+            overflow-x: hidden;
         }
     </style>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
 </head>
 <body>
-    <div style="position:absolute; top:-50px; left:-287px; width: 100%; height: 100%; overflow: hidden;">
-        <iframe src="/contents(post로만됨)" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+    <div id="frame">
+        <iframe src="/mobile/loadcontents" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
     </div>
+    <div id=rooms>
+        <button onclick="goto(1);">Room1</button>
+        <button onclick="goto(2);">Room2</button>
+        <button onclick="goto(3);">Room3</button>
+    </div>
+    <script>
+        function goto(i){
+            document.getElementsByTagName("iframe")[0].src = '/mobile/loadcontents?pagenum='+i;
+        }
+        $("iframe").contents().find("#add").remove();
+    </script>
 </body>
 </html>
