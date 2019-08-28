@@ -1,47 +1,48 @@
 /*전역*/
-html, body{
+html, body {
     margin: 0;
     height: 100%;
-    overflow: scroll-y;
     background-color: rgb(43, 83, 193);
 }
 a{
     text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+p {
+    color: white;
+    font-size: 20px;
+}
+h5 {
     color: black;
 }
-
+img {
+    cursor: pointer;
+}
+html, body, section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 /*상단바*/
 header{
-    width: 100%;
-    height: 120px;
-}
-header > div{
-    width: 500px;
-    height: 120px;
-    margin-left: 50%;
-}
-header > div > a > img{
-    width: 500px;
-    height: 120px;
-    margin-left: -250px;
+    width: 20%;
+    margin: 0 auto;
+    text-align: center;
 }
 
 /*계정 정보 입력창*/
-section{
+section {
     width: 500px;
-    height: 550px;
-    margin: 30px auto;
-}
-section > h2{
-    margin: 0;
-    font-size: 32px;
-    font-weight: bold;
+    height: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: white;
     text-align: center;
-    color: white;
 }
 section > p{
     margin: 10px;
-    color: white;
+    color: gray;
     line-height: 12px;
     font-size: 11px;
 }
@@ -58,11 +59,9 @@ form > input{
     padding: 0 10px;
     margin: 0 100px;
     margin-top: 10px;
-    background-color: inherit;
-    border: 0;
-    border-bottom: 2px solid white;
-    border-radius: 1px;
-    color: white;
+    border-radius: 5px;
+    border: solid #EAEAEA 1.5px;
+    color: black;
 }
 form > span{
     color: white;
@@ -74,42 +73,38 @@ form > span{
 }
 form > h5{
     margin: 10px;
-    color: white;
+    color: gray;
     line-height: 12px;
     font-size: 12px;
     font-weight: bold;
 }
-input::placeholder{
-    color: white;
-    font-size: 15px;
-}
-input ::-webkit-input-placeholder{
-    color: white;
-    font-size: 15px;
-}
-input ::-moz-placeholder{
-    color: white;
+form > input > input::placeholder{
+    color: black;
     font-size: 15px;
 }
 form > button{
     width: 200px;
     height: 30px;
-    margin: 0 150px;
-    margin-top: 10px;
-    background-color: inherit;
-    border: 2px solid white;
+    margin: 10px 150px;
+    background-color: rgb(43, 83, 193);
     color: white;
+    border: solid rgb(43, 83, 193) 1.5px;
     border-radius: 5px;
     cursor: pointer;
 }
 form a{
     color: skyblue;
 }
-section > a{
-    display: inline-block;
-    margin-top:10px;
-    padding-left: 10px;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
+/* 하위 메뉴 */
+body > div {
+    width: 500px;
+    margin: 13px auto;
+}
+
+#login {
+    float: left;
+}
+
+#register {
+    float: right;
 }
