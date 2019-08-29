@@ -20,7 +20,8 @@
             </div>
             <div id="room">
                 <form action="/contents" method="post">
-                    <input type="text" id="room_num" name="room_num" style="display: none;" value="<%= room_num %>">
+                    <input type="text" id="room_num" name="room_num" style="display: none;">
+                    <input type="text" id="visit_to" name="visit_to" value="<%= visit[0].member_id %>">
                     <button class="r_c" value="1">page #1</button>
                     <button class="r_c" value="2">page #2</button>
                     <button class="r_c" value="3">page #3</button>

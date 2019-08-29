@@ -158,9 +158,7 @@ router.post('/contents', function(req, res) {
   // if (!req.session.visit_to || req.body.move) {
   //   req.session.visit_to = visit_to;
   // }
-  if (!req.session.visit_to || req.body.move) {
-    req.session.visit_to = visit_to;
-  }
+
   var login = {
     "id": ""
   }
@@ -170,7 +168,7 @@ router.post('/contents', function(req, res) {
   }
 
   var sql_sel = "SELECT *, substring_index(photo_name, '-', 1) p_name, date_format(date, '%Y-%m-%d') p_date FROM photo WHERE member_id = ? AND room_num = ? ORDER BY date";
-  var params = [req.session.visit_to, room_num];
+  var params = [visit_to, room_num];
   console.log(params);
   connection.query(sql_sel, params, function(err1, rows) {
     if (err1) {
@@ -178,7 +176,7 @@ router.post('/contents', function(req, res) {
     } // 방문한 contents의 사진 정보 불러오기
     else { 
       var sql_sel2 = "SELECT *, date_format(date, '%Y-%m-%d') p_date FROM page WHERE member_id = ? AND num = ?";
-      var params_sel = [req.session.visit_to, room_num];
+      var params_sel = [visit_to, room_num];
       connection.query(sql_sel2, params_sel, function(err2, visit) {
         if (err2) {
           console.log(err2);

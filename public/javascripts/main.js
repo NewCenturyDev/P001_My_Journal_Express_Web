@@ -1,18 +1,19 @@
+/* 상단 메뉴 변수 */
 var login = document.getElementById('login');
 var register = document.getElementById('register');
-var popular = document.getElementsByClassName("popular");
 
+/* 회원 및 컨텐츠 표시하는 block */
 var block = document.getElementsByClassName("block");
 
+/* 상단 메뉴 페이지 이동 함수 */
 function logIn() {
     location.href = "/login";
 }
-
 function signUp() {
     location.href = "/register";
 }
 
-// main block에 커서 올리면 글자색 변함
+/* main block에 커서 올리면 글자색 변함 */
 $(function(){
     $('.block').mouseenter(function() {
         ($(this).children('.mini_title')).css('color', 'rgb(43, 83, 193)');
@@ -22,18 +23,19 @@ $(function(){
     });
 });
 
-// function go_contents() {
-//     var id = ($(this).children('.id')).val();
-//     var num = ($(this).children('.num')).val();
-//     $('#id').val(id);
-//     $('#num').val(num);
-//     // alert(id+'\n'+num+'으로 이동하기');
-//     $('#go_cont').submit();
-// }
+/* 컨텐츠 클릭 시 해당 회원의 page로 이동 */
+function go_contents() {
+    var id = ($(this).children('.id')).val();
+    var num = ($(this).children('.num')).val();
+    $('#id').val(id);
+    $('#num').val(num);
+    $('#go_cont').submit();
+}
 
+/* 이벤트 등록 */
 login.addEventListener("click", logIn);
 register.addEventListener("click", signUp);
 
-// for (var i = 0; i < block.length; i++) {
-//     block[i].addEventListener("click", go_contents);
-// }
+for (var i = 0; i < block.length; i++) {
+    block[i].addEventListener("click", go_contents);
+}

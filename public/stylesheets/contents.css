@@ -44,6 +44,10 @@ header {
     margin-top: 10px;
 }
 
+#room > form > input {
+    display: none;
+}
+
  /* header의 검색 및 음악 및 설정 부분 */
 #center_h {
     width: 50%;
