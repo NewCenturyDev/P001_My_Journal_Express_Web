@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사진 전시회 서비스 - 메인 페이지</title>
     <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
 <body>
     <header>
@@ -46,6 +49,8 @@
             <div id="contents">
                 <% for (var i = 0; i < popular.length; i++) { %>
                 <div class="block">
+                    <input type="text" class="id" value="<%= popular[i].member_id %>">
+                    <input type="text" class="num" value="<%= popular[i].room_num %>">
                     <div class="mini_img">
                         <img src="/img/<%= popular[i].member_id %>/<%= popular[i].room_num %>/<%= popular[i].photo_name %>">
                     </div>
@@ -69,6 +74,8 @@
             <div id="contents">
                 <% for (var i = 0; i < people.length; i++) { %>
                 <div class="block">
+                    <input type="text" class="id" value="<%= people[i].member_id %>">
+                    <input type="text" class="num" value="1">
                     <div class="mini_img">
                         <% if (people[i].member_img) { %>
                             <img src="/img/<%= people[i].member_id %>/<%= people[i].member_img %>" alt="">
@@ -100,6 +107,8 @@
                 <% for (var i = 0; i < news.length; i++) { %>
                 <% if (news[i].type=='text') { %>
                     <div class="block">
+                        <input type="text" class="id" value="<%= news[i].member_id %>">
+                        <input type="text" class="num" value="<%= news[i].room_num %>">
                         <div class="mini_title">
                             <p><b><%= news[i].p_name %></b></p>
                         </div>
@@ -112,6 +121,8 @@
                     </div>
                 <% } else if (news[i].type=='photo') { %>
                     <div class="block">
+                        <input type="text" class="id" value="<%= news[i].member_id %>">
+                        <input type="text" class="num" value="<%= news[i].room_num %>">
                         <div class="mini_img">
                             <img src="/img/<%= news[i].member_id %>/<%= news[i].room_num %>/<%= news[i].photo_name %>">
                         </div>
@@ -129,6 +140,11 @@
             </div>
         </div>
     </main>
+    <!-- 메인에 표시된 컨텐츠 클릭 시 해당 페이지로 이동 위한 폼 -->
+    <form id="go_cont" action="/contents" method="post">
+        <input id="id" name="visit_to" type="text">
+        <input id="num" name="room_num" type="text">
+    </form>
     <footer>
         <div id="menu">
             <div id="menu_left">

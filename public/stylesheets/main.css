@@ -59,6 +59,7 @@ main > div {
     margin-top: 40px;
     display: flex;
     width: 100%;
+    justify-content: center;
 }
 
 #logo > #subject {
@@ -148,6 +149,10 @@ input ::-moz-placeholder{
     height: 100%;
 }
 
+.block > input {
+    display: none;
+}
+
 .block > .mini_img, .mini_title {
     text-align: center;
 }
@@ -225,6 +230,10 @@ input ::-moz-placeholder{
     width: 40%;
     float: right;
     text-align: right;
+}
+
+#go_cont {
+    display: none;
 }
 
 footer {

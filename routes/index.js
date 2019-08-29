@@ -155,6 +155,9 @@ router.post('/contents', function(req, res) {
   var room_num = req.body.room_num;
   // 방문한 사람과 room number를 불러옴
 
+  // if (!req.session.visit_to || req.body.move) {
+  //   req.session.visit_to = visit_to;
+  // }
   if (!req.session.visit_to || req.body.move) {
     req.session.visit_to = visit_to;
   }
