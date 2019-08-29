@@ -155,10 +155,6 @@ router.post('/contents', function(req, res) {
   var room_num = req.body.room_num;
   // 방문한 사람과 room number를 불러옴
 
-  // if (!req.session.visit_to || req.body.move) {
-  //   req.session.visit_to = visit_to;
-  // }
-
   var login = {
     "id": ""
   }
@@ -291,7 +287,7 @@ router.post('/editPhoto', function(req, res) {
   var photo_name = new Array();
   // 사진 정보를 전달 받을 배열
 
-  var visit_to = req.session.visit_to;
+  var visit_to = req.body.visit_to;
   var room_num = req.body.edit_room_num;
   
   photo_name = req.body.photos_name.split(',');
@@ -328,7 +324,7 @@ router.post('/editPhoto', function(req, res) {
 
 /* --------------------------- 사진 세부 정보 수정 기능 --------------------------- */
 router.post('/edit_journal_title', function (req, res) {
-  var visit_to = req.session.visit_to;
+  var visit_to = req.body.visit_to;
   var room_num = req.body.room_num;
   var title = req.body.edit_journal_title;
   var sql_udt = "UPDATE page SET title = ? WHERE member_id = ? AND num = ?";
@@ -347,7 +343,7 @@ router.post('/edit_journal_title', function (req, res) {
 }); // page 별로 타이틀 제목 수정
 
 router.post('/edit_detail_photo', function (req, res) {
-  var visit_to = req.session.visit_to;
+  var visit_to = req.body.visit_to;
   var room_num = req.body.edit_room_num;
   var photo_name = req.body.edit_photo_name;
 
@@ -707,7 +703,7 @@ router.post('/move_and_remove', function(req, res) {
     "r_id": req.body.r_id
   }
   if (move=='move') {
-    req.session.visit_to = member.r_id;
+    // req.session.visit_to = member.r_id;
     res.send (go_contents(member.r_id, 1));
     return;
   }

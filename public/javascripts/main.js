@@ -32,6 +32,12 @@ function go_contents() {
     $('#go_cont').submit();
 }
 
+/* 클릭 시 스크롤 top 으로 올려줌 */
+$('#backtotop').click(function() {
+    $('html, body').animate({scrollTop: 0}, 400);
+    return false;
+});
+
 /* 이벤트 등록 */
 login.addEventListener("click", logIn);
 register.addEventListener("click", signUp);
