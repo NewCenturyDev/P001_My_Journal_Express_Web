@@ -303,7 +303,7 @@ h3, h4{
     text-align: center;
     border-collapse: collapse;
 }
-.pre_nick, .pre_cont, .pre_date, .pre_num {
+.pre_nick, .pre_cont, .pre_date, .pre_num, .pre_id, .pre_img {
     display: none;
 }
 .tables > th{
@@ -526,7 +526,7 @@ h3, h4{
     margin: auto;
     z-index: 1;
     width: 300px;
-    height: 300px;
+    height: 350px;
     background-color: white;
 }
 .modalcomeout {

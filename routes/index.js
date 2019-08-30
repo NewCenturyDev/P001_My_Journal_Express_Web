@@ -221,7 +221,7 @@ router.get('/profile', function(req, res) {
         console.log(err);
       } else {
         var nick = req.session.user.nick;
-        var sql2 = "SELECT *, left(contents, 20) preveal, date_format(date, '%Y-%m-%d') s_date FROM message WHERE r_nick = ?";
+        var sql2 = "SELECT m1.*, left(m1.contents, 20) preveal, date_format(m1.date, '%Y-%m-%d') s_date, m2.member_img, m2.member_id FROM message m1 INNER JOIN member m2 on m1.s_nick = m2.member_nick WHERE m1.r_nick = ?";
         var params2 = [nick];
         connection.query(sql2, params2, function(err2, rows2) {
           if (err2) {

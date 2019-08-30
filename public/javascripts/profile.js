@@ -31,6 +31,8 @@ var pre_nick = document.getElementsByClassName('pre_nick');
 var pre_cont = document.getElementsByClassName('pre_cont');
 var pre_date = document.getElementsByClassName('pre_date');
 var pre_num = document.getElementsByClassName('pre_num');
+var pre_id = document.getElementsByClassName('pre_id');
+var pre_img = document.getElementsByClassName('pre_img');
 
 // 회원 이미지 변경 모달창
 var add_modal_bg = document.getElementById('add_modal_bg');
@@ -173,12 +175,23 @@ function remove_sub() {
 //쪽지 모달창 표시 함수
 function megModalDisplay() {
     var index = this.value;
+    var id = pre_id[index].value;
+    var img = pre_img[index].value;
+    
+    if (img==='null') {
+        $("#s_img").html(`<img src="/images/profile_list.jpg" alt="">`);
+    } //등록 프로필 사진 없을 때 기본 출력
+    else {
+        img = "/img/"+id+"/"+img;
+        $("#s_img").html(`<img src="${img}" alt="">`);
+    }//등록 프로필 사진 있을 때 출력
+    
     msg_nick.innerHTML=`<h1>${pre_nick[index].value}</h1>`;
     date.innerHTML=`<h2>${pre_date[index].value} 수신</h2>`;
     msg_cont.innerHTML=pre_cont[index].value;
     msg_del.value = pre_num[index].value;
     r_nick.value = pre_nick[index].value;
-
+    //선택 내용 모달창에 옮김
     if (plettle.style.display == 'none') {
         plettle.style.display = 'flex';
     }

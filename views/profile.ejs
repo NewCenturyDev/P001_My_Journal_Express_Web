@@ -5,6 +5,9 @@
         <title></title>
         <link rel="stylesheet" href="/stylesheets/profile.css">
         <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean" rel="stylesheet">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     </head>
     <body>
         <header>
@@ -71,6 +74,7 @@
                             <tr><td class="t_label">E-mail</td><td class="t_data"><%= rows0[0].member_email %></td></tr>
                             <tr><td class="t_label">Phone</td><td class="t_data"><%= rows0[0].member_phone %></td></tr>
                             <tr><td class="t_label">Message</td><td class="t_data"><%= rows0[0].member_msg %></td></tr>
+                            <input type="text" id="info_img" value="<%= rows0[0].member_img %>" style="display: none;">
                         </table>
                         <a class="profile_simple_modify" onclick="modify_personal_msg();">상태메시지 변경</a>
                         <form action="/personalmsg" method="POST" id="modify_personal_msg" style="display: none">
@@ -112,6 +116,8 @@
                                 <input class="pre_cont" type="text" value="<%= rows2[i].contents %>">
                                 <input class="pre_date" type="text" value="<%= rows2[i].s_date %>">
                                 <input class="pre_num" type="text" value="<%= rows2[i].num %>">
+                                <input class="pre_id" type="text" value="<%= rows2[i].member_id %>">
+                                <input class="pre_img" type="text" value="<%= rows2[i].member_img %>">
                                 <tr>
                                     <td><%= rows2[i].s_nick %></td>
                                     <td><%= rows2[i].preveal %>...</td>
@@ -173,12 +179,7 @@
             <div class="modal">
                 <button class="modalcomeout" type="button">X</button>
                 <div class="upss">
-                    <div>
-                        <% if (rows0[0].member_img) { %>
-                            <img src="/img/<%= rows0[0].member_id %>/<%= rows0[0].member_img %>" alt="">
-                        <% } else { %>
-                            <img src="/images/profile_list.jpg" alt="">
-                        <% } %>
+                    <div id="s_img">
                     </div>
                     <div class="msg_info">
                         <div id="msg_nick"><h1>보내는 사람</h1></div>
