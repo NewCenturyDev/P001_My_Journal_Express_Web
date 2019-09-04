@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" content="user-scalable=no">
     <title>My Studio Express</title>
     <link rel="stylesheet" href="/stylesheets/mobile/m_profile.css">
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean" rel="stylesheet">
@@ -31,23 +31,23 @@
         </div>
         <!--구독 수정-->
         <div id="subscribe" style="display: none">
-        <div id="sub_msg">
-            <h1>구독 수정</h1>
-        </div>
-        <% for (var i=0; i< rows1.length; i++) { %> 
-            <div class="people">
-                <div class="subbox">
-                    <div>
-                        <div class="nickname"><h1><%= rows1[i].r_id %></h1></div>
-                        <div class="realname"><h2><%= rows1[i].r_nick%></h2></div>
-                    </div>
-                    <form class="mar" action="move_and_remove" method="POST">
-                        <input type="text" name="r_id" value="<%= rows1[i].r_id%>">
-                        <button class="move" name="move">이동</button>
-                        <button class="remove" name="remove">구독 삭제</button>
-                    </form>
-                </div>
+            <div id="sub_msg">
+                <h1>구독 수정</h1>
             </div>
+            <% for (var i=0; i< rows1.length; i++) { %> 
+                <div class="people">
+                    <div class="subbox">
+                        <div>
+                            <div class="nickname"><h1><%= rows1[i].r_id %></h1></div>
+                            <div class="realname"><h2><%= rows1[i].r_nick%></h2></div>
+                        </div>
+                        <form class="mar" action="move_and_remove" method="POST">
+                            <input type="text" name="r_id" value="<%= rows1[i].r_id%>">
+                            <button class="move" name="move">이동</button>
+                            <button class="remove" name="remove">구독 삭제</button>
+                        </form>
+                    </div>
+                </div>
             <% } %>
         </div>
         <!--편지 보기-->

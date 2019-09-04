@@ -23,7 +23,7 @@ header{
 header > #title{
     display: inline-block;
     color: white;
-    font-size: 90px;
+    font-size: 70px;
     font-weight: bold;
     line-height: 110px;
     text-align: left;
@@ -37,7 +37,7 @@ header > #title{
 header > #title2{
     display: inline-block;
     color: white;
-    font-size: 50px;
+    font-size: 30px;
     font-weight: bold;
     line-height: 60px;
     text-align: left;
@@ -103,8 +103,8 @@ section {
     width: 90%;
     margin: 0 auto;
     height: 80px;
-    line-height: 80px;
-    font-size: 72px;
+    line-height: 60px;
+    font-size: 50px;
     font-weight: bold;
     text-align: center;
     color:rgb(43, 83, 193);
@@ -114,25 +114,25 @@ section {
     width: 30%;
     margin: 0;
     margin-left: 5%;
-    height: 60px;
-    line-height: 60px;
-    font-size: 55px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 35px;
     font-weight: bold;
 }
 .t_data{
     width: 30%;
     margin: 0;
     margin-left: 5%;
-    height: 60px;
-    line-height: 60px;
-    font-size: 55px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 35px;
     font-weight: bold;
 }
 
 /*구독 수정 탭*/
 #subscribe{
     width: 100%;
-    height: 100%;
+    height: 90%;
     margin: 0;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -141,7 +141,7 @@ section {
     width: 100%;
     height: 75px;
     line-height: 70px;
-    font-size: 50px;
+    font-size: 35px;
     font-weight: bold;
     text-align: center;
     margin-top: 12.5px;
@@ -153,7 +153,7 @@ section {
 }
 .people{
     width: 100%;
-    height: 150px;
+    height: 100px;
     padding: 30px;
     border-bottom: 2px solid black;
 }
@@ -166,29 +166,29 @@ section {
     float: left;
 }
 .nickname{
-    width: 60%;
+    width: 100%;
     height: 55%;
     padding: 10px;
-    line-height: 60px;
-    font-size: 50px;
+    line-height: 40px;
+    font-size: 35px;
     font-weight: bold;
 }
 .nickname > h1{
     margin: 0;
 }
 .realname{
-    width: 60%;
+    width: 100%;
     height: 35%;
     padding: 10px;
-    line-height: 40px;
-    font-size: 30px;
+    line-height: 20px;
+    font-size: 18px;
 }
 .realname > h2{
     margin: 0;
 }
 .mar{
     float: right;
-    width: 35%;
+    width: 40%;
     height: 100%;
 }
 .mar > input{
@@ -197,18 +197,19 @@ section {
 .mar > button{
     width: 40%;
     height: 100%;
-    margin-left: 5%;
+    margin-right: 5%;
     float: left;
     border: 0;
     background-color: rgb(43, 83, 193);
     color: white;
     font-size: 30px;
+    font-weight: bold;
 }
 
 /* 편지 보기 탭 */
 #letter{
     width: 100%;
-    height: 100%;
+    height: 90%;
     margin: 0;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -217,7 +218,7 @@ section {
     width: 100%;
     height: 75px;
     line-height: 70px;
-    font-size: 50px;
+    font-size: 35px;
     font-weight: bold;
     text-align: center;
     margin-top: 12.5px;
@@ -243,35 +244,35 @@ section {
 .tables th:first-child{
     width: 25%;
     height: 100px;
-    font-size: 40px;
+    font-size: 25px;
     font-weight: bold;
     text-align: left;
 }
 .tables th:nth-child(2){
     width: 50%;
     height: 100px;
-    font-size: 40px;
+    font-size: 25px;
     font-weight: bold;
     text-align: left;
 }
 .tables th:nth-child(3){
     width: 25%;
     height: 100px;
-    font-size: 40px;
+    font-size: 25px;
     font-weight: bold;
     text-align: left;
 }
 .tables td:first-child{
     width: 25%;
     height: 100px;
-    font-size: 40px;
+    font-size: 25px;
     text-align: left;
     border-bottom: 2px solid black;
 }
 .tables td:nth-child(2){
     width: 50%;
     height: 100px;
-    font-size: 40px;
+    font-size: 25px;
     text-align: left;
     border-bottom: 2px solid black;
 }
@@ -289,6 +290,7 @@ section {
     background-color: rgb(43, 83, 193);
     color: white;
     font-size: 30px;
+    font-weight: bold;
 }
 /*------------------------------ 본문 부분 끝 -------------------------------*/
 
@@ -296,7 +298,8 @@ section {
 /* 하단 부분 기본 */
 #rooms {
     width: 100%;
-    height: 10%;
+    height: 8%;
+    margin-top: 2%;
     z-index: 100;
     background-color: rgb(43, 83, 193);
 }
@@ -304,14 +307,15 @@ section {
 /* 하단 부분 버튼 */
 #rooms > button {
     width: 32.5%;
-    height: 80%;
+    height: 90%;
     background-color: inherit;
     border: 0;
     border-bottom: 8px solid white;
     padding: 0;
     margin: 0;
     color: white;
-    font-size: 60px;
+    font-size: 40px;
+    font-weight: bold;
     text-align: center;
 }
 /*------------------------------ 하단 부분 끝 -------------------------------*/
@@ -345,7 +349,7 @@ section {
     background: none;
     margin-right: 2%;
     height: 8%;
-    font-size: 100px;
+    font-size: 60px;
     font-weight: bold;
     float: right;
     border: none;
@@ -361,18 +365,18 @@ section {
     
 }
 .msg_info{
-    font-size: 30px;
+    font-size: 20px;
     width: 90%;
     margin-left: 10%;
 }
 #msg_nick{
-    font-size: 60px;
+    font-size: 30px;
 }
 #msg_nick > h1{
     margin: 0;
 }
 #date {
-    font-size: 30px;
+    font-size: 20px;
 }
 #date > h2{
     margin: 0;
@@ -397,14 +401,15 @@ section {
     resize: none;
     border: 2px solid black;
     background-color: white;
-    font-size: 50px;
+    font-size: 35px;
 }
 .msgbutton{
     margin: 5px 2.5%;
     width: 40%;
-    height: 150px;
+    height: 100px;
     background-color: rgb(43, 83, 193);
-    font-size: 80px;
+    font-size: 30px;
+    font-weight: bold;
     color: white;
     border: 0;
     cursor: pointer;
@@ -412,9 +417,10 @@ section {
 #msg_send {
     margin: 5px 0;
     width: 40%;
-    height: 150px;
+    height: 100px;
     background-color: rgb(43, 83, 193);
-    font-size: 80px;
+    font-size: 30px;
+    font-weight: bold;
     color: white;
     border: 0;
     cursor: pointer;

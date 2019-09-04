@@ -14,9 +14,9 @@ body{
     width: 50%;
     height: 10%;
     margin: 0 25%;
-    font-size: 120px;
+    font-size: 90px;
     font-weight: bold;
-    line-height: 120px;
+    line-height: 100px;
     color: white;
     text-align: center;
 }
@@ -36,13 +36,13 @@ form > input{
     border: 0;
     border-bottom: 5px solid white;
     color: white;
-    font-size: 60px;
-    line-height: 60px;
+    font-size: 40px;
+    line-height: 50px;
 }
 form > input::placeholder{
     color: white;
-    font-size: 60px;
-    line-height: 60px;
+    font-size: 40px;
+    line-height: 50px;
 }
 form > button{
     display: block;
@@ -54,9 +54,9 @@ form > button{
     border: 5px solid white;
     border-radius: 10px;
     color: white;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
-    line-height: 80px;
+    line-height: 50px;
     text-align: center;
 }
 #links{
@@ -68,7 +68,7 @@ form > button{
 }
 #links > a{
     margin-top: 10%;
-    font-size: 50px;
+    font-size: 35px;
     color: white;
     line-height: 60px;
     display: block;
