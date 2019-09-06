@@ -1,7 +1,7 @@
 /*------------------------------ CSS 초기화 ------------------------------*/
 html{
     margin: 0;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: white;
 }
 body{
     margin: 0;
@@ -248,8 +248,12 @@ h3, h4{
 .Spicture{
     width: 90px;
     height: 90px;
-    background-image: url("http://placehold.it/90x90");
     margin: 10px auto;
+}
+.Spicture > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .subbox{
     width: 100%;

@@ -137,6 +137,11 @@ main > div {
     display: none;
 }
 
+.subbox {
+    width: 90%;
+    margin-left: 10%;
+}
+
 #user_but > div > button, #user_but > div > form > button {
     cursor: pointer;
     background-color: rgb(43, 83, 193);
@@ -177,7 +182,7 @@ main > div {
     margin: auto;
     z-index: 1;
     width: 300px;
-    height: 300px;
+    height: 350px;
     background-color: white;
 }
 .modalcomeout {
@@ -198,6 +203,13 @@ main > div {
     height: 23%;
     display: flex;
     
+}
+.upss > div > img {
+    margin-left: 10px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 .msg_info{
     font-size: 10px;
@@ -254,6 +266,9 @@ main > div {
     color: white;
     border: 0;
     cursor: pointer;
+}
+#nicname > h2 {
+    margin: 0 auto;
 }
 /*----------------------------- 쪽지 모달창 끝 -----------------------------*/
 

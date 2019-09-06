@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>사진 전시회 서비스 - 검색 페이지</title>
     <link rel="stylesheet" href="/stylesheets/sub_search.css"></link>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
 <body>
     <header>
@@ -45,13 +48,17 @@
             </div>
         <% } %>
         <!--사용자 목록-->
-        <% for (var i=0; i < rows.length; i++) { %>
-            <div id="user" value="<%= rows[i].member_id %>">
+        <% for (var i = 0; i < rows.length; i++) { %>
+            <div id="user">
+                <input type="text" class="r_id" value="<%= rows[i].member_id %>" style="display: none;">
+                <input type="text" class="pre_img" value="<%= rows[i].member_img %>" style="display: none;">
                 <div id="user_img">
                     <% if (rows[i].member_img) { %>
                         <img src="/img/<%= rows[i].member_id %>/<%= rows[i].member_img %>" alt="">
-                    <% } else { %>
+                        <input type="text" class="img_path" value="/img/<%= rows[i].member_id %>/<%= rows[i].member_img %>" style="display: none;">
+                        <% } else { %>
                         <img src="/images/profile_list.jpg" alt="">
+                        <input type="text" class="img_path" value="/images/profile_list.jpg" style="display: none;">
                     <% } %>
                 </div>
                 <div id="user_info">
@@ -93,8 +100,9 @@
             <div class="modal">
                 <button class="modalcomeout" type="button">X</button>
                 <div class="upss">
+                    <div id="s_img"></div>
                     <div class="subbox">
-                        <div id="nicname"><h1>받는 사람</h1></div>
+                        <div id="nicname"><h2>받는 사람</h2></div>
                         <div id="date"><h2>보내는 날짜 발신</h2></div>
                     </div>
                 </div>

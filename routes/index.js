@@ -214,11 +214,11 @@ router.get('/img/:id/:num/:name', function(req, res) {
 router.get('/profile', function(req, res) {
   if(req.session.user) {
     var id = req.session.user.id;
-    var sql1 = "SELECT r_id, r_nick FROM subscribe WHERE s_id = ?";
+    var sql1 = "SELECT s.r_id, s.r_nick, m.member_img FROM subscribe s INNER JOIN member m ON s.r_id = m.member_id WHERE s.s_id = ?";
     var params = [id];
     connection.query(sql1, params, function(err1, rows1) {
       if (err1) {
-        console.log(err);
+        console.log(err1);
       } else {
         var nick = req.session.user.nick;
         var sql2 = "SELECT m1.*, left(m1.contents, 20) preveal, date_format(m1.date, '%Y-%m-%d') s_date, m2.member_img, m2.member_id FROM message m1 INNER JOIN member m2 on m1.s_nick = m2.member_nick WHERE m1.r_nick = ?";

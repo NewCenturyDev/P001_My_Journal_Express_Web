@@ -90,7 +90,13 @@
                 </div>
                 <% for (var i=0; i< rows1.length; i++) { %> 
                     <div class="people">
-                        <div class="Spicture"></div>
+                        <div class="Spicture">
+                            <% if (rows1[i].member_img) { %>
+                                <img src="/img/<%= rows1[i].r_id %>/<%= rows1[i].member_img %>" alt="">
+                            <% } else { %>
+                                <img src="/images/profile_list.jpg" alt="">
+                            <% } %>
+                        </div>
                         <div class="subbox">
                             <div class="nickname"><h1><%= rows1[i].r_id %></h1></div>
                             <div class="realname"><h2><%= rows1[i].r_nick%></h2></div>

@@ -32,10 +32,27 @@ function goPeople() {
 }
 
 function sendMsg() {
-    nicname.innerHTML = `<h1>${this.value}</h1>`;
+    var temp = $('.send').index(this);
+    var id = ($('.r_id').eq(temp)).val();
+    var img = ($('.pre_img').eq(temp)).val();
+
+    if (img==='null') {
+        $("#s_img").html(`<img src="/images/profile_list.jpg" alt="">`);
+    } //등록 프로필 사진 없을 때 기본 출력
+    else {
+        img = "/img/"+id+"/"+img;
+        $("#s_img").html(`<img src="${img}" alt="">`);
+    }//등록 프로필 사진 있을 때 출력
+    
+    nicname.innerHTML = `<h2>${this.value}</h2>`;
     date.innerHTML = `<h2>${yyyy}-${mm}-${dd} 발신<h2>`;
     r_nick.value = this.value;
+
+
+
     plettle.style.display = 'flex';
+
+    
 } // 값 설정 후 쪽지 모달 띄움
 function closeMsg() {
     plettle.style.display = 'none';

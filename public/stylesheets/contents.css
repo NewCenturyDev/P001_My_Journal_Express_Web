@@ -202,14 +202,13 @@ hr {
     z-index: 1;
     position: fixed;
     margin-top: 20px;
-    width: 13%;
+    width: 8%;
     height: 80px;
-    top: 8%;
-    left: 85%;
+    top: 6%;
+    left: 90.5%;
     background-color: white;
     border: groove;
     display: none;
-    grid-template-columns: 1.7fr 2fr;
 }
 
 #mini_profile > div {
@@ -223,7 +222,6 @@ hr {
     object-fit: cover;
     border-radius: 50%;
     position: relative;
-    left: 5%;
 }
 
  /* 미니 프로필의 이름, 아이디 부분 */
