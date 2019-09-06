@@ -14,10 +14,27 @@ header {
     width: 37%;
     height: 50px;
     float: left;
+    cursor: pointer;
 }
 
 #logo {
     float: left;
+    display: flex;
+}
+
+#logo > img {
+    width: 35px;
+    height: 35px;
+    margin: 6px;
+    padding-left: 6px;
+}
+#logo > p {
+    margin-top: 10px;
+    margin-left: 7px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
 }
 
 /* header의 room 영역 */

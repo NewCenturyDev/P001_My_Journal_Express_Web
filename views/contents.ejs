@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div id="left_h">
+        <div id="left_h" onclick="location.href='/';">
             <div id="logo">
-                <a href="/">
-                    <img src="http://placehold.it/220x50">
-                </a>
+                <img src="/images/icon.png" alt="">
+                <p>My Journals</p>
             </div>
             <div id="room">
                 <form action="/contents" method="post">
@@ -46,12 +46,12 @@
                         <input type="text" name="search" placeholder="search">
                     </form>
                 </div>
-                <div id="music">
+                <!-- <div id="music">
                     <audio autoplay controls src="/musics/Empty.mp3"></audio>
                 </div>
                 <div>
                     <button type="button"><img src="/images/setting.png" width="20px"></button>
-                </div>
+                </div> 음악 구현 전 임시 주석 -->
             </div>
         <div id="right_h">
             <div>

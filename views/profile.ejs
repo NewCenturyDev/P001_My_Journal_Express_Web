@@ -8,14 +8,14 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
-            <div id="header_left">
+            <div id="header_left" onclick="location.href='/';">
                 <div id="logo">
-                    <a href="/">
-                        <img src="http://placehold.it/220x50">
-                    </a>
+                    <img src="/images/icon.png" alt="">
+                    <p>My Journals</p>
                 </div>
             </div>
             <div id="header_center">
@@ -27,18 +27,18 @@
             </div>
             <div id="header_right">
                 <div>
-                    <button type="button" id="logout">
-                        <img src="/images/logout.png" width="30px">
+                    <button type="button" id="people" onclick="location.href='search'">
+                        <img src="/images/people.png" width="32px">
                     </button>
                 </div>
                 <div>
                     <button type="button" id="profile">
-                        <img src="/images/profile.png" width="30px">
+                        <img src="/images/profile.png" width="22px">
                     </button>
                 </div>
                 <div>
-                    <button type="button" id="people" onclick="location.href='search'">
-                        <img src="/images/people.png" width="45px">
+                    <button type="button" id="logout">
+                        <img src="/images/logout.png" width="24px">
                     </button>
                 </div>
             </div>

@@ -17,6 +17,22 @@ header {
 /* header의 로고 자리*/
 #left_h{
     width: 35%;
+    display: flex;
+    cursor: pointer;
+}
+#left_h > img {
+    width: 35px;
+    height: 35px;
+    margin: 6px;
+    padding-left: 6px;
+}
+#left_h > p {
+    margin-top: 10px;
+    margin-left: 7px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
 }
 
 /* header의 검색 */
@@ -50,14 +66,20 @@ form {
 }
 
 #right_h > div > button {
-    margin-top: 7%;
     cursor: pointer;
     border: none;
     color: white;
     font-size: 13px;
     background: none;
 }
+#logout {
+    margin-top: 9px;
+}
+#profile, #people {
+    margin-top: 10px;
+}
 
+/* 메인 부분 (검색 결과 출력) */
 main {
     height: 100%;
     display: flex;

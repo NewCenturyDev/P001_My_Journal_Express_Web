@@ -28,7 +28,10 @@ header{
     margin: 0 auto;
     text-align: center;
 }
-
+header > img {
+    width: 45px;
+    height: 45px;
+}
 section > form > div {
     color: gray;
     text-align: center;

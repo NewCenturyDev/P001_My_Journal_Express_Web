@@ -30,6 +30,10 @@ header{
     margin: 0 auto;
     text-align: center;
 }
+header > img {
+    width: 45px;
+    height: 45px;
+}
 
 /*계정 정보 입력창*/
 section {

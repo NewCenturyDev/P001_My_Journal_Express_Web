@@ -33,8 +33,23 @@ header {
 }
 #logo{
     width: 220px;
+    display: flex;
+    cursor: pointer;
 }
-
+#logo > img {
+    width: 35px;
+    height: 35px;
+    margin: 6px;
+    padding-left: 6px;
+}
+#logo > p {
+    margin-top: 10px;
+    margin-left: 7px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+}
 /* header의 검색 부분 */
 #header_center {
     width: 30%;
@@ -80,12 +95,17 @@ header {
     float: right;
 }
 #header_right > div > button {
-    margin-top: 7%;
     cursor: pointer;
     border: none;
     color: white;
     font-size: 13px;
     background: none;
+}
+#logout {
+    margin-top: 9px;
+}
+#profile, #people {
+    margin-top: 10px;
 }
 /*----------------------------- 헤더 부분 끝 -----------------------------*/
 
