@@ -7,12 +7,12 @@ body{
     background-color: rgb(43, 83, 193);
 }
 #title{
-    width: 50%;
+    width: 90%;
     height: 15%;
-    margin: 0 25%;
-    font-size: 120px;
+    margin: 0 5%;
+    font-size: 90px;
     font-weight: bold;
-    line-height: 120px;
+    line-height: 100px;
     color: white;
     text-align: center;
 }
@@ -25,26 +25,26 @@ body{
 #findid > input{
     display: block;
     width: 85%;
-    height: 125px;
+    height: 90px;
     margin: 0 7.5%;
     background-color: inherit;
     border: 0;
     border-bottom: 5px solid white;
     color: white;
-    font-size: 60px;
-    line-height: 60px;
+    font-size: 40px;
+    line-height: 50px;
 }
 #findid > button{
     display: block;
     width: 60%;
-    height: 125px;
+    height: 90px;
     margin: 0 20%;
     margin-top: 5%;
     background-color: inherit;
     border: 5px solid white;
     border-radius: 10px;
     color: white;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
     line-height: 80px;
     text-align: center;
@@ -57,34 +57,34 @@ body{
 #findpw > input{
     display: block;
     width: 85%;
-    height: 125px;
+    height: 90px;
     margin: 0 7.5%;
     background-color: inherit;
     border: 0;
     border-bottom: 5px solid white;
     color: white;
-    font-size: 60px;
-    line-height: 60px;
+    font-size: 40px;
+    line-height: 50px;
 }
 #findpw > button{
     display: block;
     width: 60%;
-    height: 125px;
+    height: 90px;
     margin: 0 20%;
     margin-top: 5%;
     background-color: inherit;
     border: 5px solid white;
     border-radius: 10px;
     color: white;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
-    line-height: 80px;
+    line-height: 50px;
     text-align: center;
 }
 form > input::placeholder{
     color: white;
-    font-size: 60px;
-    line-height: 60px;
+    font-size: 40px;
+    line-height: 50px;
 }
 #links{
     width: 40%;
@@ -95,7 +95,7 @@ form > input::placeholder{
 }
 #links > a{
     margin-top: 2.5%;
-    font-size: 50px;
+    font-size: 35px;
     color: white;
     line-height: 60px;
     display: block;

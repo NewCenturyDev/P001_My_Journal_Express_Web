@@ -110,6 +110,7 @@ function addPhoto() {
   $('#add_title').html('컨텐츠 등록하기');
 }
 function closeMsg() {
+  console.log("테스트 메세지 입니다.");
   if (add_modal.style.display === 'flex') {
     $('h1').css('margin-bottom', '15%');
     add_modal.style.display = 'none';
@@ -120,6 +121,8 @@ function closeMsg() {
   }
   if (zoom_modal.style.display === 'flex') {
     zoom_modal.style.display = 'none';
+    $('#zoom_video').get(0).pause();
+    $('#zoom_video').get(0).currentTime = 0;
   }
   if (edit_j_modal.style.display === 'flex') {
     edit_j_modal.style.display = 'none';
