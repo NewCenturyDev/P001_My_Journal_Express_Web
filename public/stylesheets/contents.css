@@ -69,10 +69,11 @@ header {
     color: white;
     margin-top: 6px;
     border: none;
-    border-radius: 5px;
+    border-bottom: 2px solid white;
+    border-radius: 2px;
     height: 35px;
     padding: 0 10px;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgb(43, 83, 193);
 }
 
 #center_h > #music {
@@ -240,7 +241,7 @@ hr {
     color: gray;
 }
 
-/* 사진 등록 버튼 */
+/* 사진 등록, 편집 버튼 */
 #add {
     z-index: 1;
     width: 40px;
@@ -250,28 +251,39 @@ hr {
     top: 85%;
 }
 
+#upload {
+    z-index: 1;
+    width: 40px;
+    height: 60px;
+    position: fixed;
+    left: 88%;
+    top: 85%;
+    background-color: black;
+}
+
 /* 사진 등록 모달창 */
 #modal, #modal2, #modal4 {
     margin: auto;
     width: 25%;
-    height: 50%;
+    height: 350px;
     background-color: white;
-    border-radius: 5%;
 }
 
 #sel_contents {
     text-align: center;
-    height: 50%;
+    height: 100px;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 #sel_contents > input {
-    margin-bottom: 38px;
+    margin-bottom: 20px;
 }
 
 #modal3 {
     margin: auto;
-    width: 42%;
-    height: 80%;
+    max-width: 800px;
+    max-height: 800px;
 }
 
 #add_modal_bg, #edit_modal_bg, #zoom_modal_bg, #edit_journal_title {
@@ -334,18 +346,30 @@ hr {
     flex-direction: column;
 }
 
+#modal > #add_title{
+    width: 95%;
+    height: 75px;
+    margin: 20px 0;
+    padding-left: 5%;
+    text-align: left;
+    border-bottom: 2px double rgb(43, 83, 193);
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
 #add_photo, #sel_contents {
     height: 50%;
     justify-content: space-between;
 }
 
 #add_text {
-    height: 70%;
     justify-content: space-around;
+    height: 200px;
 }
 
 #add_text > textarea {
-    height: 40%;
+    height: 100px;
 }
 
 #test_name {
@@ -371,8 +395,9 @@ hr {
 
 /* 등록 사진의 이름 */
 #photo_name, #text_name, #e_p_t {
-    border: solid 3px;
-    border-radius: 5px;
+    border: 0;
+    border-bottom: 2px solid rgb(43, 83, 193);
+    border-radius: 1px;
     padding: 0 10px;
 }
 
@@ -396,10 +421,11 @@ hr {
     width: 30%;
     border: none;
     height: 20%;
-    background-color: rgba(0,0,0,0.8);
-    font-size: 14px;
     color: white;
-    border-radius: 25px;
+    background-color: rgb(43, 83, 193);
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
     cursor: pointer;
 }
 

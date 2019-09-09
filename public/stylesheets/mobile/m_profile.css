@@ -82,11 +82,9 @@ section {
     margin: 25px auto;
     border: 2px solid black;
 }
-#Mypicture > div{
+#Mypicture > img{
     width: 100%;
     height: 100%;
-    background-image: url(http://placehold.it/90x90);
-    background-size: 100%;
 }
 #info{
     width: 100%;
