@@ -120,9 +120,6 @@
                 <p id="mini_name"><%= login.nick %></p>
             </div>
         </div>
-            <button type="button" id="upload" value="stop">
-                <img src="/images/setting.png" width="20px">
-            </button>
             <button id="add" type="button" value="<%= login.id %>">
                 <img src="/images/add_icon.png" width="60px">
             </button>
@@ -164,7 +161,7 @@
                 <button class="modalcomeout" type="button">X</button>
                 <h1>콘텐츠 변경</h1>
                 <form id="edit_form" action="/edit_detail_photo" method="post">
-                    <input type="text" name="visit_to" value="<%= visit[0].member_id %>">
+                    <input type="text" name="visit_to" value="<%= visit[0].member_id %>" style="display: none;">
                     <input type="text" id="e_p_n" name="edit_photo_name" class="edit_input" style="display: none;">
                     <input type="text" id="e_p_w" name="edit_photo_width" class="edit_input" placeholder="가로 크기 (px)"><br>
                     <input type="text" id="e_p_h" name="edit_photo_height" class="edit_input" placeholder="세로 크기 (px)"><br>
@@ -197,7 +194,7 @@
                 <button class="modalcomeout" type="button">X</button>
                 <h1>Page <%= room_num %> 제목 수정</h1>
                 <form id="edit_title" action="/edit_journal_title" method="post">
-                    <input type="text" name="visit_to" value="<%= visit[0].member_id %>">
+                    <input type="text" name="visit_to" value="<%= visit[0].member_id %>" style="display: none;">
                     <input type="text" id="e_p_t" name="edit_journal_title" placeholder="바꿀 제목 입력 (20자 이내)"><br>
                     <input type="text" name="room_num" value="<%= room_num %>" style="display: none;">
                     <button name="edit_submit" id="edit_submit">변경 하기</button>

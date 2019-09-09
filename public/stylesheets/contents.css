@@ -291,7 +291,6 @@ hr {
     position: fixed;
     left: 89%;
     top: 85%;
-    background: black;
     color: white;
     border-radius: 50%;
     border: none;
@@ -300,16 +299,6 @@ hr {
     padding-left: 11px;
     font-size: 20px;
     font-weight: bold;
-}
-
-#upload {
-    z-index: 1;
-    width: 40px;
-    height: 60px;
-    position: fixed;
-    left: 88%;
-    top: 85%;
-    background-color: black;
 }
 
 /* 사진 등록 모달창 */
