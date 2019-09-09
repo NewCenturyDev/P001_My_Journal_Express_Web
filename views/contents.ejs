@@ -34,9 +34,6 @@
                         <input type="text" id="photos_y_pos" name="photos_y_pos">
                         <input type="text" id="photos_name" name="photos_name">
                     </form>
-                   <button type="button" id="upload" value="stop">
-                       <img src="/images/setting.png" width="20px">
-                    </button>
                 </div>
             </div>
         </div>
@@ -48,9 +45,6 @@
                 </div>
                 <div id="music">
                     <audio autoplay controls src="/musics/Empty.mp3"></audio>
-                </div>
-                <div>
-                    <button type="button"><img src="/images/setting.png" width="20px"></button>
                 </div>
             </div>
         <div id="right_h">
@@ -118,6 +112,9 @@
                 <p id="mini_name"><%= login.nick %></p>
             </div>
         </div>
+            <button type="button" id="upload" value="stop">
+                <img src="/images/setting.png" width="20px">
+            </button>
             <button id="add" type="button" value="<%= login.id %>">
                 <img src="/images/add_icon.png" width="60px">
             </button>
@@ -125,7 +122,7 @@
         <div id="add_modal_bg" style="display: none;">
             <div id="modal">
                 <button class="modalcomeout" type="button">X</button>
-                <h1 id="add_title">사진 추가</h1>
+                <div id="add_title">컨텐츠 등록하기</div>
                 <div id="sel_contents">
                     <input type="radio" name="sel" value="photo" checked>사진 등록<br>
                     <input type="radio" name="sel" value="video">동영상 등록<br>
@@ -135,7 +132,7 @@
                 <!-- 사진 또는 동영상 추가하기 -->
                 <form id="add_photo" action="/file/upload" method="post" enctype="multipart/form-data">
                     <input type="text" name="add_num" id="add_num" value="<%= room_num %>" style="display: none;">
-                    <input type="text" name="photo_name" id="photo_name" placeholder="사진 이름">
+                    <input type="text" name="photo_name" id="photo_name" placeholder="사진 / 동영상 이름">
                     <input type="text" name="type" id="type" style="display: none;">
                     <input type="text" name="upload_num" value="<%= room_num %>" style="display: none;">
                     <input type="file" name="file">

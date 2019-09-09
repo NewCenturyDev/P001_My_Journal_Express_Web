@@ -16,7 +16,11 @@
         <!--정보 수정-->
         <div id="myprofile" style="display: block">
             <div id="Mypicture">
-                <div></div>
+                <% if (rows0[0].member_img) { %>
+                    <img src="/img/<%= rows0[0].member_id %>/<%= rows0[0].member_img %>" alt="">
+                <% } else { %>
+                    <img src="/images/profile_list.jpg" alt="">
+                <% } %>
             </div>
             <div id="info">
                 <table id="infotable">
