@@ -4,6 +4,9 @@ var mini_profile = document.getElementById('mini_profile');
 var logout = document.getElementById('logout');
 var people = document.getElementById('people');
 
+var pre = document.getElementById('pre');
+var nex = document.getElementById('nex');
+
 /* 사진 위한 모달 및 버튼 */
 var add_modal = document.getElementById('add_modal_bg');
 var edit_modal = document.getElementById('edit_modal_bg');
@@ -130,10 +133,18 @@ function closeMsg() {
 }
 
 /* room 번호 변경 */
-function change_room_num() {
-  $('#room_num').val(this.value);
-  $('#add_num').val(this.value);
-  $('#add_text_num').val(this.value);
+function change_room_num(event) {
+  var e = event.currentTarget.id;
+  var num = Number($('#room_num').val());
+  if (e==='pre' && num > 1) {
+    num = num - 1;
+  }
+  else if (e==='nex' && num < 3) {
+    num = num + 1;
+  }
+  $('#room_num').val(num);
+  $('#add_num').val(num);
+  $('#add_text_num').val(num);
 }
 
 /* 사진 이름 및 좌표를 저장할 배열 */
@@ -143,7 +154,7 @@ var photo_y_pos = new Array();
 
 /* 편집한 사진 정보를 저장해 POST로 넘김 */
 function move_and_stop() {
-  if (this.value === 'stop') {
+  if (this.value === 'edit') {
     $('.user_photo').css('transition', 'none');
     $('.user_photo').removeClass("photohover");
     $('.user_photo').css('border', 'solid 1px');
@@ -155,9 +166,10 @@ function move_and_stop() {
     $(".user_photo").on("click", move_photo());
     alert("편집 모드입니다. 마우스를 이용해 사진의 위치를 수정해주세요!")
     
-    this.value = 'move';
+    $('#upload').css('background', '#3530C9');
+    this.value = 'save';
   }
-  else if (this.value === 'move') {
+  else if (this.value === 'save') {
     $('.user_photo').css('border', 'none');
     for (var i = 0; i < user_photo.length; i++) {
       var x_pos = ($(".user_photo").eq(i)).offset().left;
@@ -201,7 +213,7 @@ function move_photo() {
 $(".user_photo").bind("contextmenu", function(e) {
   index = $(this).index();
   e_p_n.value = photo_name[index].value; // 사진 이름
-  if (upload.value=="move") {
+  if (upload.value=="save") {
     if ( ($('.cnt_type').eq(index)).val()==='text') {
       $('#edit_form').css('margin-top', '0');
       $('#modal2').css('height', '40%');
@@ -225,7 +237,7 @@ $(".user_photo").bind("contextmenu", function(e) {
 
 /* 우클릭 시 저널 제목 변경 모달 띄우기 */
 $('#journal_logo').bind("contextmenu", function(e) {
-  if (upload.value=="move") {
+  if (upload.value=="save") {
     edit_j_modal.style.display = 'flex';
   }
   return false;
@@ -243,7 +255,7 @@ function stay_value() {
 
 /* 클릭한 사진을 확대, 간단한 정보 보여줌 */
 function zoomPhoto() {
-  if (upload.value==='move') {
+  if (upload.value==='save') {
     return false;
   } // 편집 모드일 시 기능 제한
   var index_zoom = $(this).index();
@@ -313,6 +325,9 @@ function text_enter() {
 profile.addEventListener("click", goProfile);
 logout.addEventListener("click", logOut);
 people.addEventListener("click", goPeople);
+
+nex.addEventListener("click", change_room_num);
+pre.addEventListener("click", change_room_num);
 // 상단 메뉴 이동 이벤트
 
 edit_submit.addEventListener("click", editMode);

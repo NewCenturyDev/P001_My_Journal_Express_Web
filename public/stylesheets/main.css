@@ -12,8 +12,25 @@ header {
 #left_h{
     width: 50%;
     float: left;
+    cursor: pointer;
+    display: flex;
 }
 
+#left_h > img {
+    width: 35px;
+    height: 35px;
+    margin: 6px;
+    padding-left: 6px;
+}
+
+#left_h > p {
+    margin-top: 10px;
+    margin-left: 7px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+}
 #right_h {
     width: 50%;
     height: 50px;
@@ -62,13 +79,6 @@ main > div {
     justify-content: center;
 }
 
-#logo > #subject {
-    text-align: center;
-    font-size: 150px;
-    font-family: 'impact';
-    padding-right: 2%;
-}
-
 #short_intro {
     color: #002266;
     padding-left: 2%;
@@ -82,13 +92,15 @@ form {
     margin: 0 auto;
     margin-top: 3.5%;
     width: 55%;
+    position: relative;
+    left: 3%;
 }
 
 /* 검색 부분 */
 main > form > input {
     margin-bottom: 60px;
     height: 100px;
-    width: 90%;
+    width: 80%;
     background-color: inherit;
     border: 0;
     border-bottom: 2px solid #2b53c1;
@@ -96,6 +108,20 @@ main > form > input {
     color: rgb(43, 83, 193);
     font-size: 33px;
     padding: 0 25px;
+}
+
+main > form > button {
+    width: 60px;
+    height: 60px;
+    background: none;
+    border: none;
+    position: relative;
+    top: 30px;
+}
+
+main > form > button > img {
+    width: 100%;
+    height: 100%;
 }
 
 #main_img > img {

@@ -9,22 +9,30 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div id="left_h">
+        <div id="left_h" onclick="location.href='/';">
             <div id="logo">
-                <a href="/">
-                    <img src="http://placehold.it/220x50">
-                </a>
+                <img src="/images/icon.png" alt="">
+                <p>My Journals</p>
             </div>
             <div id="room">
                 <form action="/contents" method="post">
                     <input type="text" id="room_num" name="room_num" value="<%= room_num %>">
-                    <input type="text" id="visit_to" name="visit_to" value="<%= visit[0].member_id %>">
-                    <button class="r_c" value="1">page #1</button>
+                    <input type="text" id="visit_to" name="visit_to" value="<%= visit[0].member_id %>" style="display: none;">
+                    <!-- <button class="r_c" value="1">page #1</button>
                     <button class="r_c" value="2">page #2</button>
-                    <button class="r_c" value="3">page #3</button>
+                    <button class="r_c" value="3">page #3</button> -->
+                    <p>page</p>
+                    <button id="pre">
+                        <img src="/images/pre.png" width="20px" height="20px" alt="">
+                    </button>
+                    <p><%= room_num %></p>
+                    <button id="nex">
+                        <img src="/images/nex.png" width="20px" height="20px" alt="">
+                    </button>
                 </form>
                 <div>
                     <form id="edit" action="/editPhoto" method="post" style="display: none;">
@@ -39,12 +47,12 @@
         </div>
             <div id="center_h">
                 <div id="find">
-                    <form id="search" action="search" method="post">
-                        <input type="text" name="search" placeholder="search">
+                    <form action="search" method="post" style="display: flex;">
+                        <input type="text" name="search" placeholder="아이디 또는 사진을 검색하세요!">
+                        <button>
+                            <img src="/images/search.png" alt="">
+                        </button>
                     </form>
-                </div>
-                <div id="music">
-                    <audio autoplay controls src="/musics/Empty.mp3"></audio>
                 </div>
             </div>
         <div id="right_h">
@@ -118,6 +126,7 @@
             <button id="add" type="button" value="<%= login.id %>">
                 <img src="/images/add_icon.png" width="60px">
             </button>
+            <input type="button" id="upload" value="edit">
         <!-- 사진 등록 시 모달창 -->
         <div id="add_modal_bg" style="display: none;">
             <div id="modal">

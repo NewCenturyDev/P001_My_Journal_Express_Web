@@ -33,8 +33,23 @@ header {
 }
 #logo{
     width: 220px;
+    display: flex;
+    cursor: pointer;
 }
-
+#logo > img {
+    width: 35px;
+    height: 35px;
+    margin: 6px;
+    padding-left: 6px;
+}
+#logo > p {
+    margin-top: 10px;
+    margin-left: 7px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+}
 /* header의 검색 부분 */
 #header_center {
     width: 30%;
@@ -44,15 +59,30 @@ header {
 }
 #header_center > #find {
     width: 100%;
+    position: relative;
+    left: 10px;
 }
 #header_center > #find > form{
     width: 100%;
     margin: 0;
+    display: flex;
+}
+#find > form > input::placeholder {
+    text-align: center;
+}
+#find > form > button {
+    background: none;
+    border: none;
+}
+#find > form > button > img {
+    margin-top: 7px;
+    width: 25px;
+    height: 25px;
 }
 
 /* header의 search 디자인 부분 */
 #header_center > div > form > input {
-    width: 100%;
+    width: 90%;
     margin-top: 6px;
     background-color: inherit;
     border: none;
@@ -61,6 +91,7 @@ header {
     height: 35px;
     color: white;
     padding: 0 10px;
+    outline: none;
 }
 #header_center > div > form > input::placeholder {
     color: white;
@@ -80,12 +111,17 @@ header {
     float: right;
 }
 #header_right > div > button {
-    margin-top: 7%;
     cursor: pointer;
     border: none;
     color: white;
     font-size: 13px;
     background: none;
+}
+#logout {
+    margin-top: 9px;
+}
+#profile, #people {
+    margin-top: 10px;
 }
 /*----------------------------- 헤더 부분 끝 -----------------------------*/
 
