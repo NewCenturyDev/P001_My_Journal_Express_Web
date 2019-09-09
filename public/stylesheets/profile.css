@@ -59,15 +59,30 @@ header {
 }
 #header_center > #find {
     width: 100%;
+    position: relative;
+    left: 10px;
 }
 #header_center > #find > form{
     width: 100%;
     margin: 0;
+    display: flex;
+}
+#find > form > input::placeholder {
+    text-align: center;
+}
+#find > form > button {
+    background: none;
+    border: none;
+}
+#find > form > button > img {
+    margin-top: 7px;
+    width: 25px;
+    height: 25px;
 }
 
 /* header의 search 디자인 부분 */
 #header_center > div > form > input {
-    width: 100%;
+    width: 90%;
     margin-top: 6px;
     background-color: inherit;
     border: none;
@@ -76,6 +91,7 @@ header {
     height: 35px;
     color: white;
     padding: 0 10px;
+    outline: none;
 }
 #header_center > div > form > input::placeholder {
     color: white;

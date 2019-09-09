@@ -18,6 +18,7 @@ header {
 }
 
 #logo {
+    width: 40%;
     float: left;
     display: flex;
 }
@@ -41,22 +42,21 @@ header {
 #room {
     display: flex;
 }
+#room > form {
+    display: flex;
+    padding-top: 13px;
+}
 
 #room > div {
     margin-left: 3%;
 }
-
- /* room 버튼 디자인 부분 */
-#room > form > button {
-    margin-top: 10px;
-    margin-left: 8px;
-    background: none;
-    font-family: 'impact';
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
+#room > form > p {
+    margin: 0 10px;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
 }
 
+ /* room 버튼 디자인 부분 */
 #room > div > button {
     margin-top: 10px;
 }
@@ -73,7 +73,8 @@ header {
 }
 
 #center_h > #find {
-    width: 50%;
+    width: 60%;
+    position: relative;
 }
 
 #center_h > div > button {
@@ -81,15 +82,31 @@ header {
 }
 
  /* header의 search 디자인 부분 */
-#center_h > div > #search > input {
+#center_h > div > form > input {
     width: 90%;
-    color: white;
     margin-top: 6px;
+    background-color: inherit;
     border: none;
-    border-radius: 5px;
+    border-bottom: 2px solid white;
+    border-radius: 1px;
     height: 35px;
+    color: white;
     padding: 0 10px;
-    background-color: rgba(0,0,0,0.6);
+    outline: none;
+}
+
+#find > form > input::placeholder {
+    text-align: center;
+    color: white;
+}
+#find > form > button {
+    background: none;
+    border: none;
+}
+#find > form > button > img {
+    margin-top: 7px;
+    width: 25px;
+    height: 25px;
 }
 
 #center_h > #music {
@@ -263,8 +280,26 @@ hr {
     width: 40px;
     height: 60px;
     position: fixed;
-    left: 92%;
+    left: 94%;
     top: 85%;
+}
+#upload {
+    z-index: 1;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    left: 89%;
+    top: 85%;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    font-family: 'Ubuntu', sans-serif;
+    background: #DB0000;
+    padding-left: 11px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 /* 사진 등록 모달창 */
