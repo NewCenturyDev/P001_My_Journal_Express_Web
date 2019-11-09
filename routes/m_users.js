@@ -110,6 +110,7 @@ router.post('/login', function(req, res){
                     }
                     console.log('로그인 처리 - 세션 저장');
                     res.send ('<script>alert("로그인 되었습니다!"); location.href = "/mobile/contents";</script>');
+                    return;
                 }
             }
             //일치하는 id,pw가 없음
@@ -152,15 +153,19 @@ router.post('/register', function(req, res){
     //사용자가 입력한 회원가입 양식 검증
     if(info.id==""||info.pw==""||info.pwck==""||info.name==""||info.nick==""||info.mail==""||info.phone==""){
       res.send ('<script>alert("회원가입 양식의 모든 필드를 채워주셔야 합니다. 빈 칸은 허용되지 않습니다!"); location.href = "/mobile/auth/register";</script>');
+      return;
     }
     if(info.pw!=info.pwck){
       res.send ('<script>alert("비밀번호와 비밀번호 확인 필드의 값이 서로 다릅니다!"); location.href = "/mobile/auth/register";</script>');
+      return;
     }
     if(!RegExp1.test(info.phone)){
       res.send ('<script>alert("전화번호는 숫자만 입력하여 주십시오! ( - 는 생략해 주십시오.)"); location.href = "/mobile/auth/register";</script>');
+      return;
     }
     if(!RegExp2.test(info.mail)){
       res.send ('<script>alert("이메일 양식이 올바르지 않습니다! ( example@service.com 형식으로 입력해 주십시오)"); location.href = "/mobile/auth/register";</script>');
+      return;
     }
   
     //양식에 문제 없으면 DB에 저장
@@ -173,10 +178,12 @@ router.post('/register', function(req, res){
         if(rowss[i].member_id == info.id){
           console.log('아이디 중복');
           res.send ('<script>alert("아이디가 중복 됩니다!"); location.href = "/mobile/auth/register";</script>');
+          return;
         }
         if(rowss[i].member_nick == info.nick){
           console.log('닉네임 중복');
           res.send ('<script>alert("닉네임이 중복 됩니다!"); location.href = "/mobile/auth/register";</script>');
+          return;
         }
       }
       connection.query(sql, params, function(err, rows, fields){
@@ -279,6 +286,7 @@ router.post('/idfinder', function(req, res){
                     //email이 일치하는 member의 열에서 id 반환
                     result = '<script>alert("해당 정보로 조회한 사용자의 ID는 ' + rows[i].member_id + ' 입니다."); location.href = "/mobile/auth";</script>';
                     res.send (result);
+                    return;
                 }
             }
             //일치하는 id,pw가 없음
@@ -313,6 +321,7 @@ router.post('/pwfinder', function(req, res){
                     //email,성명,id가 일치하는 member의 열에서 pw 반환
                     result = '<script>alert("해당 정보로 조회한 사용자의 PW는 ' + rows[i].member_pw + ' 입니다."); location.href = "/mobile/auth";</script>';
                     res.send (result);
+                    return;
                 }
             }
             //일치하는 id,pw가 없음

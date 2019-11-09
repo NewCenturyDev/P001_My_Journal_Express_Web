@@ -6,7 +6,7 @@ var people = document.getElementById('people');
 // 쪽지 구현 변수
 var send = document.getElementsByClassName('send');
 var plettle = document.getElementsByClassName("plettle")[0];
-var nicname = document.getElementById('nicname');
+var nicname = document.getElementById('msg_nick');
 var modalcomeout = document.getElementsByClassName("modalcomeout")[0];
 var r_nick = document.getElementById('r_nick');
 
@@ -44,7 +44,7 @@ function sendMsg() {
         $("#s_img").html(`<img src="${img}" alt="">`);
     }//등록 프로필 사진 있을 때 출력
     
-    nicname.innerHTML = `<h2>${this.value}</h2>`;
+    nicname.innerHTML = `<h1>${this.value}</h1>`;
     date.innerHTML = `<h2>${yyyy}-${mm}-${dd} 발신<h2>`;
     r_nick.value = this.value;
 

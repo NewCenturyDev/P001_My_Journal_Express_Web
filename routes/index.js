@@ -439,11 +439,13 @@ router.post('/login', function(req, res){
           }
           console.log('로그인 처리 - 세션 저장');
           res.send ('<script>alert("로그인 되었습니다!");</script>'+go_contents(req.session.user.id, 1));
+          return;
         }
       }
       //일치하는 id,pw가 없음
       //추후 로그인 에러 페이지로 리다이렉트하는 것으로 변경을 검토
       res.send ('<script>alert("ID와 PW를 다시 확인하여 주십시오!"); location.href = "/login";</script>');
+      return;
      }
   });
   //디버깅용 로그
@@ -482,62 +484,65 @@ router.post('/register', function(req, res){
   //사용자가 입력한 회원가입 양식 검증
   if(info.id==""||info.pw==""||info.pwck==""||info.name==""||info.nick==""||info.mail==""||info.phone==""){
     res.send ('<script>alert("회원가입 양식의 모든 필드를 채워주셔야 합니다. 빈 칸은 허용되지 않습니다!"); location.href = "/register";</script>');
+    return;
   }
   if(info.pw!=info.pwck){
     res.send ('<script>alert("비밀번호와 비밀번호 확인 필드의 값이 서로 다릅니다!"); location.href = "/register";</script>');
+    return;
   }
   if(!RegExp1.test(info.phone)){
     res.send ('<script>alert("전화번호는 숫자만 입력하여 주십시오! ( - 는 생략해 주십시오.)"); location.href = "/register";</script>');
+    return;
   }
   if(!RegExp2.test(info.mail)){
     res.send ('<script>alert("이메일 양식이 올바르지 않습니다! ( example@service.com 형식으로 입력해 주십시오)"); location.href = "/register";</script>');
+    return;
   }
 
   //양식에 문제 없으면 DB에 저장
   connection.query(sqls, function(err, rowss, fields){
     if(err){
      console.log(err);
-   }
-   else {
-     for(var i=0; i<rowss.length; i++){
-       if(rowss[i].member_id == info.id){
-         console.log('아이디 중복');
-         res.send ('<script>alert("아이디가 중복 됩니다!"); location.href = "/register";</script>');
-       }
-       if(rowss[i].member_nick == info.nick){
-        console.log('닉네임 중복');
-        res.send ('<script>alert("닉네임이 중복 됩니다!"); location.href = "/register";</script>');
-       }
+    }
+    else {
+      for(var i=0; i<rowss.length; i++){
+        if(rowss[i].member_id == info.id){
+          console.log('아이디 중복');
+          res.send ('<script>alert("아이디가 중복 됩니다!"); location.href = "/register";</script>');
+          return;
+        }
+        if(rowss[i].member_nick == info.nick){
+          console.log('닉네임 중복');
+          res.send ('<script>alert("닉네임이 중복 됩니다!"); location.href = "/register";</script>');
+          return;
+        }
       }
-        connection.query(sql, params, function(err, rows, fields){
-           if(err){
-            console.log(err);
-            res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
-            return;
+      connection.query(sql, params, function(err, rows, fields){
+        if(err){
+          console.log(err);
+          res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/register";</script>');
+          return;
+        }
+        else {
+          console.log(rows.insertId);
+          fs.mkdirSync('uploads/'+info.id);
+          fs.mkdirSync('uploads/'+info.id+'/1');
+          fs.mkdirSync('uploads/'+info.id+'/2');
+          fs.mkdirSync('uploads/'+info.id+'/3');
+          console.log(info.id+' 폴더 생성');
+          for (var i = 1; i < 4; i++) {
+            var sql_ins = 'INSERT INTO page(num, member_id, title) VALUES(?, ?, ?)';
+            var params_ins = [i, info.id, info.id+"'s Journal"];
+            connection.query(sql_ins, params_ins, function (err) {
+              if (err) {console.log(err+'실패');}
+            });
           }
-          else {
-            console.log(rows.insertId);
-            fs.mkdirSync('uploads/'+info.id);
-            fs.mkdirSync('uploads/'+info.id+'/1');
-            fs.mkdirSync('uploads/'+info.id+'/2');
-            fs.mkdirSync('uploads/'+info.id+'/3');
-            console.log(info.id+' 폴더 생성');
-
-            for (var i = 1; i < 4; i++) {
-              var sql_ins = 'INSERT INTO page(num, member_id, title) VALUES(?, ?, ?)';
-              var params_ins = [i, info.id, info.id+"'s Journal"];
-              connection.query(sql_ins, params_ins, function (err) {
-                if (err) {console.log(err+'실패');}
-                else {
-                  res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
-                }
-              });
-            }
-           } // 첫 사진 등록 시 회원의 사진 폴더 생성
-        });
-      }
-      //디버깅용 로그
-      console.log(info);
+          res.send ('<script>alert("회원가입 되었습니다! 로그인 하여 주십시오."); location.href = "/login";</script>');
+        } // 첫 사진 등록 시 회원의 사진 폴더 생성
+      });
+    }
+    //디버깅용 로그
+    console.log(info);
   });
 });
 
@@ -554,14 +559,31 @@ router.post('/resign', function(req, res){
   var sql = 'SELECT member_id FROM member WHERE member_id = ? AND member_pw = ?';
   var params_s = [auth.id, auth.pw];
   var params_d;
+  var deleteFolderRecursive = function(path){
+    //내용물(파일)전부 삭제 후 폴더 삭제 (재귀방식)
+    if ( fs.existsSync(path) ){
+      fs.readdirSync(path).forEach(function(file,index){
+        var curPath = path + "/" + file;
+        if(fs.lstatSync(curPath).isDirectory()){
+          //폴더라면 내용물 먼저 재귀 삭제
+          deleteFolderRecursive(curPath);
+        }
+        else{
+          fs.unlinkSync(curPath);
+        }
+      });
+      fs.rmdirSync(path);
+    }
+  }
   /* 알고리즘 */
   //세션정보 검증 (세션정보의 id값으로 DB에서 비밀번호 조회)
   connection.query(sql, params_s, function(err, rows, fields){
-     if(err) {
+    if(err) {
       console.log(err);
     }
     else if (rows[0]==undefined || auth.id != user.id) {
       res.send ('<script>alert("2차 인증이 실패했습니다. ID와 PW를 다시 확인해 주십시오!"); location.href = "/profile";</script>');
+      return;
     } //일치하는 id,pw가 없음
     else {
       console.log('회원탈퇴 처리 시작');
@@ -572,12 +594,16 @@ router.post('/resign', function(req, res){
         if(err) {
           console.log('회원탈퇴 처리 실패 - ', err);
           res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/profile";</script>');
+          return;
         }
         else {
           edit_msg_num(); // 쪽지 번호 갱신
           console.log('회원탈퇴 처리 완료' + result);
           req.session.destroy();
+          deleteFolderRecursive('uploads/'+user.id);
+          console.log('파일 및 폴더 삭제 완료');
           res.send ('<script>alert("회원 탈퇴 되었습니다!"); location.href = "/";</script>');
+          return;
         }
       });
     }
@@ -602,6 +628,7 @@ router.post('/idfinder', function(req, res){
     if(err){
       console.log(err);
       res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/finder";</script>');
+      return;
     }
     else{
       for(var i=0; i<rows.length; i++){
@@ -610,6 +637,7 @@ router.post('/idfinder', function(req, res){
           //email이 일치하는 member의 열에서 id 반환
           result = '<script>alert("해당 정보로 조회한 사용자의 ID는 ' + rows[i].member_id + ' 입니다."); location.href = "/login";</script>';
           res.send (result);
+          return;
         }
       }
       //일치하는 id,pw가 없음
@@ -636,6 +664,7 @@ router.post('/pwfinder', function(req, res){
     if(err){
       console.log(err);
       res.send ('<script>alert("서버측 사정으로 DB오류가 발생하였습니다. 다음에 다시 이용해 주십시오."); location.href = "/finder";</script>');
+      return;
     }
     else{
       for(var i=0; i<rows.length; i++){
@@ -644,6 +673,7 @@ router.post('/pwfinder', function(req, res){
           //email,성명,id가 일치하는 member의 열에서 pw 반환
           result = '<script>alert("해당 정보로 조회한 사용자의 PW는 ' + rows[i].member_pw + ' 입니다."); location.href = "/login";</script>';
           res.send (result);
+          return;
         }
       }
       //일치하는 id,pw가 없음
@@ -838,7 +868,7 @@ router.post('/modify',  function(req, res){
   var params_s = [authss.id, authss.pw];
   //검증 (세션정보의 id값으로 DB에서 비밀번호 조회)
   connection.query(sql, params_s, function(err, rows, fields){
-     if(err) {
+    if(err) {
       console.log(err);
     }
     else if (rows[0] == undefined || authss.id != user.id) {

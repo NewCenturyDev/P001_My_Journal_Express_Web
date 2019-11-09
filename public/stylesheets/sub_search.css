@@ -36,19 +36,19 @@ header {
 }
 
 /* header의 검색 */
-form {
+header > form {
     position: relative;
     width: 30%;
     display: flex;
     position: relative;
     left: 16px;
 }
-form > button {
+header > form > button {
     background: none;
     outline: none;
     border: none;
 }
-form > button > img {
+header > form > button > img {
     width: 25px;
     height: 25px;
 }
@@ -120,7 +120,7 @@ main > div {
 
 #user_img {
     width: 35%;
-    height: 100%;
+    height: 300px;
     margin: auto;
     float: left;
     text-align: center;
@@ -128,7 +128,7 @@ main > div {
 
 /* 사용자 프로필 이미지 */
 #user > div > img {
-    margin-top: 23%;
+    margin: 50px auto;
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -277,7 +277,6 @@ main > div {
 #msg {
     width: 100%;
     height: 100%;
-
 }
 #msg_cont {
     width: 97.5%;
@@ -304,9 +303,6 @@ main > div {
     color: white;
     border: 0;
     cursor: pointer;
-}
-#nicname > h2 {
-    margin: 0 auto;
 }
 /*----------------------------- 쪽지 모달창 끝 -----------------------------*/
 
