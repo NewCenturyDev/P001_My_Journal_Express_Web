@@ -67,4 +67,9 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var port = 3000;
+app.listen(port, () => {
+  console.log("Server is running now - port : " + port);
+});
+
 module.exports = app;

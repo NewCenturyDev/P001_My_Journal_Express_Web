@@ -5,12 +5,14 @@
   "description": "My Journal Express is the web app which provides e-journal/gallary for your story-telling",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "NewCentury99",
   "license": "N/A",
   "dependencies": {
     "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "fs-extra": "^10.1.0",
